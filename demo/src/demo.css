@@ -195,6 +195,10 @@ textarea {
   background: #f5f8fc;
 }
 
+.demo-search-suggestion.is-active {
+  background: #edf4ff;
+}
+
 .demo-search-suggestion-title {
   color: var(--rpl-color-text-primary);
   font-size: 0.9rem;

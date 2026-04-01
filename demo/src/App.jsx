@@ -234,6 +234,7 @@ function DocsShell() {
   const [dialogOpen, setDialogOpen] = useState(false);
   const [snackbarOpen, setSnackbarOpen] = useState(true);
   const [searchValue, setSearchValue] = useState("");
+  const [activeSuggestion, setActiveSuggestion] = useState(-1);
 
   const entries = useMemo(() => getAllDocEntries(), []);
   const totalComponents = entries.length;
@@ -259,9 +260,14 @@ function DocsShell() {
       .slice(0, 6);
   }, [entries, searchValue]);
 
+  useEffect(() => {
+    setActiveSuggestion(suggestions.length ? 0 : -1);
+  }, [suggestions]);
+
   const handleSelectSuggestion = (path) => {
     navigate(path);
     setSearchValue("");
+    setActiveSuggestion(-1);
   };
 
   return (
@@ -281,15 +287,35 @@ function DocsShell() {
                 value={searchValue}
                 onChange={(event) => setSearchValue(event.target.value)}
                 onClear={() => setSearchValue("")}
+                onKeyDown={(event) => {
+                  if (!suggestions.length) return;
+                  if (event.key === "ArrowDown") {
+                    event.preventDefault();
+                    setActiveSuggestion((prev) => (prev + 1) % suggestions.length);
+                  }
+                  if (event.key === "ArrowUp") {
+                    event.preventDefault();
+                    setActiveSuggestion((prev) => (prev - 1 + suggestions.length) % suggestions.length);
+                  }
+                  if (event.key === "Enter" && activeSuggestion >= 0) {
+                    event.preventDefault();
+                    handleSelectSuggestion(suggestions[activeSuggestion].path);
+                  }
+                  if (event.key === "Escape") {
+                    setSearchValue("");
+                    setActiveSuggestion(-1);
+                  }
+                }}
               />
               {suggestions.length ? (
                 <div className="demo-search-suggestions">
-                  {suggestions.map((entry) => (
+                  {suggestions.map((entry, index) => (
                     <button
                       key={entry.path}
                       type="button"
-                      className="demo-search-suggestion"
+                      className={`demo-search-suggestion${index === activeSuggestion ? " is-active" : ""}`}
                       onClick={() => handleSelectSuggestion(entry.path)}
+                      onMouseEnter={() => setActiveSuggestion(index)}
                     >
                       <span className="demo-search-suggestion-title">{entry.name}</span>
                       <span className="demo-search-suggestion-meta">{entry.sectionLabel}</span>
