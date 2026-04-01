@@ -2,13 +2,16 @@ import React from "react";
 import {
   Accordion,
   AccordionItem,
+  AlertDialog,
   Avatar,
+  Badge,
   Banner,
   BottomSheet,
   Button,
   Card,
   Checkbox,
   Chip,
+  ConfirmDialog,
   DatePicker,
   Dialog,
   Divider,
@@ -17,14 +20,21 @@ import {
   InfoRow,
   Inline,
   Input,
+  List,
+  ListFooter,
+  ListHeader,
   ListRow,
+  Loader,
   NoticeBanner,
   ProgressBar,
   Radio,
   SearchBar,
+  SearchField,
+  Selector,
   SegmentedControl,
   SectionHeader,
   Select,
+  Skeleton,
   Snackbar,
   Stack,
   Stepper,
@@ -32,6 +42,7 @@ import {
   Switch,
   Tab,
   Table,
+  TableRow,
   Tabs,
   Text,
   TextArea,
@@ -182,6 +193,23 @@ const docs = [
         ),
       },
       {
+        name: "Badge",
+        eyebrow: "status",
+        description: "Compact count or status indicator.",
+        props: [
+          { name: "tone", type: `"neutral" | "accent" | "success" | "warning" | "danger"`, defaultValue: `"neutral"`, description: "Semantic tone." },
+          { name: "variant", type: `"soft" | "solid"`, defaultValue: `"soft"`, description: "Fill treatment." },
+          { name: "size", type: `"sm" | "md" | "lg"`, defaultValue: `"md"`, description: "Badge size." },
+        ],
+        preview: () => (
+          <Inline gap={8} wrap>
+            <Badge>12</Badge>
+            <Badge tone="accent">NEW</Badge>
+            <Badge tone="success" variant="solid">LIVE</Badge>
+          </Inline>
+        ),
+      },
+      {
         name: "Text",
         eyebrow: "typography",
         description: "Shared typography primitive with five variants.",
@@ -256,6 +284,22 @@ const docs = [
               { label: "Month", value: "month" },
             ]}
           />
+        ),
+      },
+      {
+        name: "Selector",
+        eyebrow: "navigation",
+        description: "Single interactive selection control.",
+        props: [
+          { name: "selected", type: "boolean", defaultValue: "false", description: "Selected state." },
+          { name: "type", type: `"underline" | "arrow" | "clear"`, defaultValue: `"underline"`, description: "Visual selector style." },
+        ],
+        preview: () => (
+          <Inline gap={16} wrap align="center">
+            <Selector selected>Overview</Selector>
+            <Selector type="arrow">Status</Selector>
+            <Selector type="clear">Filter</Selector>
+          </Inline>
         ),
       },
       {
@@ -391,6 +435,23 @@ const docs = [
         preview: () => <SearchBar label="Search" placeholder="Search components" hint="Search, then refine with filters." />,
       },
       {
+        name: "SearchField",
+        eyebrow: "form",
+        description: "Search input with built-in clear affordance.",
+        props: [
+          { name: "clearable", type: "boolean", defaultValue: "true", description: "Show clear control." },
+          { name: "validationState / validationMessage", type: "state + message", defaultValue: "-", description: "Optional validation feedback." },
+        ],
+        preview: () => (
+          <SearchField
+            label="Search docs"
+            defaultValue="button"
+            validationState="success"
+            validationMessage="1 exact match."
+          />
+        ),
+      },
+      {
         name: "Select",
         eyebrow: "form",
         description: "Native select control styled like other inputs.",
@@ -459,6 +520,38 @@ const docs = [
     label: "Feedback",
     components: [
       {
+        name: "Loader",
+        eyebrow: "feedback",
+        description: "Compact spinner with optional label.",
+        props: [
+          { name: "size", type: `"sm" | "md" | "lg"`, defaultValue: `"md"`, description: "Spinner size." },
+          { name: "label", type: "ReactNode", defaultValue: "-", description: "Optional inline label." },
+        ],
+        preview: () => (
+          <Inline gap={14} wrap align="center">
+            <Loader size="sm" />
+            <Loader label="Loading data" />
+          </Inline>
+        ),
+      },
+      {
+        name: "Skeleton",
+        eyebrow: "feedback",
+        description: "Animated placeholder for loading surfaces.",
+        props: [
+          { name: "width", type: "number | string", defaultValue: "-", description: "Placeholder width." },
+          { name: "height", type: "number | string", defaultValue: "16", description: "Placeholder height." },
+          { name: "radius", type: `"sm" | "md" | "lg"`, defaultValue: `"md"`, description: "Corner rounding." },
+        ],
+        preview: () => (
+          <Stack gap={10}>
+            <Skeleton width="48%" height={18} />
+            <Skeleton width="100%" height={14} />
+            <Skeleton width="82%" height={14} />
+          </Stack>
+        ),
+      },
+      {
         name: "Toast",
         eyebrow: "feedback",
         description: "Transient inline notification surface.",
@@ -523,6 +616,34 @@ const docs = [
     id: "overlays",
     label: "Overlays",
     components: [
+      {
+        name: "AlertDialog",
+        eyebrow: "overlay",
+        description: "Single CTA dialog for acknowledgement flows.",
+        props: [
+          { name: "open", type: "boolean", defaultValue: "false", description: "Visibility state." },
+          { name: "confirmLabel", type: "string", defaultValue: `"확인"`, description: "Primary CTA label." },
+        ],
+        preview: () => (
+          <div className="docs-inline-surface">
+            <AlertDialog open title="Session expired" description="Please sign in again to continue." />
+          </div>
+        ),
+      },
+      {
+        name: "ConfirmDialog",
+        eyebrow: "overlay",
+        description: "Dual-action dialog for destructive confirmation.",
+        props: [
+          { name: "open", type: "boolean", defaultValue: "false", description: "Visibility state." },
+          { name: "confirmLabel / cancelLabel", type: "string", defaultValue: "-", description: "CTA labels." },
+        ],
+        preview: () => (
+          <div className="docs-inline-surface">
+            <ConfirmDialog open title="Delete workspace?" description="This action cannot be undone." tone="danger" />
+          </div>
+        ),
+      },
       {
         name: "Dialog",
         eyebrow: "overlay",
@@ -591,6 +712,23 @@ const docs = [
     label: "Data & Lists",
     components: [
       {
+        name: "List / ListHeader / ListFooter",
+        eyebrow: "data",
+        description: "Structured grouped list surface.",
+        props: [
+          { name: "inset", type: "boolean", defaultValue: "false", description: "Larger outer rounding." },
+          { name: "divided", type: "boolean", defaultValue: "true", description: "Show row separators." },
+        ],
+        preview: () => (
+          <List>
+            <ListHeader>Workspace members</ListHeader>
+            <ListRow title="Design" description="3 active reviewers" />
+            <ListRow title="Engineering" description="5 active reviewers" />
+            <ListFooter>Updated 2 minutes ago</ListFooter>
+          </List>
+        ),
+      },
+      {
         name: "InfoRow",
         eyebrow: "data",
         description: "Two-column label/value primitive.",
@@ -599,6 +737,20 @@ const docs = [
           { name: "value", type: "ReactNode", defaultValue: "-", description: "Value cell." },
         ],
         preview: () => <InfoRow label="Monthly revenue" value="₩12,480,000" />,
+      },
+      {
+        name: "TableRow",
+        eyebrow: "data",
+        description: "Two-column metric row with optional accessories.",
+        props: [
+          { name: "label", type: "ReactNode", defaultValue: "-", description: "Primary label." },
+          { name: "value", type: "ReactNode", defaultValue: "-", description: "Main value." },
+        ],
+        preview: () => (
+          <Card>
+            <TableRow label="Total volume" value="₩12,340,000" trailing={<Badge tone="accent">+12%</Badge>} />
+          </Card>
+        ),
       },
       {
         name: "ListRow",
