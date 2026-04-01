@@ -7,6 +7,9 @@ export default function BottomSheet({
   closeOnBackdrop = true,
   size = "md",
   variant = "floating",
+  header,
+  description,
+  footer,
   className = "",
   panelClassName = "",
   children,
@@ -47,7 +50,14 @@ export default function BottomSheet({
     >
       <div className={cx("rpl-sheet-panel", `rpl-sheet-panel-${size}`, `rpl-sheet-panel-${variant}`, panelClassName)}>
         <div className="rpl-sheet-handle" aria-hidden="true"></div>
-        {children}
+        {header || description ? (
+          <div className="rpl-sheet-header">
+            {header ? <div className="rpl-sheet-title">{header}</div> : null}
+            {description ? <div className="rpl-sheet-description">{description}</div> : null}
+          </div>
+        ) : null}
+        <div className="rpl-sheet-content">{children}</div>
+        {footer ? <div className="rpl-sheet-footer">{footer}</div> : null}
       </div>
     </div>
   );

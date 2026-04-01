@@ -6,11 +6,50 @@ const classByVariant = {
   ghost: "rpl-button-ghost",
   weak: "rpl-button-weak",
   icon: "rpl-button-icon",
+  fill: "rpl-button-primary",
 };
 
-export default function Button({ variant = "primary", className = "", children, type = "button", ...props }) {
+const classByColor = {
+  primary: "rpl-button-color-primary",
+  danger: "rpl-button-color-danger",
+  neutral: "rpl-button-color-neutral",
+};
+
+const classBySize = {
+  small: "rpl-button-small",
+  medium: "rpl-button-medium",
+  large: "rpl-button-large",
+  xlarge: "rpl-button-xlarge",
+};
+
+const classByDisplay = {
+  inline: "rpl-button-inline",
+  block: "rpl-button-block",
+};
+
+export default function Button({
+  variant = "primary",
+  color = "primary",
+  size = "xlarge",
+  display = "inline",
+  className = "",
+  children,
+  type = "button",
+  ...props
+}) {
   return (
-    <button type={type} className={cx("rpl-button", classByVariant[variant] || classByVariant.primary, className)} {...props}>
+    <button
+      type={type}
+      className={cx(
+        "rpl-button",
+        classByVariant[variant] || classByVariant.primary,
+        classByColor[color] || classByColor.primary,
+        classBySize[size] || classBySize.xlarge,
+        classByDisplay[display] || classByDisplay.inline,
+        className,
+      )}
+      {...props}
+    >
       {children}
     </button>
   );

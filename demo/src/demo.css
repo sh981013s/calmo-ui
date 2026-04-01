@@ -35,7 +35,52 @@ textarea {
   width: min(1240px, 100%);
   margin: 0 auto;
   display: grid;
-  gap: 20px;
+  gap: 24px;
+}
+
+.demo-hero {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 24px;
+  padding: 4px 4px 8px;
+}
+
+.demo-hero-copy {
+  display: grid;
+  gap: 8px;
+  max-width: 720px;
+}
+
+.demo-hero-eyebrow {
+  color: var(--rpl-color-text-secondary);
+  font-size: 0.82rem;
+  font-weight: 700;
+  letter-spacing: -0.01em;
+  text-transform: uppercase;
+}
+
+.demo-hero-title {
+  margin: 0;
+  color: var(--rpl-color-text-primary);
+  font-size: clamp(2.8rem, 5vw, 4.4rem);
+  line-height: 0.94;
+  letter-spacing: -0.06em;
+}
+
+.demo-hero-description {
+  margin: 0;
+  max-width: 56ch;
+  color: var(--rpl-color-text-secondary);
+  font-size: 1rem;
+  line-height: 1.5;
+}
+
+.demo-hero-actions {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  flex-wrap: wrap;
 }
 
 .demo-layout {
@@ -51,21 +96,21 @@ textarea {
 }
 
 .demo-sidebar-card {
-  padding: 18px;
+  padding: 16px;
   border: 1px solid var(--rpl-color-line);
-  border-radius: 22px;
-  background: rgba(255, 255, 255, 0.84);
+  border-radius: 18px;
+  background: rgba(255, 255, 255, 0.88);
   box-shadow: var(--rpl-shadow-card);
   backdrop-filter: blur(18px);
 }
 
 .docs-card-grid {
   display: grid;
-  gap: 18px;
+  gap: 16px;
 }
 
 .docs-card {
-  padding: 18px;
+  padding: 16px;
 }
 
 .demo-nav {
@@ -75,8 +120,8 @@ textarea {
 
 .demo-nav-link {
   display: block;
-  padding: 10px 12px;
-  border-radius: 14px;
+  padding: 9px 12px;
+  border-radius: 12px;
   color: var(--rpl-color-text-secondary);
   text-decoration: none;
   transition: background-color 120ms ease, color 120ms ease;
@@ -89,12 +134,12 @@ textarea {
 
 .demo-content {
   display: grid;
-  gap: 36px;
+  gap: 40px;
 }
 
 .demo-section {
   display: grid;
-  gap: 18px;
+  gap: 16px;
   scroll-margin-top: 100px;
 }
 
@@ -105,10 +150,10 @@ textarea {
 }
 
 .docs-preview {
-  padding: 18px;
+  padding: 16px;
   border: 1px solid var(--rpl-color-line);
   border-radius: 18px;
-  background: linear-gradient(180deg, #ffffff 0%, #f9fbff 100%);
+  background: #fbfdff;
 }
 
 .docs-inline-surface {
@@ -139,7 +184,7 @@ textarea {
   color: var(--rpl-color-text-secondary);
   font-size: 0.82rem;
   font-weight: 700;
-  letter-spacing: 0.02em;
+  letter-spacing: -0.01em;
 }
 
 .docs-props-grid {
@@ -151,7 +196,7 @@ textarea {
   padding: 12px 14px;
   border-top: 1px solid #eef2f6;
   min-width: 0;
-  font-size: 0.92rem;
+  font-size: 0.9rem;
   line-height: 1.45;
 }
 
@@ -171,7 +216,19 @@ textarea {
   color: var(--rpl-color-text-secondary);
 }
 
+.demo-overlay-copy {
+  margin: 0;
+  color: var(--rpl-color-text-secondary);
+  font-size: 0.96rem;
+  line-height: 1.5;
+}
+
 @media (max-width: 980px) {
+  .demo-hero {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
   .demo-layout {
     grid-template-columns: 1fr;
   }
