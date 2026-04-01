@@ -11,12 +11,14 @@ export default function ListRow({
   size = "md",
   variant = "default",
   className = "",
+  type = "button",
   ...props
 }) {
   const Component = interactive ? "button" : "div";
 
   return (
     <Component
+      type={interactive ? type : undefined}
       className={cx(
         "rpl-list-row",
         `rpl-list-row-${size}`,

@@ -7,13 +7,14 @@ export default function Checkbox({
   label,
   description,
   className = "",
+  disabled = false,
   ...props
 }) {
   return (
-    <label className={cx("rpl-choice-row", className)}>
+    <label className={cx("rpl-choice-row", disabled && "is-disabled", className)}>
       <span className="rpl-choice-control">
-        <input type="checkbox" className="rpl-choice-input" checked={checked} {...props} />
-        <span className={cx("rpl-checkbox-box", checked && "is-checked")}>
+        <input type="checkbox" className="rpl-choice-input" checked={checked} disabled={disabled} {...props} />
+        <span className={cx("rpl-checkbox-box", checked && "is-checked", disabled && "is-disabled")}>
           <span className="rpl-checkbox-mark">✓</span>
         </span>
       </span>

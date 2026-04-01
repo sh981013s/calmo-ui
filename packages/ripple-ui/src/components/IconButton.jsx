@@ -12,10 +12,12 @@ export default function IconButton({
   size = "md",
   className = "",
   children,
+  type = "button",
   ...props
 }) {
   return (
     <button
+      type={type}
       className={cx(
         "rpl-icon-button",
         `rpl-icon-button-${size}`,

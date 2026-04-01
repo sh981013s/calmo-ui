@@ -20,6 +20,7 @@ export function Tab({
       type="button"
       role="tab"
       aria-selected={active}
+      tabIndex={active ? 0 : -1}
       className={cx("rpl-tab", active && "rpl-tab-active", className)}
       {...props}
     >

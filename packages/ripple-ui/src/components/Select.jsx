@@ -11,6 +11,7 @@ export default function Select({
   className = "",
   selectClassName = "",
   children,
+  disabled = false,
   ...props
 }) {
   return (
@@ -20,8 +21,8 @@ export default function Select({
           {label}
         </Text>
       ) : null}
-      <span className={cx("rpl-input-shell", "rpl-select-shell", `rpl-input-shell-${size}`, `rpl-input-shell-${variant}`, error && "rpl-input-shell-error")}>
-        <select className={cx("rpl-input", "rpl-select", selectClassName)} {...props}>
+      <span className={cx("rpl-input-shell", "rpl-select-shell", `rpl-input-shell-${size}`, `rpl-input-shell-${variant}`, error && "rpl-input-shell-error", disabled && "rpl-input-shell-disabled")}>
+        <select className={cx("rpl-input", "rpl-select", selectClassName)} disabled={disabled} {...props}>
           {children}
         </select>
         <span className="rpl-select-caret" aria-hidden="true">⌄</span>

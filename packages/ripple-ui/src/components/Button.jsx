@@ -8,9 +8,9 @@ const classByVariant = {
   icon: "rpl-button-icon",
 };
 
-export default function Button({ variant = "primary", className = "", children, ...props }) {
+export default function Button({ variant = "primary", className = "", children, type = "button", ...props }) {
   return (
-    <button className={cx("rpl-button", classByVariant[variant] || classByVariant.primary, className)} {...props}>
+    <button type={type} className={cx("rpl-button", classByVariant[variant] || classByVariant.primary, className)} {...props}>
       {children}
     </button>
   );

@@ -10,6 +10,7 @@ export default function TextArea({
   variant = "default",
   className = "",
   textareaClassName = "",
+  disabled = false,
   ...props
 }) {
   return (
@@ -19,8 +20,8 @@ export default function TextArea({
           {label}
         </Text>
       ) : null}
-      <span className={cx("rpl-input-shell", "rpl-textarea-shell", `rpl-input-shell-${size}`, `rpl-input-shell-${variant}`, error && "rpl-input-shell-error")}>
-        <textarea className={cx("rpl-input", "rpl-textarea", textareaClassName)} {...props} />
+      <span className={cx("rpl-input-shell", "rpl-textarea-shell", `rpl-input-shell-${size}`, `rpl-input-shell-${variant}`, error && "rpl-input-shell-error", disabled && "rpl-input-shell-disabled")}>
+        <textarea className={cx("rpl-input", "rpl-textarea", textareaClassName)} disabled={disabled} {...props} />
       </span>
       {error ? (
         <Text as="span" variant="caption" className="rpl-input-message rpl-input-message-error">

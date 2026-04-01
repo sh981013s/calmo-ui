@@ -9,10 +9,11 @@ export default function Switch({
   size = "md",
   tone = "accent",
   className = "",
+  disabled = false,
   ...props
 }) {
   return (
-    <label className={cx("rpl-switch-row", className)}>
+    <label className={cx("rpl-switch-row", disabled && "is-disabled", className)}>
       <span className="rpl-switch-copy">
         {label ? (
           <Text as="span" variant="body" className="rpl-switch-label">
@@ -26,8 +27,8 @@ export default function Switch({
         ) : null}
       </span>
       <span className="rpl-switch-control">
-        <input type="checkbox" className="rpl-switch-input" checked={checked} {...props} />
-        <span className={cx("rpl-switch-track", `rpl-switch-track-${size}`, `rpl-switch-track-${tone}`, checked && "is-checked")}>
+        <input type="checkbox" className="rpl-switch-input" checked={checked} disabled={disabled} {...props} />
+        <span className={cx("rpl-switch-track", `rpl-switch-track-${size}`, `rpl-switch-track-${tone}`, checked && "is-checked", disabled && "is-disabled")}>
           <span className="rpl-switch-thumb"></span>
         </span>
       </span>

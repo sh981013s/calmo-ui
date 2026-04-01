@@ -11,6 +11,7 @@ const toneClass = {
 };
 
 export default function NoticeBanner({
+  eyebrow,
   title,
   description,
   tone = "neutral",
@@ -20,6 +21,11 @@ export default function NoticeBanner({
   return (
     <div className={cx("rpl-notice", toneClass[tone] || toneClass.neutral, className)}>
       <div className="rpl-notice-copy">
+        {eyebrow ? (
+          <Text as="span" variant="label" className="rpl-notice-eyebrow">
+            {eyebrow}
+          </Text>
+        ) : null}
         <Text as="strong" variant="body" className="rpl-notice-title">
           {title}
         </Text>

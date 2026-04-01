@@ -12,6 +12,7 @@ export default function Input({
   variant = "default",
   className = "",
   inputClassName = "",
+  disabled = false,
   ...props
 }) {
   return (
@@ -21,9 +22,9 @@ export default function Input({
           {label}
         </Text>
       ) : null}
-      <span className={cx("rpl-input-shell", `rpl-input-shell-${size}`, `rpl-input-shell-${variant}`, error && "rpl-input-shell-error")}>
+      <span className={cx("rpl-input-shell", `rpl-input-shell-${size}`, `rpl-input-shell-${variant}`, error && "rpl-input-shell-error", disabled && "rpl-input-shell-disabled")}>
         {leading ? <span className="rpl-input-leading">{leading}</span> : null}
-        <input className={cx("rpl-input", inputClassName)} {...props} />
+        <input className={cx("rpl-input", inputClassName)} disabled={disabled} {...props} />
         {trailing ? <span className="rpl-input-trailing">{trailing}</span> : null}
       </span>
       {error ? (
