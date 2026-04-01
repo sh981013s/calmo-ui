@@ -15,6 +15,8 @@ import {
   Button,
   Card,
   Chip,
+  Icon,
+  iconNames,
   Inline,
   SearchField,
   SectionHeader,
@@ -158,6 +160,22 @@ function DocsOverviewPage() {
                   Open section
                 </Button>
               </Stack>
+            </Card>
+          ))}
+        </div>
+      </section>
+
+      <section className="demo-section">
+        <SectionHeader
+          eyebrow="icons"
+          title="System icons"
+          description="A reusable icon set for navigation, actions, and feedback surfaces."
+        />
+        <div className="docs-icon-grid">
+          {iconNames.slice(0, 12).map((name) => (
+            <Card key={name} className="docs-icon-card">
+              <Icon name={name} size={20} />
+              <span>{name}</span>
             </Card>
           ))}
         </div>

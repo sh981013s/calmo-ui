@@ -398,11 +398,70 @@ textarea {
   color: var(--rpl-color-text-secondary);
 }
 
+.docs-code-editor {
+  overflow: hidden;
+  border: 1px solid #1d2632;
+  border-radius: 18px;
+  background: #0f1720;
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.04);
+}
+
+.docs-code-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 10px 14px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+  background: #111b27;
+}
+
+.docs-code-dots {
+  display: inline-flex;
+  gap: 6px;
+}
+
+.docs-code-dot {
+  width: 10px;
+  height: 10px;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.18);
+}
+
+.docs-code-dot.is-red { background: #ff5f57; }
+.docs-code-dot.is-yellow { background: #febc2e; }
+.docs-code-dot.is-green { background: #28c840; }
+
+.docs-code-filename {
+  color: #d8e2ef;
+  font-size: 0.8rem;
+  font-weight: 700;
+  letter-spacing: -0.01em;
+}
+
+.docs-code-body {
+  margin: 0;
+  padding: 14px 16px;
+  overflow-x: auto;
+  color: #f6f8fb;
+  font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+  font-size: 0.8rem;
+  line-height: 1.7;
+}
+
+.docs-code-body code {
+  white-space: pre;
+}
+
 .demo-overlay-copy {
   margin: 0;
   color: var(--rpl-color-text-secondary);
   font-size: 0.94rem;
   line-height: 1.5;
+}
+
+.demo-command-feedback {
+  color: var(--rpl-color-text-secondary);
 }
 
 @media (max-width: 980px) {

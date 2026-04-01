@@ -11,9 +11,11 @@ import {
   Card,
   Checkbox,
   Chip,
+  CommandPalette,
   ConfirmDialog,
   DatePicker,
   Dialog,
+  Dropdown,
   Divider,
   EmptyState,
   Icon,
@@ -27,7 +29,9 @@ import {
   ListHeader,
   ListRow,
   Loader,
+  Menu,
   NoticeBanner,
+  Popover,
   ProgressBar,
   Radio,
   SearchBar,
@@ -331,6 +335,94 @@ function InteractiveTablePreview() {
   );
 }
 
+function InteractivePopoverPreview() {
+  const [open, setOpen] = React.useState(false);
+
+  return (
+    <div className="docs-inline-surface">
+      <Popover
+        open={open}
+        onClose={() => setOpen(false)}
+        trigger={
+          <Button size="medium" variant="weak" onClick={() => setOpen((prev) => !prev)}>
+            Open popover
+          </Button>
+        }
+      >
+        <Stack gap={8}>
+          <Text variant="label">Popover title</Text>
+          <Text variant="caption">Use popovers for lightweight contextual surfaces.</Text>
+        </Stack>
+      </Popover>
+    </div>
+  );
+}
+
+function InteractiveMenuPreview() {
+  const [open, setOpen] = React.useState(false);
+  const [message, setMessage] = React.useState("No action selected yet.");
+
+  return (
+    <Stack gap={10}>
+      <Menu
+        open={open}
+        onClose={() => setOpen(false)}
+        trigger={
+          <Button size="medium" variant="weak" onClick={() => setOpen((prev) => !prev)}>
+            Open menu
+          </Button>
+        }
+        items={[
+          { label: "Rename workspace", icon: "edit", onSelect: () => setMessage("Rename action selected.") },
+          { label: "Duplicate", icon: "copy", onSelect: () => setMessage("Duplicate action selected.") },
+          { label: "Delete", icon: "alert", tone: "danger", onSelect: () => setMessage("Delete action selected.") },
+        ]}
+      />
+      <Text variant="caption">{message}</Text>
+    </Stack>
+  );
+}
+
+function InteractiveDropdownPreview() {
+  const [value, setValue] = React.useState("review");
+
+  return (
+    <Dropdown
+      label="Workflow stage"
+      value={value}
+      onChange={setValue}
+      items={[
+        { label: "Draft", value: "draft" },
+        { label: "Review", value: "review" },
+        { label: "Published", value: "published" },
+      ]}
+    />
+  );
+}
+
+function InteractiveCommandPalettePreview() {
+  const [open, setOpen] = React.useState(false);
+  const [message, setMessage] = React.useState("Use the palette to trigger an action.");
+
+  return (
+    <div className="docs-inline-surface">
+      <Button size="medium" onClick={() => setOpen(true)}>
+        Open command palette
+      </Button>
+      <CommandPalette
+        open={open}
+        onClose={() => setOpen(false)}
+        commands={[
+          { title: "Open payments dashboard", description: "Jump to reporting", shortcut: "⌘1", onSelect: () => setMessage("Opened payments dashboard.") },
+          { title: "Create workspace", description: "Start a new workspace flow", shortcut: "⌘N", onSelect: () => setMessage("Create workspace flow triggered.") },
+          { title: "Invite member", description: "Share workspace access", shortcut: "⌘I", onSelect: () => setMessage("Invite flow triggered.") },
+        ]}
+      />
+      <Text variant="caption" className="demo-command-feedback">{message}</Text>
+    </div>
+  );
+}
+
 function PropTable({ props }) {
   return (
     <div className="docs-props-table">
@@ -349,6 +441,498 @@ function PropTable({ props }) {
   );
 }
 
+const componentExamples = {
+  Surface: `import { Surface } from "@ripple-ui/core";
+
+export default function Example() {
+  return <Surface tone="accent" radius="lg">Accent surface</Surface>;
+}`,
+  Card: `import { Card, Text } from "@ripple-ui/core";
+
+export default function Example() {
+  return (
+    <Card>
+      <Text variant="body">Card content</Text>
+    </Card>
+  );
+}`,
+  Stack: `import { Stack, Chip } from "@ripple-ui/core";
+
+export default function Example() {
+  return (
+    <Stack gap={8}>
+      <Chip tone="neutral">One</Chip>
+      <Chip tone="neutral">Two</Chip>
+      <Chip tone="neutral">Three</Chip>
+    </Stack>
+  );
+}`,
+  Inline: `import { Inline, Chip } from "@ripple-ui/core";
+
+export default function Example() {
+  return (
+    <Inline gap={8} wrap>
+      <Chip tone="accent">Alpha</Chip>
+      <Chip tone="success">Beta</Chip>
+    </Inline>
+  );
+}`,
+  Divider: `import { Divider } from "@ripple-ui/core";
+
+export default function Example() {
+  return <Divider />;
+}`,
+  SectionHeader: `import { SectionHeader, Chip } from "@ripple-ui/core";
+
+export default function Example() {
+  return (
+    <SectionHeader
+      eyebrow="overview"
+      title="Section title"
+      description="Description copy for the section."
+      actions={<Chip tone="accent">Live</Chip>}
+    />
+  );
+}`,
+  Avatar: `import { Avatar, Inline } from "@ripple-ui/core";
+
+export default function Example() {
+  return (
+    <Inline gap={12} align="center">
+      <Avatar name="Ripple UI" size="sm" />
+      <Avatar name="Design Team" tone="success" status="online" />
+    </Inline>
+  );
+}`,
+  Icon: `import { Icon, Inline, iconNames } from "@ripple-ui/core";
+
+export default function Example() {
+  return (
+    <Inline gap={12} wrap>
+      {iconNames.slice(0, 6).map((name) => (
+        <Icon key={name} name={name} size={20} />
+      ))}
+    </Inline>
+  );
+}`,
+  Badge: `import { Badge, Inline } from "@ripple-ui/core";
+
+export default function Example() {
+  return (
+    <Inline gap={8}>
+      <Badge tone="accent">NEW</Badge>
+      <Badge tone="success" variant="solid">LIVE</Badge>
+    </Inline>
+  );
+}`,
+  Text: `import { Stack, Text } from "@ripple-ui/core";
+
+export default function Example() {
+  return (
+    <Stack gap={8}>
+      <Text variant="hero">Hero</Text>
+      <Text variant="title">Title</Text>
+      <Text variant="body">Body copy</Text>
+    </Stack>
+  );
+}`,
+  TopBar: `import { IconButton, TopBar } from "@ripple-ui/core";
+
+export default function Example() {
+  return (
+    <TopBar
+      title="Project detail"
+      subtitleTop="Workspace"
+      subtitleBottom="Review channel"
+      align="left"
+      leading={<IconButton aria-label="Back">←</IconButton>}
+      trailing={<IconButton tone="accent" aria-label="More">⋯</IconButton>}
+    />
+  );
+}`,
+  "Tabs / Tab": `import { Tab, Tabs } from "@ripple-ui/core";
+
+export default function Example() {
+  return (
+    <Tabs aria-label="Views" stretch>
+      <Tab active>Overview</Tab>
+      <Tab>Traffic</Tab>
+      <Tab>Alerts</Tab>
+    </Tabs>
+  );
+}`,
+  SegmentedControl: `import { SegmentedControl } from "@ripple-ui/core";
+
+export default function Example() {
+  return (
+    <SegmentedControl
+      value="week"
+      onChange={() => {}}
+      options={[
+        { label: "Day", value: "day" },
+        { label: "Week", value: "week" },
+        { label: "Month", value: "month" },
+      ]}
+    />
+  );
+}`,
+  Selector: `import { Inline, Selector } from "@ripple-ui/core";
+
+export default function Example() {
+  return (
+    <Inline gap={16}>
+      <Selector selected>Overview</Selector>
+      <Selector type="arrow">Status</Selector>
+      <Selector type="clear">Filter</Selector>
+    </Inline>
+  );
+}`,
+  IconButton: `import { IconButton } from "@ripple-ui/core";
+
+export default function Example() {
+  return <IconButton tone="accent" aria-label="Share">↗</IconButton>;
+}`,
+  Tooltip: `import { Button, Tooltip } from "@ripple-ui/core";
+
+export default function Example() {
+  return (
+    <Tooltip content="Helpful hint">
+      <Button variant="ghost">Hover me</Button>
+    </Tooltip>
+  );
+}`,
+  Button: `import { Button, Inline } from "@ripple-ui/core";
+
+export default function Example() {
+  return (
+    <Inline gap={12}>
+      <Button>Primary</Button>
+      <Button variant="weak">Weak</Button>
+      <Button variant="ghost">Ghost</Button>
+    </Inline>
+  );
+}`,
+  Chip: `import { Chip, Inline } from "@ripple-ui/core";
+
+export default function Example() {
+  return (
+    <Inline gap={8}>
+      <Chip tone="accent">Accent</Chip>
+      <Chip tone="neutral">Neutral</Chip>
+    </Inline>
+  );
+}`,
+  Input: `import { Input } from "@ripple-ui/core";
+
+export default function Example() {
+  return (
+    <Input
+      label="Workspace name"
+      placeholder="Enter workspace name"
+      validationState="success"
+      validationMessage="This name is available."
+      clearable
+      actionLabel="Check"
+    />
+  );
+}`,
+  TextArea: `import { TextArea } from "@ripple-ui/core";
+
+export default function Example() {
+  return (
+    <TextArea
+      label="Release notes"
+      placeholder="Describe what changed in this build."
+      validationState="warning"
+      validationMessage="Keep this under 500 characters."
+    />
+  );
+}`,
+  SearchBar: `import { SearchBar } from "@ripple-ui/core";
+
+export default function Example() {
+  return <SearchBar label="Search" placeholder="Search components" hint="Search, then refine with filters." />;
+}`,
+  SearchField: `import { SearchField } from "@ripple-ui/core";
+
+export default function Example() {
+  return <SearchField label="Search docs" defaultValue="button" validationState="success" validationMessage="1 exact match." />;
+}`,
+  Select: `import { Select } from "@ripple-ui/core";
+
+export default function Example() {
+  return (
+    <Select label="Region" placeholder="Choose region" searchable>
+      <option value="kr">Korea</option>
+      <option value="jp">Japan</option>
+      <option value="us">United States</option>
+    </Select>
+  );
+}`,
+  DatePicker: `import { DatePicker } from "@ripple-ui/core";
+
+export default function Example() {
+  return <DatePicker label="Launch date" validationState="success" validationMessage="Date confirmed." />;
+}`,
+  Switch: `import { Switch } from "@ripple-ui/core";
+
+export default function Example() {
+  return <Switch checked label="Realtime alerts" description="Send status changes to connected channels." />;
+}`,
+  Checkbox: `import { Checkbox } from "@ripple-ui/core";
+
+export default function Example() {
+  return <Checkbox checked label="Email notifications" description="Receive billing and release updates." />;
+}`,
+  Radio: `import { Radio, Stack } from "@ripple-ui/core";
+
+export default function Example() {
+  return (
+    <Stack gap={12}>
+      <Radio checked name="plan" label="Starter plan" />
+      <Radio name="plan" label="Pro plan" />
+    </Stack>
+  );
+}`,
+  Loader: `import { Inline, Loader } from "@ripple-ui/core";
+
+export default function Example() {
+  return (
+    <Inline gap={14} align="center">
+      <Loader size="sm" />
+      <Loader label="Loading data" />
+    </Inline>
+  );
+}`,
+  Skeleton: `import { Skeleton, Stack } from "@ripple-ui/core";
+
+export default function Example() {
+  return (
+    <Stack gap={10}>
+      <Skeleton width="48%" height={18} />
+      <Skeleton width="100%" height={14} />
+    </Stack>
+  );
+}`,
+  Toast: `import { Toast } from "@ripple-ui/core";
+
+export default function Example() {
+  return <Toast title="Deployment completed" badge="Live" description="The production build is now available." />;
+}`,
+  Snackbar: `import { Button, Snackbar } from "@ripple-ui/core";
+
+export default function Example() {
+  return <Snackbar open align="left" message="Draft saved successfully." action={<Button variant="ghost">Dismiss</Button>} />;
+}`,
+  "NoticeBanner / Banner": `import { Banner, Button } from "@ripple-ui/core";
+
+export default function Example() {
+  return <Banner tone="accent" title="Submission assets updated" description="The latest metadata set is ready for review." action={<Button variant="ghost">Open</Button>} />;
+}`,
+  ProgressBar: `import { ProgressBar } from "@ripple-ui/core";
+
+export default function Example() {
+  return <ProgressBar value={72} />;
+}`,
+  EmptyState: `import { Button, EmptyState } from "@ripple-ui/core";
+
+export default function Example() {
+  return <EmptyState icon="◌" title="No connected channels" description="Connect at least one channel to receive alerts." action={<Button>Connect</Button>} />;
+}`,
+  AlertDialog: `import { AlertDialog } from "@ripple-ui/core";
+
+export default function Example() {
+  return <AlertDialog open title="Session expired" description="Please sign in again to continue." />;
+}`,
+  ConfirmDialog: `import { ConfirmDialog } from "@ripple-ui/core";
+
+export default function Example() {
+  return <ConfirmDialog open title="Delete workspace?" description="This action cannot be undone." tone="danger" />;
+}`,
+  Dialog: `import { Button, Dialog, Text } from "@ripple-ui/core";
+
+export default function Example() {
+  return (
+    <Dialog open title="Review dialog" description="Dialogs support headline, description, and footer." footer={<Button display="block">Close</Button>}>
+      <Text variant="body">Use this surface to inspect spacing and CTA density.</Text>
+    </Dialog>
+  );
+}`,
+  BottomSheet: `import { BottomSheet, Button, Text } from "@ripple-ui/core";
+
+export default function Example() {
+  return (
+    <BottomSheet open header="Bottom sheet" description="Preview the anchored mobile overlay." footer={<Button display="block">Done</Button>}>
+      <Text variant="body">Bottom sheet previews are interactive and dismissible.</Text>
+    </BottomSheet>
+  );
+}`,
+  "Accordion / AccordionItem": `import { Accordion, AccordionItem, Text } from "@ripple-ui/core";
+
+export default function Example() {
+  return (
+    <Accordion>
+      <AccordionItem title="What is Ripple UI?" description="Short answer for product teams." defaultOpen>
+        <Text variant="body">A self-authored design library focused on calm, structured product surfaces.</Text>
+      </AccordionItem>
+    </Accordion>
+  );
+}`,
+  Stepper: `import { Stepper } from "@ripple-ui/core";
+
+export default function Example() {
+  return (
+    <Stepper
+      current={1}
+      steps={[
+        { label: "Draft", description: "Basic information" },
+        { label: "Review", description: "Team check" },
+        { label: "Publish", description: "Go live" },
+      ]}
+    />
+  );
+}`,
+  "List / ListHeader / ListFooter": `import { List, ListFooter, ListHeader, ListRow } from "@ripple-ui/core";
+
+export default function Example() {
+  return (
+    <List>
+      <ListHeader>Workspace members</ListHeader>
+      <ListRow title="Design" description="3 active reviewers" />
+      <ListFooter>Updated 2 minutes ago</ListFooter>
+    </List>
+  );
+}`,
+  InfoRow: `import { Card, InfoRow, Stack } from "@ripple-ui/core";
+
+export default function Example() {
+  return (
+    <Card>
+      <Stack gap={4}>
+        <InfoRow label="Owner" value="Ripple team" />
+        <InfoRow label="Status" value="Live" />
+      </Stack>
+    </Card>
+  );
+}`,
+  TableRow: `import { TableRow } from "@ripple-ui/core";
+
+export default function Example() {
+  return <TableRow label="Estimated payout" value="$12,480" description="Updated 2 minutes ago" />;
+}`,
+  ListRow: `import { Badge, ListRow } from "@ripple-ui/core";
+
+export default function Example() {
+  return <ListRow eyebrow="Workspace" title="Marketing Ops" description="12 members" meta="Updated 2m ago" trailing={<Badge tone="accent">Live</Badge>} interactive />;
+}`,
+  Table: `import { Table } from "@ripple-ui/core";
+
+export default function Example() {
+  return (
+    <Table
+      columns={[
+        { key: "name", title: "Name" },
+        { key: "users", title: "Users", align: "right" },
+      ]}
+      rows={[
+        { name: "Payments", users: 12 },
+        { name: "Growth", users: 4 },
+      ]}
+    />
+  );
+}`,
+  Pagination: `import { Pagination } from "@ripple-ui/core";
+
+export default function Example() {
+  return <Pagination page={4} totalPages={9} onPageChange={() => {}} />;
+}`,
+  Popover: `import { Button, Popover, Stack, Text } from "@ripple-ui/core";
+
+export default function Example() {
+  return (
+    <Popover open trigger={<Button variant="weak">Open popover</Button>}>
+      <Stack gap={8}>
+        <Text variant="label">Popover title</Text>
+        <Text variant="caption">Use popovers for lightweight contextual surfaces.</Text>
+      </Stack>
+    </Popover>
+  );
+}`,
+  Menu: `import { Button, Menu } from "@ripple-ui/core";
+
+export default function Example() {
+  return (
+    <Menu
+      open
+      trigger={<Button variant="weak">Open menu</Button>}
+      items={[
+        { label: "Rename workspace", icon: "copy" },
+        { label: "Delete", icon: "alert", tone: "danger" },
+      ]}
+    />
+  );
+}`,
+  Dropdown: `import { Dropdown } from "@ripple-ui/core";
+
+export default function Example() {
+  return (
+    <Dropdown
+      label="Workflow stage"
+      value="review"
+      items={[
+        { label: "Draft", value: "draft" },
+        { label: "Review", value: "review" },
+        { label: "Published", value: "published" },
+      ]}
+    />
+  );
+}`,
+  CommandPalette: `import { CommandPalette } from "@ripple-ui/core";
+
+export default function Example() {
+  return (
+    <CommandPalette
+      open
+      commands={[
+        { title: "Open payments dashboard", description: "Jump to reporting", shortcut: "⌘1" },
+        { title: "Invite member", description: "Share workspace access", shortcut: "⌘I" },
+      ]}
+    />
+  );
+}`,
+};
+
+function getExampleCode(component) {
+  return (
+    componentExamples[component.name] ??
+    `import { ${component.name.split("/")[0].trim()} } from "@ripple-ui/core";
+
+export default function Example() {
+  return <${component.name.split("/")[0].trim()} />;
+}`
+  );
+}
+
+function CodeExample({ component }) {
+  const code = getExampleCode(component);
+
+  return (
+    <div className="docs-code-editor">
+      <div className="docs-code-header">
+        <div className="docs-code-dots" aria-hidden="true">
+          <span className="docs-code-dot is-red" />
+          <span className="docs-code-dot is-yellow" />
+          <span className="docs-code-dot is-green" />
+        </div>
+        <span className="docs-code-filename">Example.jsx</span>
+      </div>
+      <pre className="docs-code-body">
+        <code>{code}</code>
+      </pre>
+    </div>
+  );
+}
+
 export function ComponentDocCard({ component, footer }) {
   return (
     <Card className="docs-card">
@@ -359,6 +943,7 @@ export function ComponentDocCard({ component, footer }) {
           description={component.description}
         />
         <div className="docs-preview">{component.preview()}</div>
+        <CodeExample component={component} />
         <PropTable props={component.props} />
         {footer ? <div className="docs-card-footer">{footer}</div> : null}
       </Stack>
@@ -596,6 +1181,39 @@ const docs = [
           { name: "position", type: `"top" | "bottom"`, defaultValue: `"top"`, description: "Placement relative to trigger." },
         ],
         preview: () => <InteractiveTooltipPreview />,
+      },
+      {
+        name: "Popover",
+        eyebrow: "navigation",
+        description: "Anchored floating surface for lightweight contextual content.",
+        props: [
+          { name: "open", type: "boolean", defaultValue: "false", description: "Visibility state." },
+          { name: "trigger", type: "ReactNode", defaultValue: "-", description: "Reference trigger element." },
+          { name: "placement / align", type: "string", defaultValue: `"bottom" / "start"`, description: "Anchoring position." },
+        ],
+        preview: () => <InteractivePopoverPreview />,
+      },
+      {
+        name: "Menu",
+        eyebrow: "navigation",
+        description: "Action list surface anchored to a trigger button.",
+        props: [
+          { name: "open", type: "boolean", defaultValue: "false", description: "Visibility state." },
+          { name: "trigger", type: "ReactNode", defaultValue: "-", description: "Trigger element." },
+          { name: "items", type: "Array<{ label, icon?, tone?, onSelect? }>", defaultValue: "[]", description: "Menu actions." },
+        ],
+        preview: () => <InteractiveMenuPreview />,
+      },
+      {
+        name: "Dropdown",
+        eyebrow: "navigation",
+        description: "Button-driven selection list built on the shared popover surface.",
+        props: [
+          { name: "label", type: "string", defaultValue: "-", description: "Group heading for the list." },
+          { name: "items", type: "Array<{ label, value }>", defaultValue: "[]", description: "Selectable options." },
+          { name: "value", type: "string", defaultValue: "-", description: "Current selected value." },
+        ],
+        preview: () => <InteractiveDropdownPreview />,
       },
     ],
   },
@@ -946,6 +1564,17 @@ const docs = [
             ]}
           />
         ),
+      },
+      {
+        name: "CommandPalette",
+        eyebrow: "overlay",
+        description: "Global action launcher with search, keyboard navigation, and shortcuts.",
+        props: [
+          { name: "open", type: "boolean", defaultValue: "false", description: "Visibility state." },
+          { name: "commands", type: "Array<{ title, description?, shortcut?, onSelect? }>", defaultValue: "[]", description: "Searchable command items." },
+          { name: "title / placeholder", type: "string", defaultValue: "-", description: "Header label and input placeholder." },
+        ],
+        preview: () => <InteractiveCommandPalettePreview />,
       },
     ],
   },
