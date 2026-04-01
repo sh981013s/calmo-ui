@@ -338,8 +338,8 @@
   align-items: center;
   justify-content: center;
   padding: 16px;
-  background: rgba(25, 31, 40, 0.32);
-  backdrop-filter: blur(12px);
+  background: rgba(25, 31, 40, 0.28);
+  backdrop-filter: blur(10px);
   animation: rpl-fade-in 180ms var(--rpl-ease-standard);
 }
 
@@ -347,7 +347,7 @@
   width: min(540px, calc(100% - 24px));
   max-height: min(82dvh, 760px);
   overflow: auto;
-  padding: 24px;
+  padding: 22px;
   background: #ffffff;
   border: 1px solid var(--rpl-color-line);
   border-radius: 24px;
@@ -365,8 +365,8 @@
 
 .rpl-dialog-header {
   display: grid;
-  gap: 4px;
-  margin-bottom: 16px;
+  gap: 3px;
+  margin-bottom: 14px;
 }
 
 .rpl-dialog-title {
@@ -385,11 +385,11 @@
 
 .rpl-dialog-content {
   display: grid;
-  gap: 16px;
+  gap: 14px;
 }
 
 .rpl-dialog-footer {
-  margin-top: 18px;
+  margin-top: 16px;
 }
 
 .rpl-top-bar {
@@ -526,8 +526,8 @@
 
 .rpl-sheet-header-wrap {
   display: grid;
-  gap: 4px;
-  margin-bottom: 16px;
+  gap: 3px;
+  margin-bottom: 14px;
 }
 
 .rpl-sheet-header {
@@ -546,11 +546,11 @@
 
 .rpl-sheet-content {
   display: grid;
-  gap: 16px;
+  gap: 14px;
 }
 
 .rpl-sheet-footer {
-  margin-top: 18px;
+  margin-top: 16px;
 }
 
 .rpl-chip {
@@ -640,18 +640,19 @@
 }
 
 .rpl-input-shell:focus-within {
-  border-color: #9fc2ff;
-  box-shadow: 0 0 0 3px rgba(49, 130, 246, 0.12);
+  border-color: #9bbfff;
+  box-shadow: 0 0 0 3px rgba(49, 130, 246, 0.1);
 }
 
 .rpl-input-shell-error {
   border-color: #efc5c5;
+  background: #fffdfd;
 }
 
 .rpl-input-shell-disabled {
-  background: #f7f8fa;
+  background: #f5f6f7;
   color: var(--rpl-color-text-tertiary);
-  opacity: 0.78;
+  opacity: 0.88;
 }
 
 .rpl-input {
@@ -689,7 +690,7 @@
 
 .rpl-searchbar .rpl-input-shell {
   border-radius: 999px;
-  background: #f4f6f8;
+  background: #f2f4f6;
   border-color: transparent;
   box-shadow: none;
   min-height: 44px;
@@ -726,7 +727,7 @@
   transform: translateY(-50%);
   color: var(--rpl-color-text-secondary);
   pointer-events: none;
-  font-size: 0.86rem;
+  font-size: 0.8rem;
 }
 
 .rpl-input-leading,
