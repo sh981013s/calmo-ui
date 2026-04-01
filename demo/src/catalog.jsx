@@ -214,6 +214,7 @@ const docs = [
           { name: "subtitleTop / subtitleBottom", type: "ReactNode", defaultValue: "-", description: "Upper and lower supporting copy." },
           { name: "trailing / right", type: "ReactNode", defaultValue: "-", description: "Right accessory." },
           { name: "align", type: "\"center\" | \"left\"", defaultValue: "\"center\"", description: "Copy alignment." },
+          { name: "rightVerticalAlign", type: "\"top\" | \"center\" | \"bottom\"", defaultValue: "\"center\"", description: "Trailing content alignment." },
           { name: "size", type: `"sm" | "md" | "lg"`, defaultValue: `"md"`, description: "Bar height scale." },
           { name: "variant", type: `"floating" | "flat"`, defaultValue: `"floating"`, description: "Surface treatment." },
         ],
@@ -226,9 +227,10 @@ const docs = [
         props: [
           { name: "active", type: "boolean", defaultValue: "false", description: "Marks an individual tab active." },
           { name: "aria-label", type: "string", defaultValue: "-", description: "Accessibility label for the tablist." },
+          { name: "stretch", type: "boolean", defaultValue: "false", description: "Stretch items to full available width." },
         ],
         preview: () => (
-          <Tabs aria-label="views">
+          <Tabs aria-label="views" stretch>
             <Tab active>Overview</Tab>
             <Tab>Traffic</Tab>
             <Tab>Alerts</Tab>
@@ -376,9 +378,10 @@ const docs = [
         props: [
           { name: "size", type: `"sm" | "md" | "lg"`, defaultValue: `"md"`, description: "Field size." },
           { name: "variant", type: `"default" | "filled" | "quiet"`, defaultValue: `"default"`, description: "Visual treatment." },
+          { name: "placeholder", type: "string", defaultValue: "-", description: "Optional placeholder option text." },
         ],
         preview: () => (
-          <Select label="Region" defaultValue="kr">
+          <Select label="Region" defaultValue="" placeholder="Choose region">
             <option value="kr">Korea</option>
             <option value="jp">Japan</option>
             <option value="us">United States</option>
@@ -455,8 +458,9 @@ const docs = [
           { name: "open", type: "boolean", defaultValue: "false", description: "Visibility state." },
           { name: "tone", type: `"default" | "success" | "warning" | "danger"`, defaultValue: `"default"`, description: "Color tone." },
           { name: "message", type: "ReactNode", defaultValue: "-", description: "Primary message." },
+          { name: "align", type: "\"center\" | \"left\"", defaultValue: "\"center\"", description: "Horizontal anchor position." },
         ],
-        preview: () => <div className="docs-inline-surface"><Snackbar open tone="default" message="Draft saved successfully." /></div>,
+        preview: () => <div className="docs-inline-surface"><Snackbar open align="left" tone="default" message="Draft saved successfully." /></div>,
       },
       {
         name: "NoticeBanner / Banner",
@@ -505,6 +509,7 @@ const docs = [
         props: [
           { name: "open", type: "boolean", defaultValue: "false", description: "Visibility state." },
           { name: "closeOnBackdrop", type: "boolean", defaultValue: "true", description: "Backdrop close behavior." },
+          { name: "size", type: `"sm" | "md" | "lg"`, defaultValue: `"md"`, description: "Dialog width scale." },
           { name: "panelClassName", type: "string", defaultValue: "-", description: "Panel class hook." },
         ],
         preview: () => <div className="docs-inline-surface"><Chip tone="neutral">Open via live demo controls</Chip></div>,

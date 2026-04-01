@@ -6,6 +6,7 @@ export default function Select({
   label,
   hint,
   error,
+  placeholder,
   size = "md",
   variant = "default",
   className = "",
@@ -23,6 +24,7 @@ export default function Select({
       ) : null}
       <span className={cx("rpl-input-shell", "rpl-select-shell", `rpl-input-shell-${size}`, `rpl-input-shell-${variant}`, error && "rpl-input-shell-error", disabled && "rpl-input-shell-disabled")}>
         <select className={cx("rpl-input", "rpl-select", selectClassName)} disabled={disabled} {...props}>
+          {placeholder ? <option value="" disabled hidden>{placeholder}</option> : null}
           {children}
         </select>
         <span className="rpl-select-caret" aria-hidden="true">⌄</span>

@@ -5,6 +5,7 @@ export default function Dialog({
   open,
   onClose,
   closeOnBackdrop = true,
+  size = "md",
   title,
   description,
   footer,
@@ -46,7 +47,7 @@ export default function Dialog({
         }
       }}
     >
-      <div className={cx("rpl-dialog-panel", panelClassName)}>
+      <div className={cx("rpl-dialog-panel", `rpl-dialog-panel-${size}`, panelClassName)}>
         {title || description ? (
           <div className="rpl-dialog-header">
             {title ? <div className="rpl-dialog-title">{title}</div> : null}
