@@ -58,6 +58,22 @@ import {
   Pagination,
 } from "@ripple-ui/core";
 
+function useCopyFeedback() {
+  const [copied, setCopied] = React.useState(false);
+
+  const copy = async (text) => {
+    try {
+      await navigator.clipboard.writeText(text);
+      setCopied(true);
+      window.setTimeout(() => setCopied(false), 1400);
+    } catch {
+      setCopied(false);
+    }
+  };
+
+  return { copied, copy };
+}
+
 function InteractiveTabsPreview() {
   const [active, setActive] = React.useState("overview");
 
@@ -111,15 +127,31 @@ function InteractiveSelectorPreview() {
 }
 
 function InteractiveIconsPreview() {
+  const [query, setQuery] = React.useState("");
+  const filteredIcons = React.useMemo(() => {
+    const q = query.trim().toLowerCase();
+    if (!q) return iconNames;
+    return iconNames.filter((name) => name.toLowerCase().includes(q));
+  }, [query]);
+
   return (
-    <div className="docs-icon-grid">
-      {iconNames.slice(0, 24).map((name) => (
-        <div key={name} className="docs-icon-card">
-          <Icon name={name} size={20} />
-          <span>{name}</span>
-        </div>
-      ))}
-    </div>
+    <Stack gap={12}>
+      <SearchField
+        aria-label="Filter icons"
+        placeholder="Filter icons"
+        value={query}
+        onChange={(event) => setQuery(event.target.value)}
+        onClear={() => setQuery("")}
+      />
+      <div className="docs-icon-grid">
+        {filteredIcons.map((name) => (
+          <div key={name} className="docs-icon-card">
+            <Icon name={name} size={20} />
+            <span>{name}</span>
+          </div>
+        ))}
+      </div>
+    </Stack>
   );
 }
 
@@ -423,6 +455,201 @@ function InteractiveCommandPalettePreview() {
   );
 }
 
+function ButtonPlayground() {
+  const [variant, setVariant] = React.useState("primary");
+  const [size, setSize] = React.useState("medium");
+
+  return (
+    <Stack gap={12}>
+      <Inline gap={8} wrap>
+        {["primary", "weak", "ghost"].map((item) => (
+          <Selector key={item} selected={variant === item} onClick={() => setVariant(item)}>
+            {item}
+          </Selector>
+        ))}
+      </Inline>
+      <Inline gap={8} wrap>
+        {["small", "medium", "large"].map((item) => (
+          <Selector key={item} selected={size === item} onClick={() => setSize(item)}>
+            {item}
+          </Selector>
+        ))}
+      </Inline>
+      <Button variant={variant} size={size}>Interactive button</Button>
+    </Stack>
+  );
+}
+
+function BadgePlayground() {
+  const [tone, setTone] = React.useState("accent");
+  const [variant, setVariant] = React.useState("soft");
+
+  return (
+    <Stack gap={12}>
+      <Inline gap={8} wrap>
+        {["neutral", "accent", "success", "warning", "danger"].map((item) => (
+          <Selector key={item} selected={tone === item} onClick={() => setTone(item)}>
+            {item}
+          </Selector>
+        ))}
+      </Inline>
+      <Inline gap={8} wrap>
+        {["soft", "solid"].map((item) => (
+          <Selector key={item} selected={variant === item} onClick={() => setVariant(item)}>
+            {item}
+          </Selector>
+        ))}
+      </Inline>
+      <Badge tone={tone} variant={variant}>LIVE</Badge>
+    </Stack>
+  );
+}
+
+function IconPlayground() {
+  const [query, setQuery] = React.useState("search");
+  const matches = React.useMemo(() => iconNames.filter((name) => name.includes(query.toLowerCase())), [query]);
+  const current = matches[0] ?? "search";
+
+  return (
+    <Stack gap={12}>
+      <SearchField value={query} onChange={(event) => setQuery(event.target.value)} onClear={() => setQuery("")} />
+      <Inline gap={12} align="center">
+        <Card className="docs-playground-icon-card">
+          <Icon name={current} size={28} />
+        </Card>
+        <Stack gap={4}>
+          <Text variant="label">{current}</Text>
+          <Text variant="caption">{matches.length} matching icons</Text>
+        </Stack>
+      </Inline>
+    </Stack>
+  );
+}
+
+function InputPlayground() {
+  const [variant, setVariant] = React.useState("default");
+  const [state, setState] = React.useState("success");
+
+  return (
+    <Stack gap={12}>
+      <Inline gap={8} wrap>
+        {["default", "filled", "quiet"].map((item) => (
+          <Selector key={item} selected={variant === item} onClick={() => setVariant(item)}>
+            {item}
+          </Selector>
+        ))}
+      </Inline>
+      <Inline gap={8} wrap>
+        {["default", "success", "warning", "error"].map((item) => (
+          <Selector key={item} selected={state === item} onClick={() => setState(item)}>
+            {item}
+          </Selector>
+        ))}
+      </Inline>
+      <Input
+        label="Workspace"
+        placeholder="Team workspace"
+        variant={variant}
+        validationState={state}
+        validationMessage={`${state} state message`}
+        clearable
+      />
+    </Stack>
+  );
+}
+
+function SelectPlayground() {
+  const [value, setValue] = React.useState("review");
+
+  return (
+    <Select label="Stage" value={value} onChange={(event) => setValue(event.target.value)} searchable>
+      <option value="draft">Draft</option>
+      <option value="review">Review</option>
+      <option value="published">Published</option>
+    </Select>
+  );
+}
+
+function TabsPlayground() {
+  const [value, setValue] = React.useState("overview");
+
+  return (
+    <Tabs aria-label="Playground tabs" stretch>
+      {["overview", "analytics", "alerts"].map((item) => (
+        <Tab key={item} active={value === item} onClick={() => setValue(item)}>
+          {item}
+        </Tab>
+      ))}
+    </Tabs>
+  );
+}
+
+function SegmentedPlayground() {
+  const [value, setValue] = React.useState("week");
+
+  return (
+    <SegmentedControl
+      value={value}
+      onChange={setValue}
+      options={[
+        { label: "Day", value: "day" },
+        { label: "Week", value: "week" },
+        { label: "Month", value: "month" },
+      ]}
+    />
+  );
+}
+
+function SnackbarPlayground() {
+  const [open, setOpen] = React.useState(true);
+  const [tone, setTone] = React.useState("default");
+
+  return (
+    <Stack gap={12}>
+      <Inline gap={8} wrap>
+        {["default", "success", "warning", "danger"].map((item) => (
+          <Selector key={item} selected={tone === item} onClick={() => setTone(item)}>
+            {item}
+          </Selector>
+        ))}
+      </Inline>
+      <div className="docs-inline-surface">
+        <Button size="small" variant="weak" onClick={() => setOpen(true)}>Open snackbar</Button>
+        <Snackbar
+          open={open}
+          tone={tone}
+          message="Draft saved successfully."
+          action={<Button variant="ghost" onClick={() => setOpen(false)}>Dismiss</Button>}
+        />
+      </div>
+    </Stack>
+  );
+}
+
+function DatePickerPlayground() {
+  const [value, setValue] = React.useState("2026-04-01");
+  const [state, setState] = React.useState("success");
+
+  return (
+    <Stack gap={12}>
+      <Inline gap={8} wrap>
+        {["default", "success", "warning", "error"].map((item) => (
+          <Selector key={item} selected={state === item} onClick={() => setState(item)}>
+            {item}
+          </Selector>
+        ))}
+      </Inline>
+      <DatePicker
+        label="Launch date"
+        value={value}
+        onChange={(event) => setValue(event.target.value)}
+        validationState={state}
+        validationMessage={`${state} state message`}
+      />
+    </Stack>
+  );
+}
+
 function PropTable({ props }) {
   return (
     <div className="docs-props-table">
@@ -587,10 +814,10 @@ export default function Example() {
     </Inline>
   );
 }`,
-  IconButton: `import { IconButton } from "@ripple-ui/core";
+  IconButton: `import { Icon, IconButton } from "@ripple-ui/core";
 
 export default function Example() {
-  return <IconButton tone="accent" aria-label="Share">↗</IconButton>;
+  return <IconButton tone="accent" aria-label="Share"><Icon name="externalLink" size={16} /></IconButton>;
 }`,
   Tooltip: `import { Button, Tooltip } from "@ripple-ui/core";
 
@@ -915,16 +1142,20 @@ export default function Example() {
 
 function CodeExample({ component }) {
   const code = getExampleCode(component);
+  const { copied, copy } = useCopyFeedback();
 
   return (
     <div className="docs-code-editor">
       <div className="docs-code-header">
-        <div className="docs-code-dots" aria-hidden="true">
-          <span className="docs-code-dot is-red" />
-          <span className="docs-code-dot is-yellow" />
-          <span className="docs-code-dot is-green" />
+        <div className="docs-code-eyebrow">
+          <span className="docs-code-language">React</span>
         </div>
-        <span className="docs-code-filename">Example.jsx</span>
+        <div className="docs-code-header-actions">
+          <span className="docs-code-filename">Example.jsx</span>
+          <button type="button" className="docs-code-copy" onClick={() => copy(code)}>
+            {copied ? "Copied" : "Copy code"}
+          </button>
+        </div>
       </div>
       <pre className="docs-code-body">
         <code>{code}</code>
@@ -933,7 +1164,37 @@ function CodeExample({ component }) {
   );
 }
 
-export function ComponentDocCard({ component, footer }) {
+function Playground({ component }) {
+  const map = {
+    Button: <ButtonPlayground />,
+    Badge: <BadgePlayground />,
+    Icon: <IconPlayground />,
+    Input: <InputPlayground />,
+    Select: <SelectPlayground />,
+    "Tabs / Tab": <TabsPlayground />,
+    SegmentedControl: <SegmentedPlayground />,
+    Snackbar: <SnackbarPlayground />,
+    DatePicker: <DatePickerPlayground />,
+  };
+
+  const content = map[component.name];
+  if (!content) return null;
+
+  return (
+    <Card className="docs-playground-card">
+      <Stack gap={14}>
+        <SectionHeader
+          eyebrow="playground"
+          title="Live playground"
+          description="Adjust a few high-signal props without leaving the component page."
+        />
+        {content}
+      </Stack>
+    </Card>
+  );
+}
+
+export function ComponentDocCard({ component, footer, showCode = true, showPlayground = true }) {
   return (
     <Card className="docs-card">
       <Stack gap={16}>
@@ -943,7 +1204,8 @@ export function ComponentDocCard({ component, footer }) {
           description={component.description}
         />
         <div className="docs-preview">{component.preview()}</div>
-        <CodeExample component={component} />
+        {showPlayground ? <Playground component={component} /> : null}
+        {showCode ? <CodeExample component={component} /> : null}
         <PropTable props={component.props} />
         {footer ? <div className="docs-card-footer">{footer}</div> : null}
       </Stack>
@@ -1057,17 +1319,6 @@ const docs = [
         ),
       },
       {
-        name: "Icon",
-        eyebrow: "identity",
-        description: "System icon set for navigation, product actions, and feedback states.",
-        props: [
-          { name: "name", type: "string", defaultValue: "-", description: "Icon glyph name." },
-          { name: "size", type: "number", defaultValue: "20", description: "Rendered icon size." },
-          { name: "className", type: "string", defaultValue: "-", description: "Additional styling hook." },
-        ],
-        preview: () => <InteractiveIconsPreview />,
-      },
-      {
         name: "Badge",
         eyebrow: "status",
         description: "Compact count or status indicator.",
@@ -1166,9 +1417,9 @@ const docs = [
         ],
         preview: () => (
           <Inline gap={10}>
-            <IconButton size="sm" aria-label="search">⌕</IconButton>
-            <IconButton tone="subtle" aria-label="bookmark">☆</IconButton>
-            <IconButton tone="accent" size="lg" aria-label="share">↗</IconButton>
+            <IconButton size="sm" aria-label="search"><Icon name="search" size={16} /></IconButton>
+            <IconButton tone="subtle" aria-label="bookmark"><Icon name="bookmark" size={16} /></IconButton>
+            <IconButton tone="accent" size="lg" aria-label="share"><Icon name="externalLink" size={16} /></IconButton>
           </Inline>
         ),
       },
@@ -1214,6 +1465,23 @@ const docs = [
           { name: "value", type: "string", defaultValue: "-", description: "Current selected value." },
         ],
         preview: () => <InteractiveDropdownPreview />,
+      },
+    ],
+  },
+  {
+    id: "icons",
+    label: "Icons",
+    components: [
+      {
+        name: "Icon",
+        eyebrow: "icons",
+        description: "System icon set for navigation, product actions, and feedback states.",
+        props: [
+          { name: "name", type: "string", defaultValue: "-", description: "Icon glyph name." },
+          { name: "size", type: "number", defaultValue: "20", description: "Rendered icon size." },
+          { name: "className", type: "string", defaultValue: "-", description: "Additional styling hook." },
+        ],
+        preview: () => <InteractiveIconsPreview />,
       },
     ],
   },

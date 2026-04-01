@@ -43,10 +43,25 @@ function ScrollToTop() {
 }
 
 function SidebarNav() {
+  const sectionIcons = {
+    overview: "home",
+    layout: "grid",
+    navigation: "navigation",
+    icons: "sparkles",
+    actions: "bolt",
+    forms: "edit",
+    feedback: "bell",
+    overlays: "layers",
+    data: "table",
+  };
+
   return (
     <div className="demo-nav" aria-label="Documentation navigation">
       <NavLink to="/" end className={({ isActive }) => `demo-nav-link${isActive ? " is-active" : ""}`}>
-        Overview
+        <span className="demo-nav-link-content">
+          <Icon name={sectionIcons.overview} size={16} />
+          <span>Overview</span>
+        </span>
       </NavLink>
       {docsCatalog.map((section) => (
         <NavLink
@@ -54,7 +69,10 @@ function SidebarNav() {
           to={section.path}
           className={({ isActive }) => `demo-nav-link${isActive ? " is-active" : ""}`}
         >
-          {section.label}
+          <span className="demo-nav-link-content">
+            <Icon name={sectionIcons[section.id] ?? "dot"} size={16} />
+            <span>{section.label}</span>
+          </span>
         </NavLink>
       ))}
     </div>
@@ -64,6 +82,13 @@ function SidebarNav() {
 function DocsOverviewPage() {
   const navigate = useNavigate();
   const [copied, setCopied] = useState(false);
+  const [iconQuery, setIconQuery] = useState("");
+
+  const overviewIcons = useMemo(() => {
+    const q = iconQuery.trim().toLowerCase();
+    if (!q) return iconNames.slice(0, 24);
+    return iconNames.filter((name) => name.toLowerCase().includes(q)).slice(0, 24);
+  }, [iconQuery]);
 
   const handleCopyInstall = async () => {
     try {
@@ -171,8 +196,17 @@ function DocsOverviewPage() {
           title="System icons"
           description="A reusable icon set for navigation, actions, and feedback surfaces."
         />
+        <div className="demo-icon-toolbar">
+          <SearchField
+            aria-label="Search icons"
+            placeholder="Search icons"
+            value={iconQuery}
+            onChange={(event) => setIconQuery(event.target.value)}
+            onClear={() => setIconQuery("")}
+          />
+        </div>
         <div className="docs-icon-grid">
-          {iconNames.slice(0, 12).map((name) => (
+          {overviewIcons.map((name) => (
             <Card key={name} className="docs-icon-card">
               <Icon name={name} size={20} />
               <span>{name}</span>
@@ -204,6 +238,8 @@ function SectionPage() {
           <ComponentDocCard
             key={component.slug}
             component={component}
+            showCode={false}
+            showPlayground={false}
             footer={
               <Inline gap={10} wrap>
                 <Link className="demo-inline-link" to={component.path}>
@@ -242,7 +278,7 @@ function ComponentPage() {
           title={component.name}
           description={component.description}
         />
-        <ComponentDocCard component={component} />
+        <ComponentDocCard component={component} showCode showPlayground />
       </Stack>
     </section>
   );
