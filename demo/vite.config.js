@@ -8,6 +8,7 @@ const __dirname = path.dirname(__filename);
 
 export default defineConfig({
   root: __dirname,
+  base: "/ripple-ui/",
   plugins: [react()],
   resolve: {
     alias: {

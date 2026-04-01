@@ -1,10 +1,29 @@
 {
   "name": "@ripple-ui/core",
   "version": "0.1.0",
+  "description": "Calm, mobile-first React UI components for structured product surfaces.",
   "private": false,
+  "license": "MIT",
   "type": "module",
   "main": "./dist/index.js",
   "module": "./dist/index.js",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/sh981013s/ripple-ui.git",
+    "directory": "packages/ripple-ui"
+  },
+  "homepage": "https://sh981013s.github.io/ripple-ui/",
+  "bugs": {
+    "url": "https://github.com/sh981013s/ripple-ui/issues"
+  },
+  "keywords": [
+    "react",
+    "design-system",
+    "component-library",
+    "ui",
+    "ripple-ui",
+    "mobile-first"
+  ],
   "files": [
     "dist",
     "README.md"
@@ -17,6 +36,9 @@
     ".": "./dist/index.js",
     "./styles.css": "./dist/styles.css",
     "./tokens.css": "./dist/tokens.css"
+  },
+  "publishConfig": {
+    "access": "public"
   },
   "peerDependencies": {
     "react": "^18.0.0",

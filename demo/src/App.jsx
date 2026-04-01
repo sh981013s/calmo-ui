@@ -1,6 +1,6 @@
 import React, { useEffect, useMemo, useState } from "react";
 import {
-  BrowserRouter,
+  HashRouter,
   Link,
   NavLink,
   Navigate,
@@ -426,8 +426,8 @@ function DocsShell() {
 
 export default function App() {
   return (
-    <BrowserRouter>
+    <HashRouter>
       <DocsShell />
-    </BrowserRouter>
+    </HashRouter>
   );
 }
