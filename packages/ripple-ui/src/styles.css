@@ -649,6 +649,16 @@
   background: #fffdfd;
 }
 
+.rpl-input-shell-warning {
+  border-color: #f3d4a6;
+  background: #fffdf8;
+}
+
+.rpl-input-shell-success {
+  border-color: #b9ddc8;
+  background: #fbfefc;
+}
+
 .rpl-input-shell-disabled {
   background: #f5f6f7;
   color: var(--rpl-color-text-tertiary);
@@ -789,6 +799,14 @@
 
 .rpl-input-message-error {
   color: var(--rpl-color-danger);
+}
+
+.rpl-input-message-warning {
+  color: #b35c00;
+}
+
+.rpl-input-message-success {
+  color: var(--rpl-color-success);
 }
 
 .rpl-choice-row {

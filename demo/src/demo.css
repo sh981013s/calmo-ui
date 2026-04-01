@@ -137,6 +137,11 @@ textarea {
   padding: 12px;
 }
 
+.docs-card-footer {
+  display: flex;
+  justify-content: flex-end;
+}
+
 .demo-nav {
   display: grid;
   gap: 8px;
@@ -156,6 +161,12 @@ textarea {
   color: var(--rpl-color-text-primary);
 }
 
+.demo-nav-link.is-active {
+  background: #edf4ff;
+  color: var(--rpl-color-accent-strong);
+  font-weight: 700;
+}
+
 .demo-content {
   display: grid;
   gap: 32px;
@@ -165,6 +176,44 @@ textarea {
   display: grid;
   gap: 12px;
   scroll-margin-top: 100px;
+}
+
+.demo-overview-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 12px;
+}
+
+.demo-overview-card {
+  padding: 14px;
+}
+
+.demo-overview-links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.demo-inline-link {
+  color: var(--rpl-color-accent-strong);
+  text-decoration: none;
+  font-size: 0.92rem;
+  font-weight: 700;
+  letter-spacing: -0.02em;
+}
+
+.demo-inline-link:hover {
+  text-decoration: underline;
+}
+
+.demo-button-link {
+  display: block;
+  text-decoration: none;
+}
+
+.demo-breadcrumb-sep,
+.demo-breadcrumb-current {
+  color: var(--rpl-color-text-tertiary);
 }
 
 .demo-grid {
@@ -263,6 +312,7 @@ textarea {
 }
 
 @media (max-width: 720px) {
+  .demo-overview-grid,
   .demo-grid {
     grid-template-columns: 1fr;
   }

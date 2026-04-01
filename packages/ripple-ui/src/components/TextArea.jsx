@@ -6,6 +6,10 @@ export default function TextArea({
   label,
   hint,
   error,
+  warning,
+  success,
+  validationState = "default",
+  validationMessage,
   size = "md",
   variant = "default",
   className = "",
@@ -13,6 +17,11 @@ export default function TextArea({
   disabled = false,
   ...props
 }) {
+  const resolvedState =
+    error ? "error" : warning ? "warning" : success ? "success" : validationState;
+  const resolvedMessage =
+    error ?? warning ?? success ?? validationMessage ?? hint;
+
   return (
     <label className={cx("rpl-input-field", className)}>
       {label ? (
@@ -20,16 +29,28 @@ export default function TextArea({
           {label}
         </Text>
       ) : null}
-      <span className={cx("rpl-input-shell", "rpl-textarea-shell", `rpl-input-shell-${size}`, `rpl-input-shell-${variant}`, error && "rpl-input-shell-error", disabled && "rpl-input-shell-disabled")}>
+      <span
+        className={cx(
+          "rpl-input-shell",
+          "rpl-textarea-shell",
+          `rpl-input-shell-${size}`,
+          `rpl-input-shell-${variant}`,
+          resolvedState !== "default" && `rpl-input-shell-${resolvedState}`,
+          disabled && "rpl-input-shell-disabled",
+        )}
+      >
         <textarea className={cx("rpl-input", "rpl-textarea", textareaClassName)} disabled={disabled} {...props} />
       </span>
-      {error ? (
-        <Text as="span" variant="caption" className="rpl-input-message rpl-input-message-error">
-          {error}
-        </Text>
-      ) : hint ? (
-        <Text as="span" variant="caption" className="rpl-input-message">
-          {hint}
+      {resolvedMessage ? (
+        <Text
+          as="span"
+          variant="caption"
+          className={cx(
+            "rpl-input-message",
+            resolvedState !== "default" && `rpl-input-message-${resolvedState}`,
+          )}
+        >
+          {resolvedMessage}
         </Text>
       ) : null}
     </label>

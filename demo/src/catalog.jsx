@@ -59,7 +59,7 @@ function PropTable({ props }) {
   );
 }
 
-export function ComponentDocCard({ component }) {
+export function ComponentDocCard({ component, footer }) {
   return (
     <Card className="docs-card">
       <Stack gap={16}>
@@ -70,6 +70,7 @@ export function ComponentDocCard({ component }) {
         />
         <div className="docs-preview">{component.preview()}</div>
         <PropTable props={component.props} />
+        {footer ? <div className="docs-card-footer">{footer}</div> : null}
       </Stack>
     </Card>
   );
@@ -341,15 +342,24 @@ const docs = [
         description: "Single-line text field with labels and status text.",
         props: [
           { name: "label", type: "ReactNode", defaultValue: "-", description: "Field label." },
-          { name: "hint", type: "ReactNode", defaultValue: "-", description: "Helper text." },
-          { name: "error", type: "ReactNode", defaultValue: "-", description: "Error text and style." },
+          { name: "hint", type: "ReactNode", defaultValue: "-", description: "Neutral helper text." },
+          { name: "validationState", type: `"default" | "success" | "warning" | "error"`, defaultValue: `"default"`, description: "Semantic validation state." },
+          { name: "validationMessage", type: "ReactNode", defaultValue: "-", description: "Message paired with the current validation state." },
+          { name: "error / warning / success", type: "ReactNode", defaultValue: "-", description: "Backward-compatible shortcuts that map to validation state and message." },
           { name: "size", type: `"sm" | "md" | "lg"`, defaultValue: `"md"`, description: "Field height scale." },
           { name: "variant", type: `"default" | "filled" | "quiet"`, defaultValue: `"default"`, description: "Visual treatment." },
           { name: "before / after", type: "ReactNode", defaultValue: "-", description: "Primary field-side accessories." },
           { name: "clearable / actionLabel / passwordToggle", type: "boolean | string", defaultValue: "-", description: "Built-in inline controls." },
         ],
         preview: () => (
-          <Input label="Workspace name" placeholder="Enter workspace name" hint="Use a clear, concise title." clearable actionLabel="Check" />
+          <Input
+            label="Workspace name"
+            placeholder="Enter workspace name"
+            validationState="success"
+            validationMessage="This name is available."
+            clearable
+            actionLabel="Check"
+          />
         ),
       },
       {
@@ -359,8 +369,16 @@ const docs = [
         props: [
           { name: "size", type: `"sm" | "md" | "lg"`, defaultValue: `"md"`, description: "Field size." },
           { name: "variant", type: `"default" | "filled" | "quiet"`, defaultValue: `"default"`, description: "Visual treatment." },
+          { name: "validationState / validationMessage", type: "state + message", defaultValue: "-", description: "Semantic validation feedback." },
         ],
-        preview: () => <TextArea label="Release notes" placeholder="Describe what changed in this build." />,
+        preview: () => (
+          <TextArea
+            label="Release notes"
+            placeholder="Describe what changed in this build."
+            validationState="warning"
+            validationMessage="Keep this under 500 characters."
+          />
+        ),
       },
       {
         name: "SearchBar",
@@ -368,8 +386,9 @@ const docs = [
         description: "Specialized search input with rounded treatment.",
         props: [
           { name: "leading", type: "ReactNode", defaultValue: `"⌕"`, description: "Search icon replacement." },
+          { name: "validationState / validationMessage", type: "state + message", defaultValue: "-", description: "Optional validation feedback." },
         ],
-        preview: () => <SearchBar label="Search" placeholder="Search components" />,
+        preview: () => <SearchBar label="Search" placeholder="Search components" hint="Search, then refine with filters." />,
       },
       {
         name: "Select",
@@ -379,9 +398,10 @@ const docs = [
           { name: "size", type: `"sm" | "md" | "lg"`, defaultValue: `"md"`, description: "Field size." },
           { name: "variant", type: `"default" | "filled" | "quiet"`, defaultValue: `"default"`, description: "Visual treatment." },
           { name: "placeholder", type: "string", defaultValue: "-", description: "Optional placeholder option text." },
+          { name: "validationState / validationMessage", type: "state + message", defaultValue: "-", description: "Semantic validation feedback." },
         ],
         preview: () => (
-          <Select label="Region" defaultValue="" placeholder="Choose region">
+          <Select label="Region" defaultValue="" placeholder="Choose region" validationState="error" validationMessage="Select a region before continuing.">
             <option value="kr">Korea</option>
             <option value="jp">Japan</option>
             <option value="us">United States</option>
@@ -396,8 +416,9 @@ const docs = [
           { name: "label", type: "ReactNode", defaultValue: "-", description: "Field label." },
           { name: "size", type: `"sm" | "md" | "lg"`, defaultValue: `"md"`, description: "Field size." },
           { name: "variant", type: `"default" | "filled" | "quiet"`, defaultValue: `"default"`, description: "Visual treatment." },
+          { name: "validationState / validationMessage", type: "state + message", defaultValue: "-", description: "Semantic validation feedback." },
         ],
-        preview: () => <DatePicker label="Launch date" defaultValue="2026-04-01" />,
+        preview: () => <DatePicker label="Launch date" defaultValue="2026-04-01" validationState="success" validationMessage="Date confirmed." />,
       },
       {
         name: "Switch",
@@ -642,5 +663,39 @@ const docs = [
     ],
   },
 ];
+
+export function slugifyComponentName(name) {
+  return String(name)
+    .toLowerCase()
+    .replaceAll("/", " ")
+    .replace(/[^a-z0-9]+/g, "-")
+    .replace(/^-+|-+$/g, "");
+}
+
+export const docsCatalog = docs.map((section) => ({
+  ...section,
+  path: `/components/${section.id}`,
+  components: section.components.map((component) => ({
+    ...component,
+    slug: slugifyComponentName(component.name),
+    path: `/components/${section.id}/${slugifyComponentName(component.name)}`,
+  })),
+}));
+
+export function getSectionDocs(sectionId) {
+  return docsCatalog.find((section) => section.id === sectionId) ?? null;
+}
+
+export function getComponentDocs(sectionId, componentSlug) {
+  return getSectionDocs(sectionId)?.components.find((component) => component.slug === componentSlug) ?? null;
+}
+
+export function getAllDocEntries() {
+  return docsCatalog.flatMap((section) => section.components.map((component) => ({
+    sectionId: section.id,
+    sectionLabel: section.label,
+    ...component,
+  })));
+}
 
 export default docs;

@@ -6,6 +6,10 @@ function Input({
   label,
   hint,
   error,
+  warning,
+  success,
+  validationState = "default",
+  validationMessage,
   leading,
   trailing,
   before,
@@ -27,6 +31,11 @@ function Input({
   disabled = false,
   ...props
 }) {
+  const resolvedState =
+    error ? "error" : warning ? "warning" : success ? "success" : validationState;
+  const resolvedMessage =
+    error ?? warning ?? success ?? validationMessage ?? hint;
+
   return (
     <label className={cx("rpl-input-field", className)}>
       {label ? (
@@ -34,7 +43,15 @@ function Input({
           {label}
         </Text>
       ) : null}
-      <span className={cx("rpl-input-shell", `rpl-input-shell-${size}`, `rpl-input-shell-${variant}`, error && "rpl-input-shell-error", disabled && "rpl-input-shell-disabled")}>
+      <span
+        className={cx(
+          "rpl-input-shell",
+          `rpl-input-shell-${size}`,
+          `rpl-input-shell-${variant}`,
+          resolvedState !== "default" && `rpl-input-shell-${resolvedState}`,
+          disabled && "rpl-input-shell-disabled",
+        )}
+      >
         {before ?? (leading ? <span className="rpl-input-leading">{leading}</span> : null)}
         <input className={cx("rpl-input", inputClassName)} disabled={disabled} {...props} />
         {after ?? (trailing ? <span className="rpl-input-trailing">{trailing}</span> : null)}
@@ -63,13 +80,16 @@ function Input({
           </span>
         ) : null}
       </span>
-      {error ? (
-        <Text as="span" variant="caption" className="rpl-input-message rpl-input-message-error">
-          {error}
-        </Text>
-      ) : hint ? (
-        <Text as="span" variant="caption" className="rpl-input-message">
-          {hint}
+      {resolvedMessage ? (
+        <Text
+          as="span"
+          variant="caption"
+          className={cx(
+            "rpl-input-message",
+            resolvedState !== "default" && `rpl-input-message-${resolvedState}`,
+          )}
+        >
+          {resolvedMessage}
         </Text>
       ) : null}
     </label>
