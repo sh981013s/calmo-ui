@@ -14,6 +14,22 @@ The target feel is:
 - highly structured
 - low-friction and low-noise
 
+## Fast Start For Agents
+
+When an agent starts from zero, it should read these files in order:
+
+1. `docs/AI_USAGE.md`
+2. `docs/AI_PROMPT_TEMPLATE.md`
+3. `ai/components.json`
+4. `ai/patterns.json`
+5. `ai/anti-patterns.json`
+
+If time is limited, at minimum read:
+
+- `ai/components.json`
+- `ai/patterns.json`
+- `ai/anti-patterns.json`
+
 ## Design Principles
 
 1. Prefer neutral surfaces over colorful ones.
@@ -171,5 +187,24 @@ When generating UI with Ripple UI:
 1. Prefer existing primitives over custom wrappers.
 2. Use the machine-readable catalog in `/ai/components.json`.
 3. Use the page patterns in `/ai/patterns.json`.
+4. Use `/ai/anti-patterns.json` to avoid invalid compositions.
 4. If a requested design conflicts with Ripple UI principles, produce the closest calm, structured alternative.
 5. If uncertain between two components, choose the simpler one.
+
+## Theme Rules
+
+- Prefer `rippleThemePresets` before inventing a new palette.
+- If a custom theme is needed, use only `ThemeProvider` with `accent`, `ink`, and `bg`.
+- Keep success, warning, and danger semantic colors distinct.
+- Do not hardcode random brand colors into component-level CSS.
+
+## Preferred Delivery Format For AI
+
+When producing code with Ripple UI, the best output is:
+
+1. imports
+2. one React component
+3. only minimal custom CSS
+4. clear component composition using Ripple primitives
+
+Avoid long prose inside the generated answer unless the user explicitly asks for explanation.

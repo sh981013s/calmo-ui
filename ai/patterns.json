@@ -2,6 +2,17 @@
   "library": "Ripple UI",
   "patterns": [
     {
+      "id": "theme-scoped-app-shell",
+      "title": "Theme-scoped app shell",
+      "best_for": ["brand-aware product shells", "multi-brand admin tools", "demo environments"],
+      "structure": ["ThemeProvider", "TopBar", "SectionHeader", "Card", "Button"],
+      "rules": [
+        "Wrap the smallest meaningful subtree in ThemeProvider.",
+        "Use presets before inventing a new palette.",
+        "Keep semantic feedback colors distinct from the main accent."
+      ]
+    },
+    {
       "id": "settings-list-page",
       "title": "Settings list page",
       "best_for": ["account settings", "workspace preferences", "notification options"],

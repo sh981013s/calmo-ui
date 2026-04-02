@@ -1,0 +1,36 @@
+{
+  "library": "Ripple UI",
+  "package": "@sh981013s/ripple-ui",
+  "anti_patterns": [
+    {
+      "id": "multiple-primary-cta",
+      "rule": "Do not place multiple primary buttons in the same compact section.",
+      "prefer": "Keep one primary action and demote the rest to weak or ghost buttons."
+    },
+    {
+      "id": "nested-elevated-cards",
+      "rule": "Do not stack elevated cards inside other elevated cards without a strong interaction reason.",
+      "prefer": "Use spacing, borders, or muted surfaces instead."
+    },
+    {
+      "id": "custom-form-controls",
+      "rule": "Do not generate custom buttons, fields, selects, or toggles if a Ripple UI component exists.",
+      "prefer": "Use `Button`, `TextField`, `Input`, `Select`, `DatePicker`, `Switch`, `Checkbox`, or `Radio`."
+    },
+    {
+      "id": "overlay-overuse",
+      "rule": "Do not stack dialogs, sheets, menus, and tooltips in the same focused flow.",
+      "prefer": "Use the smallest overlay that solves the task."
+    },
+    {
+      "id": "marketing-hero-bias",
+      "rule": "Do not turn product screens into large marketing hero layouts unless explicitly requested.",
+      "prefer": "Use `TopBar`, `SectionHeader`, and structured content surfaces."
+    },
+    {
+      "id": "theme-bypass",
+      "rule": "Do not hardcode brand colors directly into custom CSS for screens built with Ripple UI.",
+      "prefer": "Use `ThemeProvider`, `rippleThemePresets`, or `buildRippleThemeVars`."
+    }
+  ]
+}

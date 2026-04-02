@@ -3,6 +3,13 @@
   "package": "@sh981013s/ripple-ui",
   "version": "0.1.0",
   "purpose": "Calm mobile-first component library for product surfaces.",
+  "recommended_read_order": [
+    "docs/AI_USAGE.md",
+    "docs/AI_PROMPT_TEMPLATE.md",
+    "ai/components.json",
+    "ai/patterns.json",
+    "ai/anti-patterns.json"
+  ],
   "principles": [
     "neutral-first surfaces",
     "single strong accent color",
@@ -52,6 +59,7 @@
     {
       "name": "TopBar",
       "category": "navigation",
+      "aliases": ["page header", "app bar", "top navigation"],
       "when_to_use": ["page-level header", "detail header", "mobile top area"],
       "slots": ["leading", "trailing"],
       "props": {
@@ -95,6 +103,7 @@
     {
       "name": "Button",
       "category": "action",
+      "aliases": ["cta", "primary action", "action button"],
       "when_to_use": ["primary CTA", "footer CTA", "secondary actions"],
       "props": {
         "variant": ["primary", "weak", "ghost", "icon"],
@@ -130,6 +139,7 @@
     {
       "name": "Input",
       "category": "forms",
+      "aliases": ["field", "text input", "form input"],
       "when_to_use": ["single line text", "validated entry", "inline field actions"],
       "props": {
         "variant": ["default", "filled", "quiet"],
@@ -157,6 +167,7 @@
     {
       "name": "Select",
       "category": "forms",
+      "aliases": ["dropdown", "picker", "choice field"],
       "when_to_use": ["single choice from a list", "searchable selection"],
       "props": { "searchable": [true, false] },
       "defaults": { "searchable": true }
@@ -164,6 +175,7 @@
     {
       "name": "DatePicker",
       "category": "forms",
+      "aliases": ["date field", "date input", "wheel date"],
       "when_to_use": ["date entry", "mobile date selection"],
       "style_model": "sheet-wheel"
     },
@@ -234,6 +246,7 @@
     {
       "name": "Dialog",
       "category": "overlays",
+      "aliases": ["modal dialog", "centered modal"],
       "when_to_use": ["focused centered modal task"],
       "props": { "size": ["sm", "md", "lg"] },
       "defaults": { "size": "md" }
@@ -241,6 +254,7 @@
     {
       "name": "BottomSheet",
       "category": "overlays",
+      "aliases": ["sheet", "bottom drawer", "mobile overlay"],
       "when_to_use": ["mobile secondary flow", "picker", "stacked actions"],
       "props": {
         "size": ["sm", "md", "lg", "full"],
@@ -291,12 +305,33 @@
     {
       "name": "ListRow",
       "category": "data",
+      "aliases": ["settings row", "menu row", "navigation row"],
       "when_to_use": ["navigation row", "item summary row", "actionable list item"],
       "props": {
         "variant": ["default", "muted", "accent"],
         "size": ["sm", "md", "lg"]
       },
       "defaults": { "variant": "default", "size": "md" }
+    },
+    {
+      "name": "ThemeProvider",
+      "category": "theming",
+      "aliases": ["theme", "theme wrapper", "brand provider"],
+      "when_to_use": ["scope a preset theme", "scope custom accent/ink/bg seeds", "theme a subtree"],
+      "avoid_when": ["you only need a one-off custom inline color tweak"],
+      "defaults": { "theme": "defaultRippleTheme" }
+    },
+    {
+      "name": "rippleThemePresets",
+      "category": "theming",
+      "aliases": ["theme presets", "preset palette", "brand presets"],
+      "when_to_use": ["quick theme switching", "brand selection", "docs/demo theme controls"]
+    },
+    {
+      "name": "buildRippleThemeVars",
+      "category": "theming",
+      "aliases": ["theme vars", "css variables", "token builder"],
+      "when_to_use": ["derive CSS variables from seed colors", "inspect generated theme tokens", "bridge Ripple theme values into host CSS"]
     },
     {
       "name": "Table",

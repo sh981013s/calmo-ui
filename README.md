@@ -7,13 +7,17 @@ Calm, mobile-first React UI components for structured product surfaces.
 
 [Documentation](https://sh981013s.github.io/ripple-ui/) · [npm package](https://www.npmjs.com/package/@sh981013s/ripple-ui) · [GitHub](https://github.com/sh981013s/ripple-ui)
 
-## Highlights
+## What It Is
 
-- Mobile-first component density
-- Calm, neutral-first visual language
-- Interactive docs site with route-based component pages
-- AI-friendly catalogs for vibe coding and agent workflows
-- Includes overlays, forms, navigation, data, and feedback primitives
+Ripple UI is a React component library for teams that want:
+
+- calm, neutral-first interfaces
+- mobile-first density without looking cramped
+- strong defaults for forms, overlays, lists, and navigation
+- a seed-driven theme system
+- AI-friendly docs and machine-readable component catalogs
+
+It is designed for product UIs, internal tools, fintech-style dashboards, settings flows, and structured workflows.
 
 ## Install
 
@@ -21,18 +25,18 @@ Calm, mobile-first React UI components for structured product surfaces.
 npm install @sh981013s/ripple-ui
 ```
 
-## Usage
+## Quick Start
 
-```jsx
+```tsx
 import "@sh981013s/ripple-ui/tokens.css";
 import "@sh981013s/ripple-ui/styles.css";
 import {
   Badge,
   Button,
   Card,
-  ThemeProvider,
   Stack,
   TextField,
+  ThemeProvider,
   rippleThemePresets,
 } from "@sh981013s/ripple-ui";
 
@@ -56,11 +60,15 @@ export default function Example() {
 }
 ```
 
-## Theming
+## Theme System
 
-Ripple UI ships with five preset themes and a seed-driven theme API.
+Ripple UI ships with five preset themes and a custom seed-based theme API.
 
-```jsx
+- presets: `rippleThemePresets`
+- scoped theming: `ThemeProvider`
+- custom CSS variable generation: `buildRippleThemeVars`
+
+```tsx
 import {
   ThemeProvider,
   buildRippleThemeVars,
@@ -81,29 +89,66 @@ export default function Example() {
 }
 ```
 
+Semantic colors are kept separate from the three main seeds so success, warning, and danger remain clear and stable across themes.
+
+## Component Coverage
+
+Ripple UI currently covers:
+
+- Layout: `Surface`, `Card`, `Stack`, `Inline`, `Spacing`, `Border`, `GridList`
+- Navigation: `TopBar`, `Top`, `Tabs`, `SegmentedControl`, `Selector`, `Pagination`
+- Actions: `Button`, `IconButton`, `TextButton`, `AccessoryButton`, `Chip`, `Badge`
+- Forms: `Input`, `TextField`, `TextArea`, `SearchBar`, `SearchField`, `Select`, `DatePicker`, `WheelDatePicker`, `Switch`, `Checkbox`, `Radio`, `NumericSpinner`
+- Overlays: `Dialog`, `Modal`, `BottomSheet`, `AlertDialog`, `ConfirmDialog`, `Popover`, `Menu`, `Dropdown`, `CommandPalette`
+- Feedback: `Toast`, `Snackbar`, `Banner`, `NoticeBanner`, `Loader`, `LoaderAnimation`, `Skeleton`, `Result`, `FullScreenLoader`
+- Data: `List`, `ListRow`, `TableRow`, `Table`, `InfoRow`, `BarChart`, `DoughnutChart`, `ProgressStepper`
+- Utilities: `Icon`, `ThemeProvider`, `Highlight`, `FontScaleLimit`, `safeAreaInset`, `useBottomSheet`
+
 ## Documentation
 
-The docs site is published at:
+Docs are published at:
 
 - [https://sh981013s.github.io/ripple-ui/](https://sh981013s.github.io/ripple-ui/)
 
-It includes:
+The docs site includes:
 
-- section pages
-- per-component pages
-- interactive previews
-- live playgrounds for selected components
+- route-based section pages
+- per-component detail pages
+- live playgrounds
 - code examples
 - prop tables
 - icon browser
+- theme switching demo
 
-## Package Structure
+## AI-First Usage
+
+Ripple UI is intentionally tuned for vibe coding and agent-driven UI generation.
+
+Start here:
+
+- [docs/AI_USAGE.md](./docs/AI_USAGE.md)
+- [docs/AI_PROMPT_TEMPLATE.md](./docs/AI_PROMPT_TEMPLATE.md)
+- [ai/components.json](./ai/components.json)
+- [ai/patterns.json](./ai/patterns.json)
+- [ai/anti-patterns.json](./ai/anti-patterns.json)
+
+These files give AI systems:
+
+- component selection rules
+- safe defaults
+- anti-patterns
+- reusable page recipes
+- prompt scaffolding for app generation
+
+## Repository Structure
 
 - `packages/ripple-ui`: publishable core package
-- `demo`: documentation site
-- `docs/AI_USAGE.md`: AI usage rules and generation guidance
+- `demo`: docs site
+- `docs/AI_USAGE.md`: AI generation guidance
+- `docs/AI_PROMPT_TEMPLATE.md`: reusable prompt starter
 - `ai/components.json`: machine-readable component catalog
-- `ai/patterns.json`: reusable page patterns for AI-assisted app generation
+- `ai/patterns.json`: reusable page patterns
+- `ai/anti-patterns.json`: generation constraints and bad patterns
 
 ## Scripts
 
@@ -114,16 +159,8 @@ npm run dev:demo
 npm run build:demo
 ```
 
-## AI-first Usage
-
-If you want to use Ripple UI as a base for AI-assisted app generation, start with:
-
-- [docs/AI_USAGE.md](./docs/AI_USAGE.md)
-- [ai/components.json](./ai/components.json)
-- [ai/patterns.json](./ai/patterns.json)
-
 ## Release Flow
 
-- Demo docs are deployed to GitHub Pages on pushes to `main`
-- npm publishing is handled by GitHub Actions on version tags
-- To enable package publishing, add `NPM_TOKEN` in the repository secrets
+- docs deploy to GitHub Pages on pushes to `main`
+- npm publishing runs from GitHub Actions on version tags
+- package publishing requires `NPM_TOKEN` in repository secrets

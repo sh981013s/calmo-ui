@@ -23,7 +23,11 @@
     "component-library",
     "ui",
     "ripple-ui",
-    "mobile-first"
+    "mobile-first",
+    "themeable",
+    "fintech-ui",
+    "vibe-coding",
+    "ai-ui"
   ],
   "files": [
     "dist",
