@@ -1761,6 +1761,29 @@ function AgreementModulePlayground() {
   );
 }
 
+function AgreementModuleStaticPreview({
+  title = "Consent update",
+  description = "Agreement flow preview",
+  ctaLabel = "Review",
+}: {
+  title?: string;
+  description?: string;
+  ctaLabel?: string;
+}) {
+  return (
+    <Card className="docs-inline-surface">
+      <Stack gap={12}>
+        <SectionHeader eyebrow="agreement flow" title={title} description={description} />
+        <AgreementModuleTop
+          title="Required agreements"
+          description="Review the latest clauses before continuing."
+          action={<Button variant="weak">{ctaLabel}</Button>}
+        />
+      </Stack>
+    </Card>
+  );
+}
+
 function AssetPlayground() {
   return (
     <Inline gap={16} wrap align="center">
@@ -4144,7 +4167,12 @@ const docs = [
           { name: "AgreementModuleTop / AgreementModuleTopTitle", type: "subcomponents", defaultValue: "-", description: "Top metadata and headings." },
           { name: "AgreementModuleContent / AgreementModuleStagger", type: "subcomponents", defaultValue: "-", description: "Content wrapper and staggered reveal." },
         ],
-        preview: () => <AgreementModulePlayground />,
+        preview: () => (
+          <AgreementModuleStaticPreview
+            title="Agreement module"
+            description="Composable agreement building blocks for stacked consent flows."
+          />
+        ),
       },
       {
         name: "BottomSheetAgreementModule",
@@ -4154,7 +4182,13 @@ const docs = [
           { name: "open / onClose", type: "state + handler", defaultValue: "-", description: "Visibility control." },
           { name: "cta", type: "{ label, onClick }", defaultValue: "-", description: "Primary agreement action." },
         ],
-        preview: () => <AgreementModulePlayground />,
+        preview: () => (
+          <AgreementModuleStaticPreview
+            title="Bottom-sheet agreement"
+            description="Agreement module presented as a bottom sheet with CTA wiring."
+            ctaLabel="Open sheet"
+          />
+        ),
       },
       {
         name: "FloatButtonAgreementModule",
@@ -4165,9 +4199,11 @@ const docs = [
           { name: "cta", type: "{ label, onClick }", defaultValue: "-", description: "Floating CTA action." },
         ],
         preview: () => (
-          <FloatButtonAgreementModule title="Consent flow" description="Sticky CTA module." cta={{ label: "Continue" }}>
-            <AgreementV4Playground />
-          </FloatButtonAgreementModule>
+          <AgreementModuleStaticPreview
+            title="Floating CTA agreement"
+            description="Agreement container with a sticky floating action button."
+            ctaLabel="Continue"
+          />
         ),
       },
       {
@@ -4179,9 +4215,11 @@ const docs = [
           { name: "cta", type: "{ label, onClick }", defaultValue: "-", description: "Page-level CTA." },
         ],
         preview: () => (
-          <FullPageAgreementModule title="Agreement required" description="Full-page consent treatment." cta={{ label: "Continue" }}>
-            <AgreementV4Playground />
-          </FullPageAgreementModule>
+          <AgreementModuleStaticPreview
+            title="Full-page agreement"
+            description="Full-page consent treatment for major checkpoints."
+            ctaLabel="Continue"
+          />
         ),
       },
       {
@@ -4192,7 +4230,13 @@ const docs = [
           { name: "open / onClose", type: "state + handler", defaultValue: "-", description: "Visibility control." },
           { name: "cta", type: "{ label, onClick }", defaultValue: "-", description: "Primary agreement action." },
         ],
-        preview: () => <AgreementModulePlayground />,
+        preview: () => (
+          <AgreementModuleStaticPreview
+            title="Gradient consent sheet"
+            description="Gradient bottom-sheet consent surface with the same agreement module API."
+            ctaLabel="Open sheet"
+          />
+        ),
       },
     ],
   },
