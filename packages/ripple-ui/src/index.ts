@@ -93,12 +93,15 @@ export { default as SliderTooltip } from "./components/SliderTooltip.js";
 export { default as BarChart } from "./components/BarChart.js";
 export { default as ColorSchemeArea } from "./components/ColorSchemeArea.js";
 export { default as BottomInfo } from "./components/BottomInfo.js";
+export { default as BottomCTADouble } from "./components/BottomCTA.js";
 export { default as AccessoryButton } from "./components/AccessoryButton.js";
 export { default as DoughnutChart } from "./components/DoughnutChart.js";
 export { default as Spacing } from "./components/Spacing.js";
 export { default as WheelDatePicker } from "./components/WheelDatePicker.js";
 export { default as Wheel } from "./components/Wheel.js";
 export { default as WheelDateSheet } from "./components/WheelDateSheet.js";
+export { default as StepperRow } from "./components/StepperRow.js";
+export { default as LoaderAnimation } from "./components/LoaderAnimation.js";
 export {
   ListHeaderRightArrow,
   ListHeaderRightText,

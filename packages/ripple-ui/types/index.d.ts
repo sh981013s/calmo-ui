@@ -865,6 +865,15 @@ export interface BottomInfoProps extends React.HTMLAttributes<HTMLDivElement> {
   action?: React.ReactNode;
 }
 export declare function BottomInfo(props: BottomInfoProps): React.JSX.Element;
+export interface BottomCTAAction extends Omit<ButtonProps, "children"> {
+  label: React.ReactNode;
+}
+export interface BottomCTADoubleProps extends React.HTMLAttributes<HTMLDivElement> {
+  primaryAction: BottomCTAAction;
+  secondaryAction?: BottomCTAAction;
+  inset?: boolean;
+}
+export declare function BottomCTADouble(props: BottomCTADoubleProps): React.JSX.Element;
 
 export interface AccessoryButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
   icon?: string | React.ReactNode;
@@ -890,6 +899,19 @@ export interface SpacingProps extends React.HTMLAttributes<HTMLDivElement> {
   size?: number;
 }
 export declare function Spacing(props: SpacingProps): React.JSX.Element;
+export interface StepperRowProps extends React.HTMLAttributes<HTMLDivElement> {
+  index?: number;
+  title?: React.ReactNode;
+  description?: React.ReactNode;
+  status?: "done" | "current" | "upcoming";
+}
+export declare function StepperRow(props: StepperRowProps): React.JSX.Element;
+export interface LoaderAnimationProps extends React.HTMLAttributes<HTMLDivElement> {
+  size?: "sm" | "md" | "lg";
+  tone?: "accent" | "success" | "warning" | "danger";
+  label?: React.ReactNode;
+}
+export declare function LoaderAnimation(props: LoaderAnimationProps): React.JSX.Element;
 export interface IOSFontA11yStyleValue extends React.CSSProperties {}
 export declare const IOSFontA11yStyle: IOSFontA11yStyleValue;
 export type SafeAreaEdge = "top" | "right" | "bottom" | "left";

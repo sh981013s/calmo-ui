@@ -10,6 +10,7 @@ import {
   BarChart,
   Border,
   BottomInfo,
+  BottomCTADouble,
   BottomSheet,
   Bubble,
   Button,
@@ -49,6 +50,7 @@ import {
   ListRowImage,
   ListRowImageContainer,
   Loader,
+  LoaderAnimation,
   Menu,
   MenuDropdownCheckItem,
   MenuDropdownIcon,
@@ -79,6 +81,7 @@ import {
   Spacing,
   Stack,
   Stepper,
+  StepperRow,
   Slider,
   SliderTooltip,
   Surface,
@@ -328,6 +331,37 @@ function SliderTooltipPlayground() {
       <SliderTooltip value={value} />
       <Slider value={value} onChange={(event) => setValue(Number(event.target.value))} />
     </Stack>
+  );
+}
+
+function BottomCTAPlayground() {
+  return (
+    <div className="docs-inline-surface">
+      <BottomCTADouble
+        secondaryAction={{ label: "Cancel", variant: "ghost" }}
+        primaryAction={{ label: "Continue" }}
+      />
+    </div>
+  );
+}
+
+function StepperRowPlayground() {
+  return (
+    <Stack gap={8}>
+      <StepperRow index={1} title="Draft" description="Basic information" status="done" />
+      <StepperRow index={2} title="Review" description="Team validation" status="current" />
+      <StepperRow index={3} title="Publish" description="Go live" status="upcoming" />
+    </Stack>
+  );
+}
+
+function LoaderAnimationPlayground() {
+  return (
+    <Inline gap={18} wrap align="center">
+      <LoaderAnimation size="sm" tone="accent" />
+      <LoaderAnimation size="md" tone="success" label="Loading" />
+      <LoaderAnimation size="lg" tone="warning" />
+    </Inline>
   );
 }
 
@@ -1908,6 +1942,16 @@ export default function Example() {
     </Inline>
   );
 }`,
+  LoaderAnimation: `import { Inline, LoaderAnimation } from "@sh981013s/ripple-ui";
+
+export default function Example() {
+  return (
+    <Inline gap={18} align="center">
+      <LoaderAnimation size="sm" tone="accent" />
+      <LoaderAnimation size="md" tone="success" label="Loading" />
+    </Inline>
+  );
+}`,
   Skeleton: `import { Skeleton, Stack } from "@sh981013s/ripple-ui";
 
 export default function Example() {
@@ -2232,6 +2276,16 @@ export default function Example() {
     />
   );
 }`,
+  BottomCTADouble: `import { BottomCTADouble } from "@sh981013s/ripple-ui";
+
+export default function Example() {
+  return (
+    <BottomCTADouble
+      secondaryAction={{ label: "Cancel", variant: "ghost" }}
+      primaryAction={{ label: "Continue" }}
+    />
+  );
+}`,
   AccessoryButton: `import { AccessoryButton } from "@sh981013s/ripple-ui";
 
 export default function Example() {
@@ -2247,6 +2301,16 @@ export default function Example() {
       <Card><Text variant="body">Alerts</Text></Card>
       <Card><Text variant="body">Members</Text></Card>
     </GridList>
+  );
+}`,
+  StepperRow: `import { Stack, StepperRow } from "@sh981013s/ripple-ui";
+
+export default function Example() {
+  return (
+    <Stack gap={8}>
+      <StepperRow index={1} title="Draft" description="Basic information" status="done" />
+      <StepperRow index={2} title="Review" description="Team validation" status="current" />
+    </Stack>
   );
 }`,
   ColorSchemeArea: `import { ColorSchemeArea } from "@sh981013s/ripple-ui";
@@ -3023,6 +3087,17 @@ const docs = [
           />
         ),
       },
+      {
+        name: "BottomCTADouble",
+        eyebrow: "action",
+        description: "Double bottom CTA pattern for confirmation and checkout flows.",
+        props: [
+          { name: "primaryAction", type: "{ label, ...buttonProps }", defaultValue: "-", description: "Primary bottom CTA config." },
+          { name: "secondaryAction", type: "{ label, ...buttonProps }", defaultValue: "-", description: "Secondary bottom CTA config." },
+          { name: "inset", type: "boolean", defaultValue: "true", description: "Apply inset spacing." },
+        ],
+        preview: () => <BottomCTAPlayground />,
+      },
     ],
   },
   {
@@ -3299,6 +3374,17 @@ const docs = [
             <Loader label="Loading data" tone="success" />
           </Inline>
         ),
+      },
+      {
+        name: "LoaderAnimation",
+        eyebrow: "feedback",
+        description: "Animated bouncing loader for more expressive waiting states.",
+        props: [
+          { name: "size", type: `"sm" | "md" | "lg"`, defaultValue: `"md"`, description: "Dot size scale." },
+          { name: "tone", type: `"accent" | "success" | "warning" | "danger"`, defaultValue: `"accent"`, description: "Semantic animation tone." },
+          { name: "label", type: "ReactNode", defaultValue: "-", description: "Optional caption below the animation." },
+        ],
+        preview: () => <LoaderAnimationPlayground />,
       },
       {
         name: "Skeleton",
@@ -3747,6 +3833,18 @@ const docs = [
           { name: "current", type: "number", defaultValue: "0", description: "Current zero-based active step index." },
         ],
         preview: () => <ProgressStepperPlayground />,
+      },
+      {
+        name: "StepperRow",
+        eyebrow: "data",
+        description: "Single row variant of step progress for dense vertical flows.",
+        props: [
+          { name: "index", type: "number", defaultValue: "1", description: "Displayed numeric order." },
+          { name: "title", type: "ReactNode", defaultValue: "-", description: "Row title." },
+          { name: "description", type: "ReactNode", defaultValue: "-", description: "Supporting explanation." },
+          { name: "status", type: `"done" | "current" | "upcoming"`, defaultValue: `"upcoming"`, description: "Progress state." },
+        ],
+        preview: () => <StepperRowPlayground />,
       },
     ],
   },
