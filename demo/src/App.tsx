@@ -364,10 +364,10 @@ function DocsThemeShowcase() {
         <Card className="demo-howto-card">
           <Stack gap={12}>
             <Text variant="label">Preset themes</Text>
-            <Select
+            <select
               aria-label="Theme preset"
+              className="demo-theme-select"
               value={presetId}
-              searchable={false}
               onChange={(event) => setPresetId(event.target.value)}
             >
               {rippleThemePresets.map((theme) => (
@@ -375,7 +375,7 @@ function DocsThemeShowcase() {
                   {theme.label}
                 </option>
               ))}
-            </Select>
+            </select>
             <Inline gap={8} wrap>
               {rippleThemePresets.map((theme) => (
                 <Chip key={theme.id} tone={theme.id === presetId ? "accent" : "neutral"}>
@@ -389,11 +389,25 @@ function DocsThemeShowcase() {
         <Card className="demo-howto-card">
           <Stack gap={12}>
             <Text variant="label">Custom seeds</Text>
-            <Inline gap={10} wrap>
-              <Input label="Accent" type="color" value={accent} onChange={(event) => setAccent(event.target.value)} />
-              <Input label="Ink" type="color" value={ink} onChange={(event) => setInk(event.target.value)} />
-              <Input label="Background" type="color" value={bg} onChange={(event) => setBg(event.target.value)} />
-            </Inline>
+            <div className="demo-theme-color-grid">
+              {[
+                ["Accent", accent, setAccent],
+                ["Ink", ink, setInk],
+                ["Background", bg, setBg],
+              ].map(([label, value, onChange]) => (
+                <label key={label} className="demo-theme-color-field">
+                  <span className="demo-theme-color-label">{label}</span>
+                  <span className="demo-theme-color-control">
+                    <input
+                      type="color"
+                      value={value}
+                      onChange={(event) => onChange(event.target.value)}
+                    />
+                    <span>{value}</span>
+                  </span>
+                </label>
+              ))}
+            </div>
           </Stack>
         </Card>
 
@@ -535,6 +549,25 @@ function DocsShell() {
     () => rippleThemePresets.find((theme) => theme.id === themeId) ?? defaultRippleTheme,
     [themeId],
   );
+
+  useEffect(() => {
+    const root = document.documentElement;
+    const vars = buildRippleThemeVars(activeTheme);
+    const entries = Object.entries(vars);
+
+    entries.forEach(([key, value]) => {
+      if (typeof value === "string") {
+        root.style.setProperty(key, value);
+      }
+    });
+
+    return () => {
+      entries.forEach(([key]) => {
+        root.style.removeProperty(key);
+      });
+    };
+  }, [activeTheme]);
+
   const routeLabel = useMemo(() => {
     if (location.pathname === "/") return "Overview";
     const componentMatch = docsCatalog
@@ -638,10 +671,10 @@ function DocsShell() {
                 <SidebarNav />
                 <div className="demo-sidebar-meta">
                   <span className="demo-sidebar-meta-label">Theme</span>
-                  <Select
+                  <select
                     aria-label="Select theme preset"
+                    className="demo-theme-select"
                     value={themeId}
-                    searchable={false}
                     onChange={(event) => setThemeId(event.target.value)}
                   >
                     {rippleThemePresets.map((theme) => (
@@ -649,7 +682,7 @@ function DocsShell() {
                         {theme.label}
                       </option>
                     ))}
-                  </Select>
+                  </select>
                 </div>
                 <div className="demo-sidebar-meta">
                   <span className="demo-sidebar-meta-label">Library status</span>

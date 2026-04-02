@@ -371,7 +371,73 @@ textarea {
   padding: 14px;
   border: 1px dashed #d7e2ee;
   border-radius: 16px;
+  overflow: visible;
+}
+
+.demo-theme-select {
+  width: 100%;
+  min-height: 44px;
+  padding: 0 14px;
+  border: 1px solid var(--rpl-color-line);
+  border-radius: 14px;
+  background: var(--rpl-color-surface);
+  color: var(--rpl-color-text-primary);
+  font: inherit;
+  font-size: 0.92rem;
+  box-shadow: var(--rpl-shadow-inset);
+}
+
+.demo-theme-color-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 140px));
+  gap: 10px;
+  align-items: start;
+}
+
+.demo-theme-color-field {
+  display: grid;
+  gap: 6px;
+  min-width: 0;
+}
+
+.demo-theme-color-label {
+  color: var(--rpl-color-text-secondary);
+  font-size: 0.78rem;
+  font-weight: 700;
+  letter-spacing: -0.01em;
+}
+
+.demo-theme-color-control {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  min-height: 40px;
+  padding: 6px 8px;
+  border: 1px solid var(--rpl-color-line);
+  border-radius: 14px;
+  background: var(--rpl-color-surface);
+  box-shadow: var(--rpl-shadow-inset);
+  color: var(--rpl-color-text-primary);
+  font-size: 0.76rem;
+  font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
   overflow: hidden;
+}
+
+.demo-theme-color-control input[type="color"] {
+  width: 24px;
+  height: 24px;
+  padding: 0;
+  border: 0;
+  background: transparent;
+  cursor: pointer;
+  flex: 0 0 auto;
+}
+
+.demo-theme-color-control span:last-child {
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 }
 
 .docs-surface-box {
@@ -559,6 +625,10 @@ textarea {
   .demo-howto-grid,
   .demo-overview-grid,
   .demo-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .demo-theme-color-grid {
     grid-template-columns: 1fr;
   }
 

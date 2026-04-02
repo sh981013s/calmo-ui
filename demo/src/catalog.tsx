@@ -373,18 +373,21 @@ function ThemeSystemPlayground() {
     <Stack gap={16}>
       <Card className="docs-inline-surface">
         <Stack gap={12}>
-          <Select
-            label="Preset theme"
-            value={presetId}
-            searchable={false}
-            onChange={(event) => setPresetId(event.target.value)}
-          >
-            {rippleThemePresets.map((theme) => (
-              <option key={theme.id} value={theme.id}>
-                {theme.label}
-              </option>
-            ))}
-          </Select>
+          <label className="demo-theme-color-field">
+            <span className="demo-theme-color-label">Preset theme</span>
+            <select
+              aria-label="Preset theme"
+              className="demo-theme-select"
+              value={presetId}
+              onChange={(event) => setPresetId(event.target.value)}
+            >
+              {rippleThemePresets.map((theme) => (
+                <option key={theme.id} value={theme.id}>
+                  {theme.label}
+                </option>
+              ))}
+            </select>
+          </label>
           <Inline gap={8} wrap>
             {rippleThemePresets.map((theme) => (
               <Chip key={theme.id} tone={theme.id === presetId ? "accent" : "neutral"}>
@@ -426,11 +429,25 @@ function ThemeSystemPlayground() {
             title="Custom seeds"
             description="Three inputs are enough to derive the main palette."
           />
-          <Inline gap={12} wrap>
-            <Input label="Accent" type="color" value={accent} onChange={(event) => setAccent(event.target.value)} />
-            <Input label="Ink" type="color" value={ink} onChange={(event) => setInk(event.target.value)} />
-            <Input label="Background" type="color" value={bg} onChange={(event) => setBg(event.target.value)} />
-          </Inline>
+          <div className="demo-theme-color-grid">
+            {[
+              ["Accent", accent, setAccent],
+              ["Ink", ink, setInk],
+              ["Background", bg, setBg],
+            ].map(([label, value, onChange]) => (
+              <label key={label} className="demo-theme-color-field">
+                <span className="demo-theme-color-label">{label}</span>
+                <span className="demo-theme-color-control">
+                  <input
+                    type="color"
+                    value={value}
+                    onChange={(event) => onChange(event.target.value)}
+                  />
+                  <span>{value}</span>
+                </span>
+              </label>
+            ))}
+          </div>
           <ThemeProvider theme={customTheme}>
             <Card className="docs-inline-surface">
               <Stack gap={12}>
@@ -4175,11 +4192,7 @@ const docs = [
           { name: "open / onClose", type: "state + handler", defaultValue: "-", description: "Visibility control." },
           { name: "cta", type: "{ label, onClick }", defaultValue: "-", description: "Primary agreement action." },
         ],
-        preview: () => (
-          <GradientBottomSheetAgreementModule open title="Consent update" description="Gradient bottom-sheet agreement surface." cta={{ label: "Apply" }}>
-            <AgreementV4Playground />
-          </GradientBottomSheetAgreementModule>
-        ),
+        preview: () => <AgreementModulePlayground />,
       },
     ],
   },
