@@ -1,0 +1,14 @@
+import React from "react";
+import { cx } from "../utils/cx.js";
+import Input from "./Input.js";
+
+export default function SearchBar({ className = "", leading = "⌕", ...props }) {
+  return (
+    <Input
+      className={cx("rpl-searchbar", className)}
+      before={<span className="rpl-searchbar-icon" aria-hidden="true">{leading}</span>}
+      variant="filled"
+      {...props}
+    />
+  );
+}
