@@ -103,6 +103,7 @@ import {
   SliderTooltip,
   Surface,
   Switch,
+  ThemeProvider,
   Tab,
   Table,
   TableRow,
@@ -138,6 +139,9 @@ import {
   WheelDateSheet,
   safeAreaInset,
   useBottomSheet,
+  buildRippleThemeVars,
+  defaultRippleTheme,
+  rippleThemePresets,
 } from "@sh981013s/ripple-ui";
 
 function useCopyFeedback() {
@@ -338,6 +342,113 @@ function UtilitySurfacePlayground() {
       <Text variant="body">
         Search for <Highlight text="Ripple UI gives AI-friendly building blocks." query="AI" /> in a content surface.
       </Text>
+    </Stack>
+  );
+}
+
+function ThemeSystemPlayground() {
+  const [presetId, setPresetId] = React.useState(defaultRippleTheme.id);
+  const [accent, setAccent] = React.useState(defaultRippleTheme.accent);
+  const [ink, setInk] = React.useState(defaultRippleTheme.ink);
+  const [bg, setBg] = React.useState(defaultRippleTheme.bg);
+
+  const presetTheme = React.useMemo(
+    () => rippleThemePresets.find((theme) => theme.id === presetId) ?? defaultRippleTheme,
+    [presetId],
+  );
+
+  const customTheme = React.useMemo(() => ({ accent, ink, bg }), [accent, ink, bg]);
+  const computedVars = React.useMemo(
+    () => buildRippleThemeVars(customTheme),
+    [customTheme],
+  );
+
+  React.useEffect(() => {
+    setAccent(presetTheme.accent);
+    setInk(presetTheme.ink);
+    setBg(presetTheme.bg);
+  }, [presetTheme]);
+
+  return (
+    <Stack gap={16}>
+      <Card className="docs-inline-surface">
+        <Stack gap={12}>
+          <Select
+            label="Preset theme"
+            value={presetId}
+            searchable={false}
+            onChange={(event) => setPresetId(event.target.value)}
+          >
+            {rippleThemePresets.map((theme) => (
+              <option key={theme.id} value={theme.id}>
+                {theme.label}
+              </option>
+            ))}
+          </Select>
+          <Inline gap={8} wrap>
+            {rippleThemePresets.map((theme) => (
+              <Chip key={theme.id} tone={theme.id === presetId ? "accent" : "neutral"}>
+                {theme.label}
+              </Chip>
+            ))}
+          </Inline>
+        </Stack>
+      </Card>
+
+      <ThemeProvider theme={presetTheme}>
+        <Card className="docs-inline-surface">
+          <Stack gap={14}>
+            <TopBar
+              title="Preset preview"
+              subtitleBottom={presetTheme.label}
+              rightButton={<Chip tone="accent">Live</Chip>}
+            />
+            <Banner
+              compact
+              tone="accent"
+              eyebrow="theme"
+              title="Preset colors now drive component surfaces"
+              description="Accent, ink, and background seeds propagate through calculated tokens."
+            />
+            <Inline gap={10} wrap>
+              <Button>Primary action</Button>
+              <Button variant="weak">Weak action</Button>
+              <Button variant="ghost">Ghost action</Button>
+            </Inline>
+          </Stack>
+        </Card>
+      </ThemeProvider>
+
+      <Card className="docs-inline-surface">
+        <Stack gap={12}>
+          <SectionHeader
+            eyebrow="custom"
+            title="Custom seeds"
+            description="Three inputs are enough to derive the main palette."
+          />
+          <Inline gap={12} wrap>
+            <Input label="Accent" type="color" value={accent} onChange={(event) => setAccent(event.target.value)} />
+            <Input label="Ink" type="color" value={ink} onChange={(event) => setInk(event.target.value)} />
+            <Input label="Background" type="color" value={bg} onChange={(event) => setBg(event.target.value)} />
+          </Inline>
+          <ThemeProvider theme={customTheme}>
+            <Card className="docs-inline-surface">
+              <Stack gap={12}>
+                <TopBar title="Custom preview" subtitleBottom="Seed-derived palette" />
+                <Inline gap={10} wrap>
+                  <Button>Continue</Button>
+                  <Button variant="weak">Secondary</Button>
+                  <Badge tone="accent">Accent</Badge>
+                  <Badge tone="success">Success</Badge>
+                  <Badge tone="warning">Warning</Badge>
+                  <Badge tone="danger">Danger</Badge>
+                </Inline>
+              </Stack>
+            </Card>
+          </ThemeProvider>
+          <pre className="docs-theme-vars">{JSON.stringify(computedVars, null, 2)}</pre>
+        </Stack>
+      </Card>
     </Stack>
   );
 }
@@ -2681,6 +2792,29 @@ export default function Example() {
     </>
   );
 }`,
+  ThemeProvider: `import { Button, ThemeProvider } from "@sh981013s/ripple-ui";
+
+export default function Example() {
+  return (
+    <ThemeProvider theme={{ accent: "#0EA5E9", ink: "#0F172A", bg: "#F8FAFC" }}>
+      <Button>Theme-scoped action</Button>
+    </ThemeProvider>
+  );
+}`,
+  rippleThemePresets: `import { rippleThemePresets } from "@sh981013s/ripple-ui";
+
+export default function Example() {
+  return rippleThemePresets.map((theme) => theme.label).join(", ");
+}`,
+  buildRippleThemeVars: `import { buildRippleThemeVars } from "@sh981013s/ripple-ui";
+
+export default function Example() {
+  return buildRippleThemeVars({
+    accent: "#0EA5E9",
+    ink: "#0F172A",
+    bg: "#F8FAFC",
+  });
+}`,
   "ListHeader.RightText": `import { ListHeaderRightText } from "@sh981013s/ripple-ui";
 
 export default function Example() {
@@ -2844,6 +2978,9 @@ function Playground({ component }) {
     GradientBottomSheetAgreementModule: <AgreementModulePlayground />,
     Asset: <AssetPlayground />,
     Paragraph: <ParagraphPostPlayground />,
+    ThemeProvider: <ThemeSystemPlayground />,
+    rippleThemePresets: <ThemeSystemPlayground />,
+    buildRippleThemeVars: <ThemeSystemPlayground />,
     TextButton: <TextButtonPlayground />,
     Modal: <ModalPlayground />,
     "List / ListHeader / ListFooter": <ListHeaderPlayground />,
@@ -4330,6 +4467,40 @@ const docs = [
           { name: "items", type: "Array<{ label, value, description? }>", defaultValue: "[]", description: "Displayed swatches." },
         ],
         preview: () => <ColorSchemeAreaPlayground />,
+      },
+      {
+        name: "ThemeProvider",
+        eyebrow: "utility",
+        description: "Scopes a seed-driven theme to any subtree and recalculates component tokens from accent, ink, and background.",
+        props: [
+          { name: "theme", type: "RippleThemeDefinition", defaultValue: "defaultRippleTheme", description: "Preset or custom seed object." },
+          { name: "as", type: "ElementType", defaultValue: `"div"`, description: "Rendered wrapper element." },
+          { name: "children", type: "ReactNode", defaultValue: "-", description: "Themed subtree." },
+        ],
+        preview: () => <ThemeSystemPlayground />,
+      },
+      {
+        name: "rippleThemePresets",
+        eyebrow: "utility",
+        description: "Five built-in theme presets for quick brand switching inside docs and product shells.",
+        props: [
+          { name: "id / label", type: "string", defaultValue: "-", description: "Preset metadata." },
+          { name: "accent / ink / bg", type: "string", defaultValue: "-", description: "Seed colors used to derive the palette." },
+          { name: "success / warning / danger", type: "string", defaultValue: "-", description: "Semantic colors kept separate from the main three seeds." },
+        ],
+        preview: () => <ThemeSystemPlayground />,
+      },
+      {
+        name: "buildRippleThemeVars",
+        eyebrow: "utility",
+        description: "Converts three seed colors plus optional semantic colors into CSS custom properties used by all components.",
+        props: [
+          { name: "accent", type: "string", defaultValue: "-", description: "Primary brand/action color." },
+          { name: "ink", type: "string", defaultValue: "-", description: "Primary text and neutral scale base." },
+          { name: "bg", type: "string", defaultValue: "-", description: "Background/base surface color." },
+          { name: "success / warning / danger", type: "string", defaultValue: "preset defaults", description: "Optional semantic overrides." },
+        ],
+        preview: () => <ThemeSystemPlayground />,
       },
       {
         name: "IconCore",

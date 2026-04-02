@@ -11,6 +11,7 @@ import {
   useParams,
 } from "react-router-dom";
 import {
+  Badge,
   Banner,
   BottomInfo,
   Button,
@@ -32,6 +33,7 @@ import {
   TextField,
   ThemeProvider,
   TopBar,
+  buildRippleThemeVars,
   defaultRippleTheme,
   rippleThemePresets,
 } from "@sh981013s/ripple-ui";
@@ -169,6 +171,8 @@ function DocsOverviewPage() {
           </Card>
         </div>
       </section>
+
+      <DocsThemeShowcase />
 
       <section className="demo-section">
         <SectionHeader
@@ -324,6 +328,121 @@ function DocsOverviewPage() {
         </div>
       </section>
     </Stack>
+  );
+}
+
+function DocsThemeShowcase() {
+  const [presetId, setPresetId] = useState(defaultRippleTheme.id);
+  const [accent, setAccent] = useState(defaultRippleTheme.accent);
+  const [ink, setInk] = useState(defaultRippleTheme.ink);
+  const [bg, setBg] = useState(defaultRippleTheme.bg);
+
+  const presetTheme = useMemo(
+    () => rippleThemePresets.find((theme) => theme.id === presetId) ?? defaultRippleTheme,
+    [presetId],
+  );
+
+  useEffect(() => {
+    setAccent(presetTheme.accent);
+    setInk(presetTheme.ink);
+    setBg(presetTheme.bg);
+  }, [presetTheme]);
+
+  const customVars = useMemo(
+    () => buildRippleThemeVars({ accent, ink, bg }),
+    [accent, ink, bg],
+  );
+
+  return (
+    <section className="demo-section">
+      <SectionHeader
+        eyebrow="themes"
+        title="Theme system"
+        description="Use presets for quick switching or supply three custom seeds to derive the palette for all components."
+      />
+      <div className="demo-howto-grid">
+        <Card className="demo-howto-card">
+          <Stack gap={12}>
+            <Text variant="label">Preset themes</Text>
+            <Select
+              aria-label="Theme preset"
+              value={presetId}
+              searchable={false}
+              onChange={(event) => setPresetId(event.target.value)}
+            >
+              {rippleThemePresets.map((theme) => (
+                <option key={theme.id} value={theme.id}>
+                  {theme.label}
+                </option>
+              ))}
+            </Select>
+            <Inline gap={8} wrap>
+              {rippleThemePresets.map((theme) => (
+                <Chip key={theme.id} tone={theme.id === presetId ? "accent" : "neutral"}>
+                  {theme.label}
+                </Chip>
+              ))}
+            </Inline>
+          </Stack>
+        </Card>
+
+        <Card className="demo-howto-card">
+          <Stack gap={12}>
+            <Text variant="label">Custom seeds</Text>
+            <Inline gap={10} wrap>
+              <Input label="Accent" type="color" value={accent} onChange={(event) => setAccent(event.target.value)} />
+              <Input label="Ink" type="color" value={ink} onChange={(event) => setInk(event.target.value)} />
+              <Input label="Background" type="color" value={bg} onChange={(event) => setBg(event.target.value)} />
+            </Inline>
+          </Stack>
+        </Card>
+
+        <Card className="demo-howto-card">
+          <Stack gap={12}>
+            <Text variant="label">Theme API</Text>
+            <Link className="demo-inline-link" to="/components/utilities/themeprovider">ThemeProvider</Link>
+            <Link className="demo-inline-link" to="/components/utilities/ripplethemepresets">rippleThemePresets</Link>
+            <Link className="demo-inline-link" to="/components/utilities/buildripplethemevars">buildRippleThemeVars</Link>
+          </Stack>
+        </Card>
+      </div>
+
+      <ThemeProvider theme={presetTheme}>
+        <Card className="demo-pattern-card">
+          <Stack gap={14}>
+            <TopBar title="Preset preview" subtitleBottom={presetTheme.label} rightButton={<Chip tone="accent">Live</Chip>} />
+            <Banner
+              compact
+              tone="accent"
+              eyebrow="seed-driven"
+              title="Preset tokens flow through every surface"
+              description="Accent, ink, and background drive the neutral and accent scales, while semantic tones stay separate."
+            />
+            <Inline gap={10} wrap>
+              <Button>Primary action</Button>
+              <Button variant="weak">Secondary</Button>
+              <Button variant="ghost">Tertiary</Button>
+            </Inline>
+          </Stack>
+        </Card>
+      </ThemeProvider>
+
+      <ThemeProvider theme={{ accent, ink, bg }}>
+        <Card className="demo-pattern-card">
+          <Stack gap={14}>
+            <TopBar title="Custom preview" subtitleBottom="Three custom seeds" />
+            <Inline gap={10} wrap>
+              <Button>Confirm</Button>
+              <Badge tone="accent">Accent</Badge>
+              <Badge tone="success">Success</Badge>
+              <Badge tone="warning">Warning</Badge>
+              <Badge tone="danger">Danger</Badge>
+            </Inline>
+            <pre className="docs-theme-vars">{JSON.stringify(customVars, null, 2)}</pre>
+          </Stack>
+        </Card>
+      </ThemeProvider>
+    </section>
   );
 }
 

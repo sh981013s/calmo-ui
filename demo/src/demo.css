@@ -139,6 +139,19 @@ textarea {
   justify-content: flex-end;
 }
 
+.docs-theme-vars {
+  margin: 0;
+  padding: 14px 16px;
+  overflow: auto;
+  border: 1px solid var(--rpl-color-line);
+  border-radius: 16px;
+  background: color-mix(in srgb, var(--rpl-color-surface) 88%, var(--rpl-color-bg));
+  color: var(--rpl-color-text-secondary);
+  font-size: 0.76rem;
+  line-height: 1.55;
+  letter-spacing: -0.01em;
+}
+
 .demo-nav {
   display: grid;
   gap: 8px;
