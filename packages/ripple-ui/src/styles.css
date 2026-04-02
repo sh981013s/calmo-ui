@@ -345,6 +345,56 @@
   color: var(--rpl-color-text-primary);
 }
 
+.rpl-text-button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0;
+  border: 0;
+  background: transparent;
+  color: var(--rpl-color-accent-strong);
+  font: inherit;
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  cursor: pointer;
+  transition: color 140ms var(--rpl-ease-standard), opacity 140ms var(--rpl-ease-standard), transform 120ms var(--rpl-ease-standard);
+}
+
+.rpl-text-button-sm {
+  min-height: 24px;
+  font-size: 0.82rem;
+}
+
+.rpl-text-button-md {
+  min-height: 28px;
+  font-size: 0.9rem;
+}
+
+.rpl-text-button-lg {
+  min-height: 32px;
+  font-size: 0.96rem;
+}
+
+.rpl-text-button:hover {
+  color: var(--rpl-color-accent);
+}
+
+.rpl-text-button:active {
+  transform: scale(0.985);
+}
+
+.rpl-text-button-default {
+  color: var(--rpl-color-accent-strong);
+}
+
+.rpl-text-button-neutral {
+  color: var(--rpl-color-text-secondary);
+}
+
+.rpl-text-button-danger {
+  color: var(--rpl-color-danger);
+}
+
 .rpl-button-icon {
   width: 42px;
   min-width: 42px;

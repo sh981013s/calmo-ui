@@ -51,11 +51,14 @@ import {
   TableRow,
   Tabs,
   Text,
+  TextButton,
+  TextField,
   TextArea,
   Toast,
   Tooltip,
   TopBar,
   Pagination,
+  Modal,
 } from "@sh981013s/ripple-ui";
 
 function useCopyFeedback() {
@@ -170,6 +173,25 @@ function InteractiveDialogPreview() {
       >
         <Text variant="body">Use this preview to inspect spacing, motion, and CTA density.</Text>
       </Dialog>
+    </div>
+  );
+}
+
+function InteractiveModalPreview() {
+  const [open, setOpen] = React.useState(false);
+
+  return (
+    <div className="docs-inline-surface">
+      <Button size="medium" onClick={() => setOpen(true)}>Open modal</Button>
+      <Modal
+        open={open}
+        onClose={() => setOpen(false)}
+        headline="Project workspace"
+        subheadline="Review the current status before continuing."
+        actions={<Button display="block" onClick={() => setOpen(false)}>Close</Button>}
+      >
+        <Text variant="body">Modal is a product-flavored alias for centered dialog usage.</Text>
+      </Modal>
     </div>
   );
 }
@@ -558,6 +580,24 @@ function InputPlayground() {
   );
 }
 
+function TextFieldPlayground() {
+  const [value, setValue] = React.useState("");
+
+  return (
+    <TextField
+      label="Workspace name"
+      value={value}
+      onChange={(event) => setValue(event.target.value)}
+      placeholder="Enter workspace name"
+      clearable
+      onClear={() => setValue("")}
+      actionLabel="Check"
+      validationState={value ? "success" : "default"}
+      validationMessage={value ? "Looks good." : "Enter a name to continue."}
+    />
+  );
+}
+
 function SelectPlayground() {
   const [value, setValue] = React.useState("review");
 
@@ -622,6 +662,23 @@ function SnackbarPlayground() {
           action={<Button variant="ghost" onClick={() => setOpen(false)}>Dismiss</Button>}
         />
       </div>
+    </Stack>
+  );
+}
+
+function TextButtonPlayground() {
+  const [tone, setTone] = React.useState("default");
+
+  return (
+    <Stack gap={12}>
+      <Inline gap={8} wrap>
+        {["default", "neutral", "danger"].map((item) => (
+          <Selector key={item} selected={tone === item} onClick={() => setTone(item)}>
+            {item}
+          </Selector>
+        ))}
+      </Inline>
+      <TextButton tone={tone}>Open details</TextButton>
     </Stack>
   );
 }
@@ -849,6 +906,11 @@ export default function Example() {
     </Inline>
   );
 }`,
+  TextButton: `import { TextButton } from "@sh981013s/ripple-ui";
+
+export default function Example() {
+  return <TextButton>See details</TextButton>;
+}`,
   Input: `import { Input } from "@sh981013s/ripple-ui";
 
 export default function Example() {
@@ -884,6 +946,20 @@ export default function Example() {
 
 export default function Example() {
   return <SearchField label="Search docs" defaultValue="button" validationState="success" validationMessage="1 exact match." />;
+}`,
+  TextField: `import { TextField } from "@sh981013s/ripple-ui";
+
+export default function Example() {
+  return (
+    <TextField
+      label="Workspace name"
+      placeholder="Enter workspace name"
+      clearable
+      actionLabel="Check"
+      validationState="success"
+      validationMessage="This name is available."
+    />
+  );
 }`,
   Select: `import { Select } from "@sh981013s/ripple-ui";
 
@@ -983,6 +1059,20 @@ export default function Example() {
     <Dialog open title="Review dialog" description="Dialogs support headline, description, and footer." footer={<Button display="block">Close</Button>}>
       <Text variant="body">Use this surface to inspect spacing and CTA density.</Text>
     </Dialog>
+  );
+}`,
+  Modal: `import { Button, Modal, Text } from "@sh981013s/ripple-ui";
+
+export default function Example() {
+  return (
+    <Modal
+      open
+      headline="Project workspace"
+      subheadline="Review the current status before continuing."
+      actions={<Button display="block">Close</Button>}
+    >
+      <Text variant="body">Modal is a product-flavored alias for centered dialog usage.</Text>
+    </Modal>
   );
 }`,
   BottomSheet: `import { BottomSheet, Button, Text } from "@sh981013s/ripple-ui";
@@ -1170,11 +1260,13 @@ function Playground({ component }) {
     Badge: <BadgePlayground />,
     Icon: <IconPlayground />,
     Input: <InputPlayground />,
+    TextField: <TextFieldPlayground />,
     Select: <SelectPlayground />,
     "Tabs / Tab": <TabsPlayground />,
     SegmentedControl: <SegmentedPlayground />,
     Snackbar: <SnackbarPlayground />,
     DatePicker: <DatePickerPlayground />,
+    TextButton: <TextButtonPlayground />,
   };
 
   const content = map[component.name];
@@ -1520,6 +1612,22 @@ const docs = [
           </Inline>
         ),
       },
+      {
+        name: "TextButton",
+        eyebrow: "action",
+        description: "Lightweight inline CTA for secondary actions and supporting links.",
+        props: [
+          { name: "tone", type: `"default" | "neutral" | "danger"`, defaultValue: `"default"`, description: "Text emphasis color." },
+          { name: "size", type: `"sm" | "md" | "lg"`, defaultValue: `"md"`, description: "Text button size." },
+        ],
+        preview: () => (
+          <Inline gap={12} wrap align="center">
+            <TextButton>Default</TextButton>
+            <TextButton tone="neutral">Neutral</TextButton>
+            <TextButton tone="danger">Delete</TextButton>
+          </Inline>
+        ),
+      },
     ],
   },
   {
@@ -1594,6 +1702,27 @@ const docs = [
             defaultValue="button"
             validationState="success"
             validationMessage="1 exact match."
+          />
+        ),
+      },
+      {
+        name: "TextField",
+        eyebrow: "form",
+        description: "Product-flavored text field alias built on the shared input system.",
+        props: [
+          { name: "label", type: "ReactNode", defaultValue: "-", description: "Field label." },
+          { name: "variant", type: `"default" | "filled" | "quiet"`, defaultValue: `"default"`, description: "Visual treatment." },
+          { name: "clearable / actionLabel", type: "boolean | string", defaultValue: "-", description: "Built-in inline controls." },
+          { name: "validationState / validationMessage", type: "state + message", defaultValue: "-", description: "Semantic validation feedback." },
+        ],
+        preview: () => (
+          <TextField
+            label="Workspace name"
+            placeholder="Enter workspace name"
+            clearable
+            actionLabel="Check"
+            validationState="success"
+            validationMessage="This name is available."
           />
         ),
       },
@@ -1789,6 +1918,18 @@ const docs = [
           { name: "panelClassName", type: "string", defaultValue: "-", description: "Panel class hook." },
         ],
         preview: () => <InteractiveDialogPreview />,
+      },
+      {
+        name: "Modal",
+        eyebrow: "overlay",
+        description: "Product-style centered modal alias for dialog-based flows.",
+        props: [
+          { name: "open", type: "boolean", defaultValue: "false", description: "Visibility state." },
+          { name: "headline", type: "ReactNode", defaultValue: "-", description: "Primary heading." },
+          { name: "subheadline", type: "ReactNode", defaultValue: "-", description: "Supporting copy." },
+          { name: "actions", type: "ReactNode", defaultValue: "-", description: "Footer action area." },
+        ],
+        preview: () => <InteractiveModalPreview />,
       },
       {
         name: "BottomSheet",
