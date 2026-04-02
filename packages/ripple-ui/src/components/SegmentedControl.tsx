@@ -63,7 +63,7 @@ export default function SegmentedControl({
       }}
     >
       {indicatorStyle ? <span className="rpl-segmented-indicator" style={indicatorStyle} aria-hidden="true" /> : null}
-      {options.map((option) => {
+      {options.map((option, index) => {
         const optionValue = option.value ?? option.key;
         const active = value === optionValue;
 
