@@ -5,7 +5,7 @@ Calm, mobile-first React UI components for structured product surfaces.
 [![Deploy Demo](https://github.com/sh981013s/ripple-ui/actions/workflows/deploy-demo.yml/badge.svg)](https://github.com/sh981013s/ripple-ui/actions/workflows/deploy-demo.yml)
 [![Publish Package](https://github.com/sh981013s/ripple-ui/actions/workflows/publish-package.yml/badge.svg)](https://github.com/sh981013s/ripple-ui/actions/workflows/publish-package.yml)
 
-[Documentation](https://sh981013s.github.io/ripple-ui/) · [npm package](https://www.npmjs.com/package/@ripple-ui/core) · [GitHub](https://github.com/sh981013s/ripple-ui)
+[Documentation](https://sh981013s.github.io/ripple-ui/) · [npm package](https://www.npmjs.com/package/@sh981013s/ripple-ui) · [GitHub](https://github.com/sh981013s/ripple-ui)
 
 ## Highlights
 
@@ -18,14 +18,14 @@ Calm, mobile-first React UI components for structured product surfaces.
 ## Install
 
 ```bash
-npm install @ripple-ui/core
+npm install @sh981013s/ripple-ui
 ```
 
 ## Usage
 
 ```jsx
-import "@ripple-ui/core/tokens.css";
-import "@ripple-ui/core/styles.css";
+import "@sh981013s/ripple-ui/tokens.css";
+import "@sh981013s/ripple-ui/styles.css";
 import {
   Button,
   Card,
@@ -33,7 +33,7 @@ import {
   SectionHeader,
   Stack,
   Text,
-} from "@ripple-ui/core";
+} from "@sh981013s/ripple-ui";
 
 export default function Example() {
   return (

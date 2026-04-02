@@ -56,7 +56,7 @@ import {
   Tooltip,
   TopBar,
   Pagination,
-} from "@ripple-ui/core";
+} from "@sh981013s/ripple-ui";
 
 function useCopyFeedback() {
   const [copied, setCopied] = React.useState(false);
@@ -669,12 +669,12 @@ function PropTable({ props }) {
 }
 
 const componentExamples = {
-  Surface: `import { Surface } from "@ripple-ui/core";
+  Surface: `import { Surface } from "@sh981013s/ripple-ui";
 
 export default function Example() {
   return <Surface tone="accent" radius="lg">Accent surface</Surface>;
 }`,
-  Card: `import { Card, Text } from "@ripple-ui/core";
+  Card: `import { Card, Text } from "@sh981013s/ripple-ui";
 
 export default function Example() {
   return (
@@ -683,7 +683,7 @@ export default function Example() {
     </Card>
   );
 }`,
-  Stack: `import { Stack, Chip } from "@ripple-ui/core";
+  Stack: `import { Stack, Chip } from "@sh981013s/ripple-ui";
 
 export default function Example() {
   return (
@@ -694,7 +694,7 @@ export default function Example() {
     </Stack>
   );
 }`,
-  Inline: `import { Inline, Chip } from "@ripple-ui/core";
+  Inline: `import { Inline, Chip } from "@sh981013s/ripple-ui";
 
 export default function Example() {
   return (
@@ -704,12 +704,12 @@ export default function Example() {
     </Inline>
   );
 }`,
-  Divider: `import { Divider } from "@ripple-ui/core";
+  Divider: `import { Divider } from "@sh981013s/ripple-ui";
 
 export default function Example() {
   return <Divider />;
 }`,
-  SectionHeader: `import { SectionHeader, Chip } from "@ripple-ui/core";
+  SectionHeader: `import { SectionHeader, Chip } from "@sh981013s/ripple-ui";
 
 export default function Example() {
   return (
@@ -721,7 +721,7 @@ export default function Example() {
     />
   );
 }`,
-  Avatar: `import { Avatar, Inline } from "@ripple-ui/core";
+  Avatar: `import { Avatar, Inline } from "@sh981013s/ripple-ui";
 
 export default function Example() {
   return (
@@ -731,7 +731,7 @@ export default function Example() {
     </Inline>
   );
 }`,
-  Icon: `import { Icon, Inline, iconNames } from "@ripple-ui/core";
+  Icon: `import { Icon, Inline, iconNames } from "@sh981013s/ripple-ui";
 
 export default function Example() {
   return (
@@ -742,7 +742,7 @@ export default function Example() {
     </Inline>
   );
 }`,
-  Badge: `import { Badge, Inline } from "@ripple-ui/core";
+  Badge: `import { Badge, Inline } from "@sh981013s/ripple-ui";
 
 export default function Example() {
   return (
@@ -752,7 +752,7 @@ export default function Example() {
     </Inline>
   );
 }`,
-  Text: `import { Stack, Text } from "@ripple-ui/core";
+  Text: `import { Stack, Text } from "@sh981013s/ripple-ui";
 
 export default function Example() {
   return (
@@ -763,7 +763,7 @@ export default function Example() {
     </Stack>
   );
 }`,
-  TopBar: `import { IconButton, TopBar } from "@ripple-ui/core";
+  TopBar: `import { IconButton, TopBar } from "@sh981013s/ripple-ui";
 
 export default function Example() {
   return (
@@ -777,7 +777,7 @@ export default function Example() {
     />
   );
 }`,
-  "Tabs / Tab": `import { Tab, Tabs } from "@ripple-ui/core";
+  "Tabs / Tab": `import { Tab, Tabs } from "@sh981013s/ripple-ui";
 
 export default function Example() {
   return (
@@ -788,7 +788,7 @@ export default function Example() {
     </Tabs>
   );
 }`,
-  SegmentedControl: `import { SegmentedControl } from "@ripple-ui/core";
+  SegmentedControl: `import { SegmentedControl } from "@sh981013s/ripple-ui";
 
 export default function Example() {
   return (
@@ -803,7 +803,7 @@ export default function Example() {
     />
   );
 }`,
-  Selector: `import { Inline, Selector } from "@ripple-ui/core";
+  Selector: `import { Inline, Selector } from "@sh981013s/ripple-ui";
 
 export default function Example() {
   return (
@@ -814,12 +814,12 @@ export default function Example() {
     </Inline>
   );
 }`,
-  IconButton: `import { Icon, IconButton } from "@ripple-ui/core";
+  IconButton: `import { Icon, IconButton } from "@sh981013s/ripple-ui";
 
 export default function Example() {
   return <IconButton tone="accent" aria-label="Share"><Icon name="externalLink" size={16} /></IconButton>;
 }`,
-  Tooltip: `import { Button, Tooltip } from "@ripple-ui/core";
+  Tooltip: `import { Button, Tooltip } from "@sh981013s/ripple-ui";
 
 export default function Example() {
   return (
@@ -828,7 +828,7 @@ export default function Example() {
     </Tooltip>
   );
 }`,
-  Button: `import { Button, Inline } from "@ripple-ui/core";
+  Button: `import { Button, Inline } from "@sh981013s/ripple-ui";
 
 export default function Example() {
   return (
@@ -839,7 +839,7 @@ export default function Example() {
     </Inline>
   );
 }`,
-  Chip: `import { Chip, Inline } from "@ripple-ui/core";
+  Chip: `import { Chip, Inline } from "@sh981013s/ripple-ui";
 
 export default function Example() {
   return (
@@ -849,7 +849,7 @@ export default function Example() {
     </Inline>
   );
 }`,
-  Input: `import { Input } from "@ripple-ui/core";
+  Input: `import { Input } from "@sh981013s/ripple-ui";
 
 export default function Example() {
   return (
@@ -863,7 +863,7 @@ export default function Example() {
     />
   );
 }`,
-  TextArea: `import { TextArea } from "@ripple-ui/core";
+  TextArea: `import { TextArea } from "@sh981013s/ripple-ui";
 
 export default function Example() {
   return (
@@ -875,17 +875,17 @@ export default function Example() {
     />
   );
 }`,
-  SearchBar: `import { SearchBar } from "@ripple-ui/core";
+  SearchBar: `import { SearchBar } from "@sh981013s/ripple-ui";
 
 export default function Example() {
   return <SearchBar label="Search" placeholder="Search components" hint="Search, then refine with filters." />;
 }`,
-  SearchField: `import { SearchField } from "@ripple-ui/core";
+  SearchField: `import { SearchField } from "@sh981013s/ripple-ui";
 
 export default function Example() {
   return <SearchField label="Search docs" defaultValue="button" validationState="success" validationMessage="1 exact match." />;
 }`,
-  Select: `import { Select } from "@ripple-ui/core";
+  Select: `import { Select } from "@sh981013s/ripple-ui";
 
 export default function Example() {
   return (
@@ -896,22 +896,22 @@ export default function Example() {
     </Select>
   );
 }`,
-  DatePicker: `import { DatePicker } from "@ripple-ui/core";
+  DatePicker: `import { DatePicker } from "@sh981013s/ripple-ui";
 
 export default function Example() {
   return <DatePicker label="Launch date" validationState="success" validationMessage="Date confirmed." />;
 }`,
-  Switch: `import { Switch } from "@ripple-ui/core";
+  Switch: `import { Switch } from "@sh981013s/ripple-ui";
 
 export default function Example() {
   return <Switch checked label="Realtime alerts" description="Send status changes to connected channels." />;
 }`,
-  Checkbox: `import { Checkbox } from "@ripple-ui/core";
+  Checkbox: `import { Checkbox } from "@sh981013s/ripple-ui";
 
 export default function Example() {
   return <Checkbox checked label="Email notifications" description="Receive billing and release updates." />;
 }`,
-  Radio: `import { Radio, Stack } from "@ripple-ui/core";
+  Radio: `import { Radio, Stack } from "@sh981013s/ripple-ui";
 
 export default function Example() {
   return (
@@ -921,7 +921,7 @@ export default function Example() {
     </Stack>
   );
 }`,
-  Loader: `import { Inline, Loader } from "@ripple-ui/core";
+  Loader: `import { Inline, Loader } from "@sh981013s/ripple-ui";
 
 export default function Example() {
   return (
@@ -931,7 +931,7 @@ export default function Example() {
     </Inline>
   );
 }`,
-  Skeleton: `import { Skeleton, Stack } from "@ripple-ui/core";
+  Skeleton: `import { Skeleton, Stack } from "@sh981013s/ripple-ui";
 
 export default function Example() {
   return (
@@ -941,42 +941,42 @@ export default function Example() {
     </Stack>
   );
 }`,
-  Toast: `import { Toast } from "@ripple-ui/core";
+  Toast: `import { Toast } from "@sh981013s/ripple-ui";
 
 export default function Example() {
   return <Toast title="Deployment completed" badge="Live" description="The production build is now available." />;
 }`,
-  Snackbar: `import { Button, Snackbar } from "@ripple-ui/core";
+  Snackbar: `import { Button, Snackbar } from "@sh981013s/ripple-ui";
 
 export default function Example() {
   return <Snackbar open align="left" message="Draft saved successfully." action={<Button variant="ghost">Dismiss</Button>} />;
 }`,
-  "NoticeBanner / Banner": `import { Banner, Button } from "@ripple-ui/core";
+  "NoticeBanner / Banner": `import { Banner, Button } from "@sh981013s/ripple-ui";
 
 export default function Example() {
   return <Banner tone="accent" title="Submission assets updated" description="The latest metadata set is ready for review." action={<Button variant="ghost">Open</Button>} />;
 }`,
-  ProgressBar: `import { ProgressBar } from "@ripple-ui/core";
+  ProgressBar: `import { ProgressBar } from "@sh981013s/ripple-ui";
 
 export default function Example() {
   return <ProgressBar value={72} />;
 }`,
-  EmptyState: `import { Button, EmptyState } from "@ripple-ui/core";
+  EmptyState: `import { Button, EmptyState } from "@sh981013s/ripple-ui";
 
 export default function Example() {
   return <EmptyState icon="◌" title="No connected channels" description="Connect at least one channel to receive alerts." action={<Button>Connect</Button>} />;
 }`,
-  AlertDialog: `import { AlertDialog } from "@ripple-ui/core";
+  AlertDialog: `import { AlertDialog } from "@sh981013s/ripple-ui";
 
 export default function Example() {
   return <AlertDialog open title="Session expired" description="Please sign in again to continue." />;
 }`,
-  ConfirmDialog: `import { ConfirmDialog } from "@ripple-ui/core";
+  ConfirmDialog: `import { ConfirmDialog } from "@sh981013s/ripple-ui";
 
 export default function Example() {
   return <ConfirmDialog open title="Delete workspace?" description="This action cannot be undone." tone="danger" />;
 }`,
-  Dialog: `import { Button, Dialog, Text } from "@ripple-ui/core";
+  Dialog: `import { Button, Dialog, Text } from "@sh981013s/ripple-ui";
 
 export default function Example() {
   return (
@@ -985,7 +985,7 @@ export default function Example() {
     </Dialog>
   );
 }`,
-  BottomSheet: `import { BottomSheet, Button, Text } from "@ripple-ui/core";
+  BottomSheet: `import { BottomSheet, Button, Text } from "@sh981013s/ripple-ui";
 
 export default function Example() {
   return (
@@ -994,7 +994,7 @@ export default function Example() {
     </BottomSheet>
   );
 }`,
-  "Accordion / AccordionItem": `import { Accordion, AccordionItem, Text } from "@ripple-ui/core";
+  "Accordion / AccordionItem": `import { Accordion, AccordionItem, Text } from "@sh981013s/ripple-ui";
 
 export default function Example() {
   return (
@@ -1005,7 +1005,7 @@ export default function Example() {
     </Accordion>
   );
 }`,
-  Stepper: `import { Stepper } from "@ripple-ui/core";
+  Stepper: `import { Stepper } from "@sh981013s/ripple-ui";
 
 export default function Example() {
   return (
@@ -1019,7 +1019,7 @@ export default function Example() {
     />
   );
 }`,
-  "List / ListHeader / ListFooter": `import { List, ListFooter, ListHeader, ListRow } from "@ripple-ui/core";
+  "List / ListHeader / ListFooter": `import { List, ListFooter, ListHeader, ListRow } from "@sh981013s/ripple-ui";
 
 export default function Example() {
   return (
@@ -1030,7 +1030,7 @@ export default function Example() {
     </List>
   );
 }`,
-  InfoRow: `import { Card, InfoRow, Stack } from "@ripple-ui/core";
+  InfoRow: `import { Card, InfoRow, Stack } from "@sh981013s/ripple-ui";
 
 export default function Example() {
   return (
@@ -1042,17 +1042,17 @@ export default function Example() {
     </Card>
   );
 }`,
-  TableRow: `import { TableRow } from "@ripple-ui/core";
+  TableRow: `import { TableRow } from "@sh981013s/ripple-ui";
 
 export default function Example() {
   return <TableRow label="Estimated payout" value="$12,480" description="Updated 2 minutes ago" />;
 }`,
-  ListRow: `import { Badge, ListRow } from "@ripple-ui/core";
+  ListRow: `import { Badge, ListRow } from "@sh981013s/ripple-ui";
 
 export default function Example() {
   return <ListRow eyebrow="Workspace" title="Marketing Ops" description="12 members" meta="Updated 2m ago" trailing={<Badge tone="accent">Live</Badge>} interactive />;
 }`,
-  Table: `import { Table } from "@ripple-ui/core";
+  Table: `import { Table } from "@sh981013s/ripple-ui";
 
 export default function Example() {
   return (
@@ -1068,12 +1068,12 @@ export default function Example() {
     />
   );
 }`,
-  Pagination: `import { Pagination } from "@ripple-ui/core";
+  Pagination: `import { Pagination } from "@sh981013s/ripple-ui";
 
 export default function Example() {
   return <Pagination page={4} totalPages={9} onPageChange={() => {}} />;
 }`,
-  Popover: `import { Button, Popover, Stack, Text } from "@ripple-ui/core";
+  Popover: `import { Button, Popover, Stack, Text } from "@sh981013s/ripple-ui";
 
 export default function Example() {
   return (
@@ -1085,7 +1085,7 @@ export default function Example() {
     </Popover>
   );
 }`,
-  Menu: `import { Button, Menu } from "@ripple-ui/core";
+  Menu: `import { Button, Menu } from "@sh981013s/ripple-ui";
 
 export default function Example() {
   return (
@@ -1099,7 +1099,7 @@ export default function Example() {
     />
   );
 }`,
-  Dropdown: `import { Dropdown } from "@ripple-ui/core";
+  Dropdown: `import { Dropdown } from "@sh981013s/ripple-ui";
 
 export default function Example() {
   return (
@@ -1114,7 +1114,7 @@ export default function Example() {
     />
   );
 }`,
-  CommandPalette: `import { CommandPalette } from "@ripple-ui/core";
+  CommandPalette: `import { CommandPalette } from "@sh981013s/ripple-ui";
 
 export default function Example() {
   return (
@@ -1132,7 +1132,7 @@ export default function Example() {
 function getExampleCode(component) {
   return (
     componentExamples[component.name] ??
-    `import { ${component.name.split("/")[0].trim()} } from "@ripple-ui/core";
+    `import { ${component.name.split("/")[0].trim()} } from "@sh981013s/ripple-ui";
 
 export default function Example() {
   return <${component.name.split("/")[0].trim()} />;

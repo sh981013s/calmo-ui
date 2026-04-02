@@ -23,7 +23,7 @@ import {
   Stack,
   Text,
   TopBar,
-} from "@ripple-ui/core";
+} from "@sh981013s/ripple-ui";
 import catalog, {
   ComponentDocCard,
   docsCatalog,
@@ -92,7 +92,7 @@ function DocsOverviewPage() {
 
   const handleCopyInstall = async () => {
     try {
-      await navigator.clipboard.writeText("npm install @ripple-ui/core");
+      await navigator.clipboard.writeText("npm install @sh981013s/ripple-ui");
       setCopied(true);
       window.setTimeout(() => setCopied(false), 1600);
     } catch {
@@ -142,7 +142,7 @@ function DocsOverviewPage() {
             <Stack gap={10}>
               <Text variant="label">Install</Text>
               <div className="demo-code-row">
-                <pre className="demo-code-block">npm install @ripple-ui/core</pre>
+                <pre className="demo-code-block">npm install @sh981013s/ripple-ui</pre>
                 <Button size="small" variant="weak" onClick={handleCopyInstall}>
                   Copy
                 </Button>

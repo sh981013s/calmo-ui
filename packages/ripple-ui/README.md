@@ -1,4 +1,4 @@
-# @ripple-ui/core
+# @sh981013s/ripple-ui
 
 Calm, mobile-first React UI components for structured product surfaces.
 
@@ -7,15 +7,15 @@ Calm, mobile-first React UI components for structured product surfaces.
 ## Install
 
 ```bash
-npm install @ripple-ui/core
+npm install @sh981013s/ripple-ui
 ```
 
 ## Usage
 
 ```jsx
-import "@ripple-ui/core/tokens.css";
-import "@ripple-ui/core/styles.css";
-import { Button, Card, Stack, Text } from "@ripple-ui/core";
+import "@sh981013s/ripple-ui/tokens.css";
+import "@sh981013s/ripple-ui/styles.css";
+import { Button, Card, Stack, Text } from "@sh981013s/ripple-ui";
 
 export default function Example() {
   return (
@@ -44,4 +44,3 @@ export default function Example() {
 ## Docs
 
 - [https://sh981013s.github.io/ripple-ui/](https://sh981013s.github.io/ripple-ui/)
-

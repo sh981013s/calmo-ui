@@ -12,7 +12,7 @@ export default defineConfig({
   plugins: [react()],
   resolve: {
     alias: {
-      "@ripple-ui/core": path.resolve(__dirname, "../packages/ripple-ui/src"),
+      "@sh981013s/ripple-ui": path.resolve(__dirname, "../packages/ripple-ui/src"),
     },
   },
   build: {

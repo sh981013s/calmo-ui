@@ -1,6 +1,6 @@
 # Ripple UI for AI Coding
 
-This guide is for agents, code generators, and vibe-coding workflows that need to produce UI using `@ripple-ui/core`.
+This guide is for agents, code generators, and vibe-coding workflows that need to produce UI using `@sh981013s/ripple-ui`.
 
 ## Goal
 
@@ -156,12 +156,12 @@ Do not generate:
 
 ## Imports
 
-Always prefer explicit imports from `@ripple-ui/core`.
+Always prefer explicit imports from `@sh981013s/ripple-ui`.
 
 Example:
 
 ```jsx
-import { Button, Card, SectionHeader, Stack, Text } from "@ripple-ui/core";
+import { Button, Card, SectionHeader, Stack, Text } from "@sh981013s/ripple-ui";
 ```
 
 ## AI Output Expectations
@@ -173,4 +173,3 @@ When generating UI with Ripple UI:
 3. Use the page patterns in `/ai/patterns.json`.
 4. If a requested design conflicts with Ripple UI principles, produce the closest calm, structured alternative.
 5. If uncertain between two components, choose the simpler one.
-
