@@ -1,6 +1,7 @@
-import React, { useEffect, useMemo, useState } from "react";
+import React, { useEffect, useMemo, useRef, useState } from "react";
 import { cx } from "../utils/cx.js";
 import Icon from "./Icon.js";
+import useOverlayLifecycle from "../hooks/useOverlayLifecycle.js";
 
 export default function CommandPalette({
   open = false,
@@ -12,6 +13,8 @@ export default function CommandPalette({
 }) {
   const [query, setQuery] = useState("");
   const [activeIndex, setActiveIndex] = useState(0);
+  const panelRef = useRef<HTMLDivElement | null>(null);
+  const inputRef = useRef<HTMLInputElement | null>(null);
 
   const filtered = useMemo(() => {
     const q = query.trim().toLowerCase();
@@ -28,19 +31,24 @@ export default function CommandPalette({
       setActiveIndex(0);
     }
   }, [open]);
+  useOverlayLifecycle({ open, onClose, panelRef, initialFocusRef: inputRef, trapFocus: true });
 
-  useEffect(() => {
-    if (!open) return undefined;
+  if (!open) return null;
 
-    const handleKeyDown = (event) => {
-      if (event.key === "Escape") {
-        onClose?.();
-      } else if (event.key === "ArrowDown") {
+  return (
+    <div className={cx("rpl-command", className)} role="dialog" aria-modal="true" onKeyDown={(event) => {
+      if (event.key === "ArrowDown") {
         event.preventDefault();
         setActiveIndex((prev) => (prev + 1) % Math.max(filtered.length, 1));
       } else if (event.key === "ArrowUp") {
         event.preventDefault();
         setActiveIndex((prev) => (prev - 1 + Math.max(filtered.length, 1)) % Math.max(filtered.length, 1));
+      } else if (event.key === "Home") {
+        event.preventDefault();
+        setActiveIndex(0);
+      } else if (event.key === "End") {
+        event.preventDefault();
+        setActiveIndex(Math.max(filtered.length - 1, 0));
       } else if (event.key === "Enter") {
         const active = filtered[activeIndex];
         if (active) {
@@ -48,26 +56,13 @@ export default function CommandPalette({
           onClose?.();
         }
       }
-    };
-
-    window.addEventListener("keydown", handleKeyDown);
-    document.body.style.overflow = "hidden";
-    return () => {
-      window.removeEventListener("keydown", handleKeyDown);
-      document.body.style.overflow = "";
-    };
-  }, [open, filtered, activeIndex, onClose]);
-
-  if (!open) return null;
-
-  return (
-    <div className={cx("rpl-command", className)} role="dialog" aria-modal="true">
+    }}>
       <button type="button" className="rpl-command-backdrop" aria-label="Close command palette" onClick={onClose} />
-      <div className="rpl-command-panel">
+      <div ref={panelRef} tabIndex={-1} className="rpl-command-panel">
         <div className="rpl-command-header">
           <Icon name="search" size={16} />
           <input
-            autoFocus
+            ref={inputRef}
             className="rpl-command-input"
             value={query}
             onChange={(event) => setQuery(event.target.value)}

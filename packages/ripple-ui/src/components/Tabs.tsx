@@ -18,6 +18,7 @@ export interface TabProps extends React.ButtonHTMLAttributes<HTMLButtonElement> 
 
 export function Tabs({ className = "", stretch = false, size = "md", variant = "pill", children, ...props }: TabsProps) {
   const containerRef = useRef(null);
+  const tabRefs = useRef<Array<HTMLButtonElement | null>>([]);
   const [indicatorStyle, setIndicatorStyle] = useState(null);
 
   const items = useMemo(
@@ -51,10 +52,32 @@ export function Tabs({ className = "", stretch = false, size = "md", variant = "
       ref={containerRef}
       className={cx("rpl-tabs", `rpl-tabs-${size}`, `rpl-tabs-${variant}`, stretch && "rpl-tabs-stretch", className)}
       role="tablist"
+      onKeyDown={(event) => {
+        const currentIndex = tabRefs.current.findIndex((node) => node === document.activeElement);
+        if (event.key === "ArrowRight") {
+          event.preventDefault();
+          tabRefs.current[(currentIndex + 1 + tabRefs.current.length) % tabRefs.current.length]?.focus();
+        } else if (event.key === "ArrowLeft") {
+          event.preventDefault();
+          tabRefs.current[(currentIndex - 1 + tabRefs.current.length) % tabRefs.current.length]?.focus();
+        } else if (event.key === "Home") {
+          event.preventDefault();
+          tabRefs.current[0]?.focus();
+        } else if (event.key === "End") {
+          event.preventDefault();
+          tabRefs.current[tabRefs.current.length - 1]?.focus();
+        }
+      }}
       {...props}
     >
       {indicatorStyle ? <span className="rpl-tabs-indicator" style={indicatorStyle} aria-hidden="true" /> : null}
-      {items}
+      {items.map((item, index) =>
+        cloneElement(item as React.ReactElement<any>, {
+          ref: (node: HTMLButtonElement | null) => {
+            tabRefs.current[index] = node;
+          },
+        }),
+      )}
     </div>
   );
 }

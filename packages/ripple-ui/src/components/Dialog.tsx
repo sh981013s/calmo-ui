@@ -1,5 +1,6 @@
-import React, { useEffect } from "react";
+import React, { useRef } from "react";
 import { cx } from "../utils/cx.js";
+import useOverlayLifecycle from "../hooks/useOverlayLifecycle.js";
 
 export interface DialogProps {
   open: boolean;
@@ -26,24 +27,8 @@ export default function Dialog({
   panelClassName = "",
   children,
 }: DialogProps) {
-  useEffect(() => {
-    if (!open) return undefined;
-
-    const previousOverflow = document.body.style.overflow;
-    document.body.style.overflow = "hidden";
-
-    const handleKeyDown = (event) => {
-      if (event.key === "Escape") {
-        onClose?.();
-      }
-    };
-
-    window.addEventListener("keydown", handleKeyDown);
-    return () => {
-      document.body.style.overflow = previousOverflow;
-      window.removeEventListener("keydown", handleKeyDown);
-    };
-  }, [open, onClose]);
+  const panelRef = useRef<HTMLDivElement | null>(null);
+  useOverlayLifecycle({ open, onClose, panelRef });
 
   if (!open) {
     return null;
@@ -60,7 +45,7 @@ export default function Dialog({
         }
       }}
     >
-      <div className={cx("rpl-dialog-panel", `rpl-dialog-panel-${size}`, panelClassName)}>
+      <div ref={panelRef} tabIndex={-1} className={cx("rpl-dialog-panel", `rpl-dialog-panel-${size}`, panelClassName)}>
         {title || description ? (
           <div className="rpl-dialog-header">
             {title ? <div className="rpl-dialog-title">{title}</div> : null}

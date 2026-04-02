@@ -8,6 +8,7 @@ export default function SegmentedControl({
   className = "",
 }) {
   const containerRef = useRef(null);
+  const optionRefs = useRef<Array<HTMLButtonElement | null>>([]);
   const [indicatorStyle, setIndicatorStyle] = useState(null);
   const currentIndex = options.findIndex((option) => (option.value ?? option.key) === value);
 
@@ -47,6 +48,18 @@ export default function SegmentedControl({
           event.preventDefault();
           moveFocus(-1);
         }
+        if (event.key === "Home") {
+          event.preventDefault();
+          const first = options[0];
+          if (first) onChange?.(first.value ?? first.key);
+          optionRefs.current[0]?.focus();
+        }
+        if (event.key === "End") {
+          event.preventDefault();
+          const last = options[options.length - 1];
+          if (last) onChange?.(last.value ?? last.key);
+          optionRefs.current[options.length - 1]?.focus();
+        }
       }}
     >
       {indicatorStyle ? <span className="rpl-segmented-indicator" style={indicatorStyle} aria-hidden="true" /> : null}
@@ -57,6 +70,9 @@ export default function SegmentedControl({
         return (
           <button
             key={optionValue}
+            ref={(node) => {
+              optionRefs.current[index] = node;
+            }}
             type="button"
             role="tab"
             aria-selected={active}

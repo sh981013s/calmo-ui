@@ -4392,3 +4392,60 @@
 .rpl-agreement-gradient-sheet .rpl-sheet-panel {
   background: linear-gradient(180deg, #f7fbff, #ffffff 24%);
 }
+
+.rpl-dialog-panel:focus-visible,
+.rpl-sheet-panel:focus-visible,
+.rpl-popover-panel:focus-visible,
+.rpl-command-panel:focus-visible,
+.rpl-datepicker-panel:focus-visible {
+  outline: 2px solid rgba(49, 130, 246, 0.28);
+  outline-offset: 2px;
+}
+
+.rpl-menu-item.is-active,
+.rpl-menu-item:focus-visible,
+.rpl-dropdown-item:focus-visible,
+.rpl-search-field-suggestion.is-active,
+.rpl-search-field-suggestion:focus-visible {
+  background: #eaf2ff;
+  color: var(--rpl-color-accent-strong);
+  outline: none;
+}
+
+.rpl-search-field-suggestion {
+  transition: background-color 160ms var(--rpl-ease-standard), color 160ms var(--rpl-ease-standard), transform 120ms var(--rpl-ease-standard);
+}
+
+.rpl-search-field-suggestion:active {
+  transform: scale(0.985);
+}
+
+.rpl-tab:focus-visible,
+.rpl-segmented-option:focus-visible,
+.rpl-select-option:focus-visible,
+.rpl-command-item:focus-visible,
+.rpl-keypad-key:focus-visible,
+.rpl-input-affix-button:focus-visible,
+.rpl-input-inline-action:focus-visible {
+  outline: 2px solid rgba(49, 130, 246, 0.26);
+  outline-offset: 2px;
+}
+
+.rpl-command-item.is-active {
+  background: #eef4ff;
+}
+
+.rpl-select-option.is-highlighted {
+  background: #f3f7fb;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}

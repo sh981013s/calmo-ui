@@ -1,8 +1,9 @@
-import React, { useEffect } from "react";
+import React, { useRef } from "react";
 import { cx } from "../utils/cx.js";
 import Button from "./Button.js";
 import Inline from "../primitives/Inline.js";
 import TextButton from "./TextButton.js";
+import useOverlayLifecycle from "../hooks/useOverlayLifecycle.js";
 
 function renderActions({
   footer,
@@ -65,24 +66,8 @@ function BottomSheet({
   panelClassName = "",
   children,
 }) {
-  useEffect(() => {
-    if (!open) return undefined;
-
-    const previousOverflow = document.body.style.overflow;
-    document.body.style.overflow = "hidden";
-
-    const handleKeyDown = (event) => {
-      if (event.key === "Escape") {
-        onClose?.();
-      }
-    };
-
-    window.addEventListener("keydown", handleKeyDown);
-    return () => {
-      document.body.style.overflow = previousOverflow;
-      window.removeEventListener("keydown", handleKeyDown);
-    };
-  }, [open, onClose]);
+  const panelRef = useRef<HTMLDivElement | null>(null);
+  useOverlayLifecycle({ open, onClose, panelRef, trapFocus: false });
 
   if (!open) {
     return null;
@@ -99,7 +84,7 @@ function BottomSheet({
         }
       }}
     >
-      <div className={cx("rpl-sheet-panel", `rpl-sheet-panel-${size}`, `rpl-sheet-panel-${variant}`, panelClassName)}>
+      <div ref={panelRef} tabIndex={-1} className={cx("rpl-sheet-panel", `rpl-sheet-panel-${size}`, `rpl-sheet-panel-${variant}`, panelClassName)}>
         <div className="rpl-sheet-handle" aria-hidden="true"></div>
         {header || description ? (
           <div className="rpl-sheet-header-wrap">

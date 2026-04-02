@@ -4,6 +4,7 @@ import Inline from "../primitives/Inline.js";
 import Button from "./Button.js";
 import Icon from "./Icon.js";
 import Text from "./Text.js";
+import useOverlayLifecycle from "../hooks/useOverlayLifecycle.js";
 
 function pad(value) {
   return String(value).padStart(2, "0");
@@ -72,7 +73,9 @@ export default function DatePicker({
   const [internalValue, setInternalValue] = useState(controlled ? value : defaultValue);
   const [open, setOpen] = useState(false);
   const [draftDate, setDraftDate] = useState(initialDate);
-  const rootRef = useRef(null);
+  const rootRef = useRef<HTMLDivElement | null>(null);
+  const panelRef = useRef<HTMLDivElement | null>(null);
+  const closeButtonRef = useRef<HTMLButtonElement | null>(null);
 
   const currentValue = controlled ? value : internalValue;
   const selectedDate = parseDate(currentValue);
@@ -98,30 +101,23 @@ export default function DatePicker({
     }
   }, [currentValue]);
 
+  useOverlayLifecycle({
+    open,
+    onClose: () => setOpen(false),
+    panelRef,
+    initialFocusRef: closeButtonRef,
+    trapFocus: true,
+  });
+
   useEffect(() => {
     if (!open) return undefined;
-
-    const handlePointerDown = (event) => {
-      if (rootRef.current && !rootRef.current.contains(event.target)) {
+    const handlePointerDown = (event: MouseEvent) => {
+      if (rootRef.current && !rootRef.current.contains(event.target as Node)) {
         setOpen(false);
       }
     };
-
-    const handleKeyDown = (event) => {
-      if (event.key === "Escape") {
-        setOpen(false);
-      }
-    };
-
     document.addEventListener("mousedown", handlePointerDown);
-    window.addEventListener("keydown", handleKeyDown);
-    document.body.style.overflow = "hidden";
-
-    return () => {
-      document.removeEventListener("mousedown", handlePointerDown);
-      window.removeEventListener("keydown", handleKeyDown);
-      document.body.style.overflow = "";
-    };
+    return () => document.removeEventListener("mousedown", handlePointerDown);
   }, [open]);
 
   const commitValue = (nextDate) => {
@@ -202,14 +198,14 @@ export default function DatePicker({
       {open ? (
         <div className="rpl-datepicker-sheet" role="dialog" aria-modal="true">
           <button type="button" className="rpl-datepicker-backdrop" aria-label="Close date picker" onClick={() => setOpen(false)} />
-          <div className={cx("rpl-datepicker-panel", compact && "rpl-datepicker-panel-compact")}>
+          <div ref={panelRef} tabIndex={-1} className={cx("rpl-datepicker-panel", compact && "rpl-datepicker-panel-compact")}>
             <div className="rpl-datepicker-panel-handle" />
             <div className="rpl-datepicker-panel-header">
               <div>
                 <Text variant="label" className="rpl-datepicker-panel-eyebrow">{sheetEyebrow}</Text>
                 <Text variant="title">{sheetTitle}</Text>
               </div>
-              <button type="button" className="rpl-datepicker-icon-button" onClick={() => setOpen(false)} aria-label="Close date picker">
+              <button ref={closeButtonRef} type="button" className="rpl-datepicker-icon-button" onClick={() => setOpen(false)} aria-label="Close date picker">
                 <Icon name="close" size={18} />
               </button>
             </div>

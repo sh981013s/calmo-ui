@@ -50,7 +50,9 @@ export default function Select({
   ...props
 }) {
   const rootRef = useRef(null);
-  const optionRefs = useRef([]);
+  const buttonRef = useRef<HTMLButtonElement | null>(null);
+  const searchRef = useRef<HTMLInputElement | null>(null);
+  const optionRefs = useRef<Array<HTMLButtonElement | null>>([]);
   const controlled = value !== undefined;
   const [internalValue, setInternalValue] = useState(controlled ? value : defaultValue);
   const [open, setOpen] = useState(false);
@@ -89,6 +91,7 @@ export default function Select({
     return () => {
       document.removeEventListener("mousedown", handlePointerDown);
       window.removeEventListener("keydown", handleKeyDown);
+      buttonRef.current?.focus?.();
     };
   }, [open]);
 
@@ -106,6 +109,12 @@ export default function Select({
     if (!open || highlightedIndex < 0) return;
     optionRefs.current[highlightedIndex]?.scrollIntoView({ block: "nearest" });
   }, [open, highlightedIndex]);
+
+  useEffect(() => {
+    if (open && searchable) {
+      window.requestAnimationFrame(() => searchRef.current?.focus());
+    }
+  }, [open, searchable]);
 
   const moveHighlight = (direction) => {
     if (!filteredOptions.length) return;
@@ -138,6 +147,7 @@ export default function Select({
         </Text>
       ) : null}
       <button
+        ref={buttonRef}
         type="button"
         className={cx(
           "rpl-input-shell",
@@ -210,6 +220,7 @@ export default function Select({
             <div className="rpl-select-search">
               <Icon name="search" size={16} className="rpl-select-search-icon" />
               <input
+                ref={searchRef}
                 className="rpl-select-search-input"
                 value={query}
                 onChange={(event) => setQuery(event.target.value)}

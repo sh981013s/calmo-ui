@@ -14,6 +14,12 @@ export default function SearchField({
   panelClassName = "",
   ...props
 }) {
+  const [activeIndex, setActiveIndex] = React.useState(-1);
+
+  React.useEffect(() => {
+    setActiveIndex(suggestions.length ? 0 : -1);
+  }, [suggestions]);
+
   return (
     <div className="rpl-search-field">
       <SearchBar
@@ -21,6 +27,21 @@ export default function SearchField({
         onChange={onChange}
         clearable={clearable}
         onClear={onClear}
+        onKeyDown={(event) => {
+          if (!suggestions.length) return;
+          if (event.key === "ArrowDown") {
+            event.preventDefault();
+            setActiveIndex((prev) => (prev + 1) % suggestions.length);
+          } else if (event.key === "ArrowUp") {
+            event.preventDefault();
+            setActiveIndex((prev) => (prev - 1 + suggestions.length) % suggestions.length);
+          } else if (event.key === "Enter" && activeIndex >= 0) {
+            event.preventDefault();
+            onSuggestionSelect?.(suggestions[activeIndex]!);
+          } else if (event.key === "Escape") {
+            setActiveIndex(-1);
+          }
+        }}
         {...props}
       />
       {resultCount !== undefined || suggestions.length ? (
@@ -32,11 +53,12 @@ export default function SearchField({
           ) : null}
           {suggestions.length ? (
             <div className="rpl-search-field-suggestions">
-              {suggestions.map((item) => (
+              {suggestions.map((item, index) => (
                 <button
                   key={item}
                   type="button"
-                  className="rpl-search-field-suggestion"
+                  className={cx("rpl-search-field-suggestion", index === activeIndex && "is-active")}
+                  onMouseEnter={() => setActiveIndex(index)}
                   onClick={() => onSuggestionSelect?.(item)}
                 >
                   {item}

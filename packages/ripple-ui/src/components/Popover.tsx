@@ -24,7 +24,9 @@ export default function Popover({
   placement = "bottom",
   align = "start",
 }: PopoverProps) {
-  const rootRef = useRef(null);
+  const rootRef = useRef<HTMLDivElement | null>(null);
+  const triggerRef = useRef<HTMLElement | null>(null);
+  const panelRef = useRef<HTMLDivElement | null>(null);
   const panelId = useId();
 
   useEffect(() => {
@@ -48,13 +50,26 @@ export default function Popover({
     return () => {
       document.removeEventListener("mousedown", handlePointerDown);
       window.removeEventListener("keydown", handleKeyDown);
+      triggerRef.current?.focus?.();
     };
   }, [open, onClose]);
+
+  useEffect(() => {
+    if (open) {
+      panelRef.current?.focus?.();
+    }
+  }, [open]);
 
   const triggerNode = isValidElement(trigger)
     ? cloneElement(trigger, {
         "aria-expanded": open,
         "aria-controls": panelId,
+        ref: (node: HTMLElement | null) => {
+          triggerRef.current = node;
+          const originalRef = (trigger as React.ReactElement & { ref?: React.Ref<HTMLElement> }).ref;
+          if (typeof originalRef === "function") originalRef(node);
+          else if (originalRef && typeof originalRef === "object") (originalRef as React.MutableRefObject<HTMLElement | null>).current = node;
+        },
       } as Record<string, unknown>)
     : trigger;
 
@@ -65,7 +80,7 @@ export default function Popover({
     >
       {triggerNode}
       {open ? (
-        <div id={panelId} className={cx("rpl-popover-panel", panelClassName)} style={panelStyle} role="dialog" aria-modal="false">
+        <div ref={panelRef} tabIndex={-1} id={panelId} className={cx("rpl-popover-panel", panelClassName)} style={panelStyle} role="dialog" aria-modal="false">
           {children}
         </div>
       ) : null}
