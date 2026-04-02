@@ -34,7 +34,7 @@
     "README.md"
   ],
   "scripts": {
-    "build": "node ./scripts/generate-deep-types.mjs && rm -rf dist && tsc -p tsconfig.json && cp src/styles.css dist/styles.css && cp src/tokens.css dist/tokens.css && cp types/index.d.ts dist/index.d.ts && mkdir -p dist/components dist/primitives && cp types/components/*.d.ts dist/components/ && cp types/primitives/*.d.ts dist/primitives/",
+    "build": "node ./scripts/generate-deep-types.mjs && rm -rf dist && tsc -p tsconfig.json && cp src/styles.css dist/styles.css && cp src/tokens.css dist/tokens.css && cp types/index.d.ts dist/index.d.ts && mkdir -p dist/components dist/primitives dist/ai dist/docs dist/templates && cp types/components/*.d.ts dist/components/ && cp types/primitives/*.d.ts dist/primitives/ && cp ../../ai/*.json dist/ai/ && cp ../../docs/AI_USAGE.md dist/docs/AI_USAGE.md && cp ../../docs/AI_PROMPT_TEMPLATE.md dist/docs/AI_PROMPT_TEMPLATE.md && cp ../../docs/AGENTS.md.template dist/templates/AGENTS.md",
     "clean": "rm -rf dist"
   },
   "exports": {
@@ -58,6 +58,12 @@
       "types": "./dist/utils/*.d.ts",
       "import": "./dist/utils/*.js"
     },
+    "./ai/components.json": "./dist/ai/components.json",
+    "./ai/patterns.json": "./dist/ai/patterns.json",
+    "./ai/anti-patterns.json": "./dist/ai/anti-patterns.json",
+    "./docs/AI_USAGE.md": "./dist/docs/AI_USAGE.md",
+    "./docs/AI_PROMPT_TEMPLATE.md": "./dist/docs/AI_PROMPT_TEMPLATE.md",
+    "./templates/AGENTS.md": "./dist/templates/AGENTS.md",
     "./styles.css": "./dist/styles.css",
     "./tokens.css": "./dist/tokens.css"
   },

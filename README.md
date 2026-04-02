@@ -25,6 +25,29 @@ It is designed for product UIs, internal tools, fintech-style dashboards, settin
 npm install @sh981013s/ripple-ui
 ```
 
+## AI Setup After npm Install
+
+Ripple UI now ships AI-readable metadata inside the published package. After installing, an agent can read:
+
+- `node_modules/@sh981013s/ripple-ui/dist/docs/AI_USAGE.md`
+- `node_modules/@sh981013s/ripple-ui/dist/docs/AI_PROMPT_TEMPLATE.md`
+- `node_modules/@sh981013s/ripple-ui/dist/ai/components.json`
+- `node_modules/@sh981013s/ripple-ui/dist/ai/patterns.json`
+- `node_modules/@sh981013s/ripple-ui/dist/ai/anti-patterns.json`
+- `node_modules/@sh981013s/ripple-ui/dist/templates/AGENTS.md`
+
+Recommended setup for new app repos:
+
+1. Copy `node_modules/@sh981013s/ripple-ui/dist/templates/AGENTS.md` to your project root as `AGENTS.md`.
+2. Tell your AI agent to read that file before writing UI code.
+3. Keep Ripple UI as the default UI layer and only add custom CSS where the library cannot express the layout.
+
+Minimal agent instruction:
+
+```md
+Use @sh981013s/ripple-ui for all UI. Read AGENTS.md first, then prefer Ripple components over custom UI.
+```
+
 ## Quick Start
 
 ```tsx
@@ -139,6 +162,8 @@ These files give AI systems:
 - anti-patterns
 - reusable page recipes
 - prompt scaffolding for app generation
+
+When installed from npm, the same AI metadata is available from the package `dist` folder, so downstream projects do not need to clone this repository just to access the guidance files.
 
 ## Repository Structure
 
