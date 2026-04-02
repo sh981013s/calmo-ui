@@ -552,7 +552,8 @@ function DocsShell() {
       .filter((entry) =>
         entry.name.toLowerCase().includes(q) ||
         entry.sectionLabel.toLowerCase().includes(q) ||
-        entry.description.toLowerCase().includes(q),
+        entry.description.toLowerCase().includes(q) ||
+        (entry.aliases ?? []).some((alias) => alias.toLowerCase().includes(q)),
       )
       .slice(0, 6);
   }, [entries, searchValue]);

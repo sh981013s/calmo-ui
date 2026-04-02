@@ -4471,6 +4471,7 @@ const docs = [
       {
         name: "ThemeProvider",
         eyebrow: "utility",
+        aliases: ["theme", "theming", "provider", "brand", "palette", "color system"],
         description: "Scopes a seed-driven theme to any subtree and recalculates component tokens from accent, ink, and background.",
         props: [
           { name: "theme", type: "RippleThemeDefinition", defaultValue: "defaultRippleTheme", description: "Preset or custom seed object." },
@@ -4482,6 +4483,7 @@ const docs = [
       {
         name: "rippleThemePresets",
         eyebrow: "utility",
+        aliases: ["theme presets", "preset themes", "colors", "brand presets", "palette presets"],
         description: "Five built-in theme presets for quick brand switching inside docs and product shells.",
         props: [
           { name: "id / label", type: "string", defaultValue: "-", description: "Preset metadata." },
@@ -4493,6 +4495,7 @@ const docs = [
       {
         name: "buildRippleThemeVars",
         eyebrow: "utility",
+        aliases: ["theme vars", "css variables", "tokens", "seed colors", "custom theme"],
         description: "Converts three seed colors plus optional semantic colors into CSS custom properties used by all components.",
         props: [
           { name: "accent", type: "string", defaultValue: "-", description: "Primary brand/action color." },
@@ -4592,6 +4595,7 @@ export function getAllDocEntries() {
   return docsCatalog.flatMap((section) => section.components.map((component) => ({
     sectionId: section.id,
     sectionLabel: section.label,
+    aliases: component.aliases ?? [],
     ...component,
   })));
 }

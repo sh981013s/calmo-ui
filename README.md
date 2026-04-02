@@ -27,33 +27,56 @@ npm install @sh981013s/ripple-ui
 import "@sh981013s/ripple-ui/tokens.css";
 import "@sh981013s/ripple-ui/styles.css";
 import {
+  Badge,
   Button,
   Card,
-  Input,
-  SectionHeader,
+  ThemeProvider,
   Stack,
-  Text,
+  TextField,
+  rippleThemePresets,
 } from "@sh981013s/ripple-ui";
 
 export default function Example() {
   return (
-    <Card>
-      <Stack gap={20}>
-        <SectionHeader
-          eyebrow="workspace"
-          title="Create workspace"
-          description="Use Ripple UI to build calm product interfaces."
-        />
-        <Input
-          label="Workspace name"
-          placeholder="Enter workspace name"
-          validationState="success"
-          validationMessage="This name is available."
-        />
-        <Text variant="caption">Primary actions should remain clear and singular.</Text>
-        <Button>Create workspace</Button>
-      </Stack>
-    </Card>
+    <ThemeProvider theme={rippleThemePresets[1]}>
+      <Card>
+        <Stack gap={20}>
+          <Badge tone="accent">Jade theme</Badge>
+          <TextField
+            label="Workspace name"
+            placeholder="Enter workspace name"
+            validationState="success"
+            validationMessage="This name is available."
+          />
+          <Button>Create workspace</Button>
+        </Stack>
+      </Card>
+    </ThemeProvider>
+  );
+}
+```
+
+## Theming
+
+Ripple UI ships with five preset themes and a seed-driven theme API.
+
+```jsx
+import {
+  ThemeProvider,
+  buildRippleThemeVars,
+} from "@sh981013s/ripple-ui";
+
+const vars = buildRippleThemeVars({
+  accent: "#0EA5E9",
+  ink: "#0F172A",
+  bg: "#F8FAFC",
+});
+
+export default function Example() {
+  return (
+    <ThemeProvider theme={{ accent: "#0EA5E9", ink: "#0F172A", bg: "#F8FAFC" }}>
+      <App />
+    </ThemeProvider>
   );
 }
 ```
