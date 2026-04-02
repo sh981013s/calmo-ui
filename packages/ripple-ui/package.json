@@ -46,6 +46,14 @@
       "types": "./dist/primitives/*.d.ts",
       "import": "./dist/primitives/*.js"
     },
+    "./hooks/*": {
+      "types": "./dist/hooks/*.d.ts",
+      "import": "./dist/hooks/*.js"
+    },
+    "./utils/*": {
+      "types": "./dist/utils/*.d.ts",
+      "import": "./dist/utils/*.js"
+    },
     "./styles.css": "./dist/styles.css",
     "./tokens.css": "./dist/tokens.css"
   },
@@ -56,6 +64,12 @@
       ],
       "primitives/*": [
         "dist/primitives/*"
+      ],
+      "hooks/*": [
+        "dist/hooks/*"
+      ],
+      "utils/*": [
+        "dist/utils/*"
       ]
     }
   },

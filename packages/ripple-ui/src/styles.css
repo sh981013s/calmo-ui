@@ -3347,6 +3347,188 @@
   background: linear-gradient(180deg, #ffffff 0%, #fff5f5 100%);
 }
 
+.rpl-icon-core {
+  display: inline-block;
+  flex: 0 0 auto;
+}
+
+.rpl-bubble {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  min-height: 32px;
+  padding: 8px 12px;
+  border: 1px solid var(--rpl-color-line);
+  border-radius: 16px;
+  background: #ffffff;
+  box-shadow: var(--rpl-shadow-card), var(--rpl-shadow-inset);
+  color: var(--rpl-color-text-primary);
+}
+
+.rpl-bubble-default { background: #ffffff; }
+.rpl-bubble-accent { background: var(--rpl-color-surface-accent); }
+.rpl-bubble-success { background: var(--rpl-color-surface-success); }
+.rpl-bubble-warning { background: var(--rpl-color-surface-warning); }
+.rpl-bubble-danger { background: #fff5f5; }
+
+.rpl-bubble-arrow::after {
+  content: "";
+  position: absolute;
+  left: 20px;
+  width: 10px;
+  height: 10px;
+  border-right: 1px solid var(--rpl-color-line);
+  border-bottom: 1px solid var(--rpl-color-line);
+  background: inherit;
+  transform: rotate(45deg);
+}
+
+.rpl-bubble-top::after { bottom: -6px; }
+.rpl-bubble-bottom::after { top: -6px; transform: rotate(225deg); }
+
+.rpl-full-tooltip {
+  position: relative;
+  display: inline-flex;
+}
+
+.rpl-full-tooltip-bubble {
+  position: absolute;
+  left: 50%;
+  z-index: 20;
+  width: min(260px, 70vw);
+  display: grid;
+  gap: 4px;
+  opacity: 0;
+  pointer-events: none;
+  transform: translate(-50%, -6px) scale(0.98);
+  transition: opacity 180ms ease, transform 180ms ease;
+}
+
+.rpl-full-tooltip-bubble.rpl-bubble-top { bottom: calc(100% + 12px); }
+.rpl-full-tooltip-bubble.rpl-bubble-bottom { top: calc(100% + 12px); }
+.rpl-full-tooltip-bubble.is-open {
+  opacity: 1;
+  pointer-events: auto;
+  transform: translate(-50%, 0) scale(1);
+}
+
+.rpl-full-tooltip-title { color: var(--rpl-color-text-primary); }
+.rpl-full-tooltip-description { color: var(--rpl-color-text-secondary); }
+.rpl-full-tooltip-action { margin-top: 2px; }
+
+.rpl-slider-tooltip {
+  min-width: 48px;
+  justify-content: center;
+  font-weight: 600;
+}
+
+.rpl-color-scheme-area {
+  display: grid;
+  gap: 14px;
+  padding: 18px;
+  border: 1px solid var(--rpl-color-line);
+  border-radius: 24px;
+  background: #ffffff;
+  box-shadow: var(--rpl-shadow-card), var(--rpl-shadow-inset);
+}
+
+.rpl-color-scheme-area-header {
+  display: grid;
+  gap: 4px;
+}
+
+.rpl-color-scheme-area-grid {
+  display: grid;
+  gap: 12px;
+}
+
+.rpl-color-scheme-area-item {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.rpl-color-scheme-area-swatch {
+  width: 36px;
+  height: 36px;
+  border-radius: 14px;
+  border: 1px solid rgba(15, 23, 42, 0.08);
+  flex: 0 0 auto;
+}
+
+.rpl-color-scheme-area-copy {
+  display: grid;
+  gap: 2px;
+}
+
+.rpl-wheel {
+  position: relative;
+  flex: 1 1 0;
+  min-width: 0;
+  padding: 12px 0;
+}
+
+.rpl-wheel-window {
+  position: absolute;
+  inset: 50% 0 auto;
+  height: 40px;
+  transform: translateY(-50%);
+  border-radius: 14px;
+  background: var(--rpl-color-surface-muted);
+  border: 1px solid var(--rpl-color-line);
+}
+
+.rpl-wheel-options {
+  position: relative;
+  display: grid;
+  gap: 8px;
+  max-height: calc(var(--rpl-wheel-visible-count, 5) * 40px);
+  overflow: auto;
+  padding: 36px 0;
+  scrollbar-width: none;
+}
+
+.rpl-wheel-options::-webkit-scrollbar { display: none; }
+
+.rpl-wheel-option {
+  position: relative;
+  z-index: 1;
+  height: 40px;
+  border: 0;
+  background: transparent;
+  color: var(--rpl-color-text-tertiary);
+  font: inherit;
+  cursor: pointer;
+  transition: color 180ms ease, transform 180ms ease;
+}
+
+.rpl-wheel-option.is-active {
+  color: var(--rpl-color-text-primary);
+  font-weight: 600;
+  transform: scale(1.02);
+}
+
+.rpl-wheel-option:disabled {
+  color: var(--rpl-color-text-disabled);
+  cursor: not-allowed;
+}
+
+.rpl-wheel-date-sheet {
+  display: flex;
+  gap: 12px;
+}
+
+.rpl-highlight-mark {
+  padding: 0 4px;
+  border-radius: 8px;
+  background: var(--rpl-color-surface-accent);
+  color: inherit;
+}
+
+.rpl-highlight-success { background: var(--rpl-color-surface-success); }
+.rpl-highlight-warning { background: var(--rpl-color-surface-warning); }
+
 .rpl-loading-complete-icon {
   display: inline-flex;
   align-items: center;

@@ -112,6 +112,22 @@ export interface PopoverProps {
   align?: "start" | "center" | "end";
 }
 export declare function Popover(props: PopoverProps): React.JSX.Element;
+export interface BubbleProps extends React.HTMLAttributes<HTMLDivElement> {
+  tone?: "default" | "accent" | "success" | "warning" | "danger";
+  placement?: "top" | "bottom";
+  arrow?: boolean;
+  children?: React.ReactNode;
+}
+export declare function Bubble(props: BubbleProps): React.JSX.Element;
+export interface FullTooltipProps {
+  title?: React.ReactNode;
+  description?: React.ReactNode;
+  action?: React.ReactNode;
+  placement?: "top" | "bottom";
+  className?: string;
+  children?: React.ReactNode;
+}
+export declare function FullTooltip(props: FullTooltipProps): React.JSX.Element;
 
 export interface AlertDialogProps extends Omit<DialogProps, "footer" | "children"> {
   confirmLabel?: React.ReactNode;
@@ -209,6 +225,11 @@ export interface IconProps extends React.SVGProps<SVGSVGElement> {
 }
 export declare function Icon(props: IconProps): React.JSX.Element;
 export declare const iconNames: string[];
+export interface IconCoreProps extends React.SVGProps<SVGSVGElement> {
+  size?: number;
+  children?: React.ReactNode;
+}
+export declare function IconCore(props: IconCoreProps): React.JSX.Element;
 
 export interface IconButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
   tone?: "default" | "accent" | "subtle";
@@ -343,6 +364,18 @@ export interface DatePickerProps {
 export declare function DatePicker(props: DatePickerProps): React.JSX.Element;
 export declare function DatePickerCompact(props: DatePickerProps): React.JSX.Element;
 export declare function WheelDatePicker(props: DatePickerProps): React.JSX.Element;
+export interface WheelDateSheetProps {
+  open: boolean;
+  onClose?: () => void;
+  value?: string;
+  defaultValue?: string;
+  onChange?: (event: { target: { value: string }; currentTarget: { value: string } }) => void;
+  minYear?: number;
+  maxYear?: number;
+  title?: React.ReactNode;
+  description?: React.ReactNode;
+}
+export declare function WheelDateSheet(props: WheelDateSheetProps): React.JSX.Element;
 
 export interface SelectProps {
   label?: React.ReactNode;
@@ -379,6 +412,18 @@ export interface SelectorProps extends React.ButtonHTMLAttributes<HTMLButtonElem
   children?: React.ReactNode;
 }
 export declare function Selector(props: SelectorProps): React.JSX.Element;
+export interface WheelOption {
+  label: React.ReactNode;
+  value: string | number;
+  disabled?: boolean;
+}
+export interface WheelProps extends React.HTMLAttributes<HTMLDivElement> {
+  options?: WheelOption[];
+  value?: string | number;
+  onChange?: (value: string | number) => void;
+  visibleCount?: number;
+}
+export declare function Wheel(props: WheelProps): React.JSX.Element;
 
 export interface SwitchProps extends Omit<React.InputHTMLAttributes<HTMLInputElement>, "size" | "type"> {
   checked?: boolean;
@@ -641,6 +686,11 @@ export interface FadeInProps extends React.HTMLAttributes<HTMLElement> {
   children?: React.ReactNode;
 }
 export declare function FadeIn(props: FadeInProps): React.JSX.Element;
+export interface FontScaleLimitProps extends React.HTMLAttributes<HTMLDivElement> {
+  max?: number;
+  children?: React.ReactNode;
+}
+export declare function FontScaleLimit(props: FontScaleLimitProps): React.JSX.Element;
 
 export interface GridListProps extends React.HTMLAttributes<HTMLDivElement> {
   columns?: number;
@@ -648,6 +698,12 @@ export interface GridListProps extends React.HTMLAttributes<HTMLDivElement> {
   children?: React.ReactNode;
 }
 export declare function GridList(props: GridListProps): React.JSX.Element;
+export interface HighlightProps extends React.HTMLAttributes<HTMLSpanElement> {
+  text: string;
+  query?: string;
+  tone?: "accent" | "success" | "warning";
+}
+export declare function Highlight(props: HighlightProps): React.JSX.Element;
 
 export interface ProgressBarProps extends React.HTMLAttributes<HTMLDivElement> {
   value?: number;
@@ -770,6 +826,12 @@ export interface SliderProps extends Omit<React.InputHTMLAttributes<HTMLInputEle
   className?: string;
 }
 export declare function Slider(props: SliderProps): React.JSX.Element;
+export interface SliderTooltipProps extends React.HTMLAttributes<HTMLDivElement> {
+  value?: number | string;
+  tone?: "default" | "accent" | "success" | "warning" | "danger";
+  placement?: "top" | "bottom";
+}
+export declare function SliderTooltip(props: SliderTooltipProps): React.JSX.Element;
 
 export interface BarChartDatum {
   key?: React.Key;
@@ -783,6 +845,18 @@ export interface BarChartProps extends React.HTMLAttributes<HTMLDivElement> {
   showValue?: boolean;
 }
 export declare function BarChart(props: BarChartProps): React.JSX.Element;
+export interface ColorSchemeItem {
+  key?: React.Key;
+  label: React.ReactNode;
+  value: string;
+  description?: React.ReactNode;
+}
+export interface ColorSchemeAreaProps extends React.HTMLAttributes<HTMLDivElement> {
+  title?: React.ReactNode;
+  description?: React.ReactNode;
+  items?: ColorSchemeItem[];
+}
+export declare function ColorSchemeArea(props: ColorSchemeAreaProps): React.JSX.Element;
 
 export interface BottomInfoProps extends React.HTMLAttributes<HTMLDivElement> {
   icon?: React.ReactNode;
@@ -816,6 +890,18 @@ export interface SpacingProps extends React.HTMLAttributes<HTMLDivElement> {
   size?: number;
 }
 export declare function Spacing(props: SpacingProps): React.JSX.Element;
+export interface IOSFontA11yStyleValue extends React.CSSProperties {}
+export declare const IOSFontA11yStyle: IOSFontA11yStyleValue;
+export type SafeAreaEdge = "top" | "right" | "bottom" | "left";
+export declare function safeAreaInset(edge: SafeAreaEdge, fallback?: number): string;
+export interface UseBottomSheetResult {
+  open: boolean;
+  openSheet: () => void;
+  closeSheet: () => void;
+  toggleSheet: () => void;
+  setOpen: React.Dispatch<React.SetStateAction<boolean>>;
+}
+export declare function useBottomSheet(initialOpen?: boolean): UseBottomSheetResult;
 
 export interface ListHeaderRightTextProps extends React.HTMLAttributes<HTMLSpanElement> {
   children?: React.ReactNode;

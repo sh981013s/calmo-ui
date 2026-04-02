@@ -11,6 +11,7 @@ import {
   Border,
   BottomInfo,
   BottomSheet,
+  Bubble,
   Button,
   Card,
   Checkbox,
@@ -25,7 +26,10 @@ import {
   Divider,
   EmptyState,
   FadeIn,
+  FontScaleLimit,
+  FullTooltip,
   Icon,
+  IconCore,
   IconButton,
   iconNames,
   InfoRow,
@@ -76,6 +80,7 @@ import {
   Stack,
   Stepper,
   Slider,
+  SliderTooltip,
   Surface,
   Switch,
   Tab,
@@ -100,10 +105,17 @@ import {
   TopTitleSelector,
   Pagination,
   Modal,
+  ColorSchemeArea,
   FullScreenLoader,
   GridList,
+  Highlight,
+  IOSFontA11yStyle,
   LoadingCompleteView,
+  Wheel,
   WheelDatePicker,
+  WheelDateSheet,
+  safeAreaInset,
+  useBottomSheet,
 } from "@sh981013s/ripple-ui";
 
 function useCopyFeedback() {
@@ -210,6 +222,126 @@ function InteractiveIconsPreview() {
         ))}
       </div>
     </Stack>
+  );
+}
+
+function BubblePlayground() {
+  return (
+    <Inline gap={12} wrap>
+      <Bubble>Default bubble</Bubble>
+      <Bubble tone="accent">Accent bubble</Bubble>
+      <Bubble tone="success" placement="bottom">Success bubble</Bubble>
+    </Inline>
+  );
+}
+
+function FullTooltipPlayground() {
+  return (
+    <div className="docs-inline-surface">
+      <FullTooltip
+        title="Workspace actions"
+        description="Use richer tooltip content for higher-context helper surfaces."
+        action={<TextButton size="sm">Open docs</TextButton>}
+      >
+        <Button variant="ghost">Open full tooltip</Button>
+      </FullTooltip>
+    </div>
+  );
+}
+
+function WheelPlayground() {
+  const [value, setValue] = React.useState("weekly");
+
+  return (
+    <Wheel
+      value={value}
+      onChange={(nextValue) => setValue(String(nextValue))}
+      options={[
+        { label: "Daily", value: "daily" },
+        { label: "Weekly", value: "weekly" },
+        { label: "Monthly", value: "monthly" },
+        { label: "Quarterly", value: "quarterly" },
+      ]}
+    />
+  );
+}
+
+function WheelDateSheetPlayground() {
+  const sheet = useBottomSheet(false);
+  const [value, setValue] = React.useState("2026-04-02");
+
+  return (
+    <div className="docs-inline-surface">
+      <Button onClick={sheet.openSheet}>Open wheel date sheet</Button>
+      <Text variant="caption">Selected: {value}</Text>
+      <WheelDateSheet
+        open={sheet.open}
+        onClose={sheet.closeSheet}
+        value={value}
+        onChange={(event) => setValue(event.target.value)}
+      />
+    </div>
+  );
+}
+
+function ColorSchemeAreaPlayground() {
+  return (
+    <ColorSchemeArea
+      title="Semantic tokens"
+      description="Preview branded semantic surfaces."
+      items={[
+        { label: "Accent", value: "#3182f6" },
+        { label: "Success", value: "#1aa36f" },
+        { label: "Warning", value: "#ff9b3d" },
+        { label: "Danger", value: "#ef4444" },
+      ]}
+    />
+  );
+}
+
+function UtilitySurfacePlayground() {
+  return (
+    <Stack gap={14}>
+      <FontScaleLimit max={1.1}>
+        <Card>
+          <Text variant="body">FontScaleLimit keeps text growth controlled in dense mobile layouts.</Text>
+        </Card>
+      </FontScaleLimit>
+      <Card style={{ paddingBottom: safeAreaInset("bottom", 16) }}>
+        <Text variant="body">safeAreaInset can be used in style props for bottom padding.</Text>
+      </Card>
+      <Card style={IOSFontA11yStyle}>
+        <Text variant="body">IOSFontA11yStyle exposes a stable text-size-adjust helper object.</Text>
+      </Card>
+      <Text variant="body">
+        Search for <Highlight text="Ripple UI gives AI-friendly building blocks." query="AI" /> in a content surface.
+      </Text>
+    </Stack>
+  );
+}
+
+function SliderTooltipPlayground() {
+  const [value, setValue] = React.useState(48);
+
+  return (
+    <Stack gap={12}>
+      <SliderTooltip value={value} />
+      <Slider value={value} onChange={(event) => setValue(Number(event.target.value))} />
+    </Stack>
+  );
+}
+
+function IconCorePlayground() {
+  return (
+    <Inline gap={12} wrap>
+      <IconCore size={24} stroke="currentColor" strokeWidth={1.8}>
+        <path d="M12 5v14M5 12h14" strokeLinecap="round" />
+      </IconCore>
+      <IconCore size={24} stroke="currentColor" strokeWidth={1.8}>
+        <circle cx="12" cy="12" r="8" />
+        <path d="M12 8v4l3 2" strokeLinecap="round" strokeLinejoin="round" />
+      </IconCore>
+    </Inline>
   );
 }
 
@@ -1869,6 +2001,29 @@ export default function Example() {
 export default function Example() {
   return <ConfirmDialog open title="Delete workspace?" description="This action cannot be undone." tone="danger" />;
 }`,
+  Bubble: `import { Bubble, Inline } from "@sh981013s/ripple-ui";
+
+export default function Example() {
+  return (
+    <Inline gap={12} wrap>
+      <Bubble>Default bubble</Bubble>
+      <Bubble tone="accent">Accent bubble</Bubble>
+    </Inline>
+  );
+}`,
+  FullTooltip: `import { Button, FullTooltip, TextButton } from "@sh981013s/ripple-ui";
+
+export default function Example() {
+  return (
+    <FullTooltip
+      title="Workspace actions"
+      description="Use richer tooltip content for higher-context helper surfaces."
+      action={<TextButton size="sm">Open docs</TextButton>}
+    >
+      <Button variant="ghost">Open full tooltip</Button>
+    </FullTooltip>
+  );
+}`,
   Dialog: `import { Button, Dialog, Text } from "@sh981013s/ripple-ui";
 
 export default function Example() {
@@ -2094,15 +2249,127 @@ export default function Example() {
     </GridList>
   );
 }`,
+  ColorSchemeArea: `import { ColorSchemeArea } from "@sh981013s/ripple-ui";
+
+export default function Example() {
+  return (
+    <ColorSchemeArea
+      title="Semantic tokens"
+      items={[
+        { label: "Accent", value: "#3182f6" },
+        { label: "Success", value: "#1aa36f" },
+      ]}
+    />
+  );
+}`,
   WheelDatePicker: `import { WheelDatePicker } from "@sh981013s/ripple-ui";
 
 export default function Example() {
   return <WheelDatePicker label="Settlement date" validationState="success" validationMessage="Date confirmed." />;
 }`,
+  Wheel: `import { Wheel } from "@sh981013s/ripple-ui";
+
+export default function Example() {
+  return (
+    <Wheel
+      value="weekly"
+      options={[
+        { label: "Daily", value: "daily" },
+        { label: "Weekly", value: "weekly" },
+        { label: "Monthly", value: "monthly" },
+      ]}
+    />
+  );
+}`,
+  WheelDateSheet: `import { Button, WheelDateSheet, useBottomSheet } from "@sh981013s/ripple-ui";
+
+export default function Example() {
+  const sheet = useBottomSheet(false);
+
+  return (
+    <>
+      <Button onClick={sheet.openSheet}>Open wheel date sheet</Button>
+      <WheelDateSheet open={sheet.open} onClose={sheet.closeSheet} />
+    </>
+  );
+}`,
   DoughnutChart: `import { DoughnutChart } from "@sh981013s/ripple-ui";
 
 export default function Example() {
   return <DoughnutChart value={72} label="Usage" description="Workspace capacity" />;
+}`,
+  SliderTooltip: `import { Slider, SliderTooltip, Stack } from "@sh981013s/ripple-ui";
+
+export default function Example() {
+  return (
+    <Stack gap={12}>
+      <SliderTooltip value={48} />
+      <Slider value={48} />
+    </Stack>
+  );
+}`,
+  FontScaleLimit: `import { Card, FontScaleLimit, Text } from "@sh981013s/ripple-ui";
+
+export default function Example() {
+  return (
+    <FontScaleLimit max={1.1}>
+      <Card>
+        <Text variant="body">Font scaling is capped for dense product layouts.</Text>
+      </Card>
+    </FontScaleLimit>
+  );
+}`,
+  Highlight: `import { Highlight, Text } from "@sh981013s/ripple-ui";
+
+export default function Example() {
+  return (
+    <Text variant="body">
+      Search for <Highlight text="Ripple UI gives AI-friendly building blocks." query="AI" /> in a content surface.
+    </Text>
+  );
+}`,
+  IconCore: `import { IconCore, Inline } from "@sh981013s/ripple-ui";
+
+export default function Example() {
+  return (
+    <Inline gap={12}>
+      <IconCore size={24} stroke="currentColor" strokeWidth={1.8}>
+        <path d="M12 5v14M5 12h14" strokeLinecap="round" />
+      </IconCore>
+    </Inline>
+  );
+}`,
+  IOSFontA11yStyle: `import { Card, IOSFontA11yStyle, Text } from "@sh981013s/ripple-ui";
+
+export default function Example() {
+  return (
+    <Card style={IOSFontA11yStyle}>
+      <Text variant="body">Apply the helper object to stabilize iOS text sizing.</Text>
+    </Card>
+  );
+}`,
+  safeAreaInset: `import { Card, Text, safeAreaInset } from "@sh981013s/ripple-ui";
+
+export default function Example() {
+  return (
+    <Card style={{ paddingBottom: safeAreaInset("bottom", 16) }}>
+      <Text variant="body">Use safe-area padding on bottom-anchored surfaces.</Text>
+    </Card>
+  );
+}`,
+  useBottomSheet: `import { BottomSheet, Button, Text, useBottomSheet } from "@sh981013s/ripple-ui";
+
+export default function Example() {
+  const sheet = useBottomSheet(false);
+
+  return (
+    <>
+      <Button onClick={sheet.openSheet}>Open sheet</Button>
+      <BottomSheet open={sheet.open} onClose={sheet.closeSheet}>
+        <Text variant="body">Controlled by a small state hook.</Text>
+      </BottomSheet>
+    </>
+  );
 }`,
   "ListHeader.RightText": `import { ListHeaderRightText } from "@sh981013s/ripple-ui";
 
@@ -3480,6 +3747,132 @@ const docs = [
           { name: "current", type: "number", defaultValue: "0", description: "Current zero-based active step index." },
         ],
         preview: () => <ProgressStepperPlayground />,
+      },
+    ],
+  },
+  {
+    id: "utilities",
+    label: "Utilities",
+    components: [
+      {
+        name: "Bubble",
+        eyebrow: "utility",
+        description: "Floating bubble surface for contextual helper copy.",
+        props: [
+          { name: "tone", type: `"default" | "accent" | "success" | "warning" | "danger"`, defaultValue: `"default"`, description: "Semantic surface tone." },
+          { name: "placement", type: `"top" | "bottom"`, defaultValue: `"top"`, description: "Arrow placement." },
+          { name: "arrow", type: "boolean", defaultValue: "true", description: "Toggle arrow rendering." },
+        ],
+        preview: () => <BubblePlayground />,
+      },
+      {
+        name: "FullTooltip",
+        eyebrow: "utility",
+        description: "Expanded tooltip with title, description, and action slot.",
+        props: [
+          { name: "title", type: "ReactNode", defaultValue: "-", description: "Tooltip headline." },
+          { name: "description", type: "ReactNode", defaultValue: "-", description: "Supporting copy." },
+          { name: "action", type: "ReactNode", defaultValue: "-", description: "Optional action slot." },
+        ],
+        preview: () => <FullTooltipPlayground />,
+      },
+      {
+        name: "Wheel",
+        eyebrow: "utility",
+        description: "Generic wheel selector for compact touch-driven input.",
+        props: [
+          { name: "options", type: "Array<{ label, value, disabled? }>", defaultValue: "[]", description: "Wheel options." },
+          { name: "value", type: "string | number", defaultValue: "-", description: "Current selected value." },
+          { name: "visibleCount", type: "number", defaultValue: "5", description: "Visible rows in the viewport." },
+        ],
+        preview: () => <WheelPlayground />,
+      },
+      {
+        name: "WheelDateSheet",
+        eyebrow: "utility",
+        description: "Bottom-sheet wheel date selector with year, month, and day columns.",
+        props: [
+          { name: "open", type: "boolean", defaultValue: "false", description: "Visibility state." },
+          { name: "value", type: "string", defaultValue: "-", description: "Current ISO date." },
+          { name: "minYear / maxYear", type: "number", defaultValue: "2000 / 2035", description: "Year range." },
+        ],
+        preview: () => <WheelDateSheetPlayground />,
+      },
+      {
+        name: "SliderTooltip",
+        eyebrow: "utility",
+        description: "Bubble value indicator intended for range controls.",
+        props: [
+          { name: "value", type: "number | string", defaultValue: "0", description: "Displayed tooltip value." },
+          { name: "tone", type: `"default" | "accent" | "success" | "warning" | "danger"`, defaultValue: `"accent"`, description: "Semantic bubble tone." },
+        ],
+        preview: () => <SliderTooltipPlayground />,
+      },
+      {
+        name: "ColorSchemeArea",
+        eyebrow: "utility",
+        description: "Palette presentation surface for theme and semantic token previews.",
+        props: [
+          { name: "title", type: "ReactNode", defaultValue: `"Color scheme"`, description: "Section heading." },
+          { name: "items", type: "Array<{ label, value, description? }>", defaultValue: "[]", description: "Displayed swatches." },
+        ],
+        preview: () => <ColorSchemeAreaPlayground />,
+      },
+      {
+        name: "IconCore",
+        eyebrow: "utility",
+        description: "Low-level SVG wrapper for authoring custom icons.",
+        props: [
+          { name: "size", type: "number", defaultValue: "24", description: "Rendered icon size." },
+          { name: "children", type: "ReactNode", defaultValue: "-", description: "SVG paths or shapes." },
+        ],
+        preview: () => <IconCorePlayground />,
+      },
+      {
+        name: "FontScaleLimit",
+        eyebrow: "utility",
+        description: "Caps text autoscaling within a subtree.",
+        props: [
+          { name: "max", type: "number", defaultValue: "1.15", description: "Maximum text-size-adjust multiplier." },
+        ],
+        preview: () => <UtilitySurfacePlayground />,
+      },
+      {
+        name: "Highlight",
+        eyebrow: "utility",
+        description: "Inline query highlighting for search and docs surfaces.",
+        props: [
+          { name: "text", type: "string", defaultValue: "-", description: "Full text content." },
+          { name: "query", type: "string", defaultValue: "-", description: "Highlighted substring." },
+          { name: "tone", type: `"accent" | "success" | "warning"`, defaultValue: `"accent"`, description: "Highlight tint." },
+        ],
+        preview: () => <UtilitySurfacePlayground />,
+      },
+      {
+        name: "IOSFontA11yStyle",
+        eyebrow: "utility",
+        description: "Helper style object for stabilizing iOS text-size-adjust behavior.",
+        props: [],
+        preview: () => <UtilitySurfacePlayground />,
+      },
+      {
+        name: "safeAreaInset",
+        eyebrow: "utility",
+        description: "Returns a CSS expression for safe-area inset padding.",
+        props: [
+          { name: "edge", type: `"top" | "right" | "bottom" | "left"`, defaultValue: "-", description: "Inset edge." },
+          { name: "fallback", type: "number", defaultValue: "0", description: "Fallback pixel value." },
+        ],
+        preview: () => <UtilitySurfacePlayground />,
+      },
+      {
+        name: "useBottomSheet",
+        eyebrow: "utility",
+        description: "State helper for opening, closing, and toggling bottom sheets.",
+        props: [
+          { name: "initialOpen", type: "boolean", defaultValue: "false", description: "Initial visibility state." },
+        ],
+        preview: () => <WheelDateSheetPlayground />,
       },
     ],
   },

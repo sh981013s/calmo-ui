@@ -8,6 +8,8 @@ export { default as Border } from "./components/Border.js";
 export { default as Button } from "./components/Button.js";
 export { default as Dialog } from "./components/Dialog.js";
 export { default as Popover } from "./components/Popover.js";
+export { default as Bubble } from "./components/Bubble.js";
+export { default as FullTooltip } from "./components/FullTooltip.js";
 export { default as AlertDialog } from "./components/AlertDialog.js";
 export { default as ConfirmDialog } from "./components/ConfirmDialog.js";
 export { default as Menu } from "./components/Menu.js";
@@ -16,6 +18,7 @@ export { default as CommandPalette } from "./components/CommandPalette.js";
 export { default as Chip } from "./components/Chip.js";
 export { default as Text } from "./components/Text.js";
 export { default as Icon, iconNames } from "./components/Icon.js";
+export { default as IconCore } from "./components/IconCore.js";
 export { default as IconButton } from "./components/IconButton.js";
 export { Tabs, Tab } from "./components/Tabs.js";
 export { default as InfoRow } from "./components/InfoRow.js";
@@ -66,7 +69,9 @@ export { default as NoticeBanner } from "./components/NoticeBanner.js";
 export { default as Banner } from "./components/Banner.js";
 export { default as EmptyState } from "./components/EmptyState.js";
 export { default as FadeIn } from "./components/FadeIn.js";
+export { default as FontScaleLimit } from "./components/FontScaleLimit.js";
 export { default as GridList } from "./components/GridList.js";
+export { default as Highlight } from "./components/Highlight.js";
 export { default as ProgressBar } from "./components/ProgressBar.js";
 export { default as ProgressStep } from "./components/ProgressStep.js";
 export { default as ProgressStepper } from "./components/ProgressStepper.js";
@@ -84,12 +89,16 @@ export { default as Stepper } from "./components/Stepper.js";
 export { default as Pagination } from "./components/Pagination.js";
 export { default as Table } from "./components/Table.js";
 export { default as Slider } from "./components/Slider.js";
+export { default as SliderTooltip } from "./components/SliderTooltip.js";
 export { default as BarChart } from "./components/BarChart.js";
+export { default as ColorSchemeArea } from "./components/ColorSchemeArea.js";
 export { default as BottomInfo } from "./components/BottomInfo.js";
 export { default as AccessoryButton } from "./components/AccessoryButton.js";
 export { default as DoughnutChart } from "./components/DoughnutChart.js";
 export { default as Spacing } from "./components/Spacing.js";
 export { default as WheelDatePicker } from "./components/WheelDatePicker.js";
+export { default as Wheel } from "./components/Wheel.js";
+export { default as WheelDateSheet } from "./components/WheelDateSheet.js";
 export {
   ListHeaderRightArrow,
   ListHeaderRightText,
@@ -110,3 +119,6 @@ export {
   MenuHeader,
   MenuTrigger,
 } from "./components/MenuParts.js";
+export { default as useBottomSheet } from "./hooks/useBottomSheet.js";
+export { IOSFontA11yStyle } from "./utils/IOSFontA11yStyle.js";
+export { safeAreaInset } from "./utils/safeAreaInset.js";
