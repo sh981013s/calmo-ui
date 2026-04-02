@@ -191,7 +191,9 @@ function InteractiveModalPreview() {
         onClose={() => setOpen(false)}
         headline="Project workspace"
         subheadline="Review the current status before continuing."
-        actions={<Button display="block" onClick={() => setOpen(false)}>Close</Button>}
+        tertiaryAction={{ label: "Learn more", icon: "externalLink", onClick: () => setOpen(false) }}
+        secondaryAction={{ label: "Cancel", variant: "ghost", onClick: () => setOpen(false) }}
+        primaryAction={{ label: "Continue", onClick: () => setOpen(false) }}
       >
         <Text variant="body">Modal is a product-flavored alias for centered dialog usage.</Text>
       </Modal>
@@ -210,7 +212,9 @@ function InteractiveSheetPreview() {
         onClose={() => setOpen(false)}
         header="Bottom sheet"
         description="Preview the anchored mobile overlay."
-        footer={<Button display="block" onClick={() => setOpen(false)}>Done</Button>}
+        tertiaryAction={{ label: "Preview", icon: "eye", onClick: () => setOpen(false) }}
+        secondaryAction={{ label: "Cancel", variant: "ghost", onClick: () => setOpen(false) }}
+        primaryAction={{ label: "Done", onClick: () => setOpen(false) }}
       >
         <Text variant="body">Bottom sheet previews are interactive and dismissible.</Text>
       </BottomSheet>
@@ -554,6 +558,7 @@ function IconPlayground() {
 function InputPlayground() {
   const [variant, setVariant] = React.useState("default");
   const [state, setState] = React.useState("success");
+  const [affixMode, setAffixMode] = React.useState("text");
 
   return (
     <Stack gap={12}>
@@ -571,6 +576,13 @@ function InputPlayground() {
           </Selector>
         ))}
       </Inline>
+      <Inline gap={8} wrap>
+        {["text", "icon"].map((item) => (
+          <Selector key={item} selected={affixMode === item} onClick={() => setAffixMode(item)}>
+            {item}
+          </Selector>
+        ))}
+      </Inline>
       <Input
         label="Workspace"
         placeholder="Team workspace"
@@ -578,6 +590,10 @@ function InputPlayground() {
         validationState={state}
         validationMessage={`${state} state message`}
         clearable
+        prefix={affixMode === "text" ? "https://" : undefined}
+        suffix={affixMode === "text" ? ".ripple" : undefined}
+        leading={affixMode === "icon" ? "search" : undefined}
+        trailing={affixMode === "icon" ? "settings" : undefined}
       />
     </Stack>
   );
@@ -724,6 +740,7 @@ function SnackbarPlayground() {
 function TextButtonPlayground() {
   const [tone, setTone] = React.useState("default");
   const [underline, setUnderline] = React.useState(false);
+  const [iconPosition, setIconPosition] = React.useState("trailing");
 
   return (
     <Stack gap={12}>
@@ -742,11 +759,23 @@ function TextButtonPlayground() {
           underline
         </Selector>
       </Inline>
+      <Inline gap={8} wrap>
+        {["leading", "trailing"].map((item) => (
+          <Selector key={item} selected={iconPosition === item} onClick={() => setIconPosition(item)}>
+            {item}
+          </Selector>
+        ))}
+      </Inline>
       <Inline gap={16} wrap align="center">
         <TextButton tone={tone} underline={underline}>
           Open details
         </TextButton>
-        <TextButton tone={tone} underline={underline} trailing="→">
+        <TextButton
+          tone={tone}
+          underline={underline}
+          icon="externalLink"
+          iconPosition={iconPosition}
+        >
           Review submission
         </TextButton>
       </Inline>
@@ -784,16 +813,9 @@ function ModalPlayground() {
           size={size}
           headline="Project workspace"
           subheadline="Review the configuration before continuing."
-          actions={
-            <Inline gap={10}>
-              <Button variant="ghost" display="block" onClick={() => setOpen(false)}>
-                Cancel
-              </Button>
-              <Button display="block" color={tone === "danger" ? "danger" : "primary"} onClick={() => setOpen(false)}>
-                Confirm
-              </Button>
-            </Inline>
-          }
+          tertiaryAction={{ label: "Learn more", icon: "externalLink", onClick: () => setOpen(false) }}
+          secondaryAction={{ label: "Cancel", variant: "ghost", onClick: () => setOpen(false) }}
+          primaryAction={{ label: "Confirm", color: tone === "danger" ? "danger" : "primary", onClick: () => setOpen(false) }}
         >
           <Text variant="body">Modal variants adjust density and emphasis without changing the core dialog pattern.</Text>
         </Modal>
@@ -1028,7 +1050,7 @@ export default function Example() {
   TextButton: `import { TextButton } from "@sh981013s/ripple-ui";
 
 export default function Example() {
-  return <TextButton trailing="→">See details</TextButton>;
+  return <TextButton icon="externalLink" iconPosition="trailing">See details</TextButton>;
 }`,
   Input: `import { Input } from "@sh981013s/ripple-ui";
 
@@ -1037,6 +1059,8 @@ export default function Example() {
     <Input
       label="Workspace name"
       placeholder="Enter workspace name"
+      prefix="https://"
+      suffix=".ripple"
       validationState="success"
       validationMessage="This name is available."
       clearable
@@ -1225,7 +1249,9 @@ export default function Example() {
       tone="success"
       headline="Project workspace"
       subheadline="Review the current status before continuing."
-      actions={<Button display="block">Close</Button>}
+      tertiaryAction={{ label: "Learn more", icon: "externalLink" }}
+      secondaryAction={{ label: "Cancel", variant: "ghost" }}
+      primaryAction={{ label: "Continue" }}
     >
       <Text variant="body">Modal is a product-flavored alias for centered dialog usage.</Text>
     </Modal>
@@ -1235,7 +1261,14 @@ export default function Example() {
 
 export default function Example() {
   return (
-    <BottomSheet open header="Bottom sheet" description="Preview the anchored mobile overlay." footer={<Button display="block">Done</Button>}>
+    <BottomSheet
+      open
+      header="Bottom sheet"
+      description="Preview the anchored mobile overlay."
+      tertiaryAction={{ label: "Preview", icon: "eye" }}
+      secondaryAction={{ label: "Cancel", variant: "ghost" }}
+      primaryAction={{ label: "Done" }}
+    >
       <Text variant="body">Bottom sheet previews are interactive and dismissible.</Text>
     </BottomSheet>
   );
@@ -1779,7 +1812,8 @@ const docs = [
         props: [
           { name: "tone", type: `"default" | "neutral" | "danger"`, defaultValue: `"default"`, description: "Text emphasis color." },
           { name: "size", type: `"sm" | "md" | "lg"`, defaultValue: `"md"`, description: "Text button size." },
-          { name: "leading / trailing", type: "ReactNode", defaultValue: "-", description: "Optional inline icons or affordances." },
+          { name: "icon / iconPosition", type: "string | ReactNode", defaultValue: "-", description: "Preferred icon pattern for inline actions." },
+          { name: "leading / trailing", type: "ReactNode", defaultValue: "-", description: "Manual accessory override for custom affordances." },
           { name: "underline", type: "boolean", defaultValue: "false", description: "Underline emphasis for link-like actions." },
         ],
         preview: () => (
@@ -1808,7 +1842,9 @@ const docs = [
           { name: "error / warning / success", type: "ReactNode", defaultValue: "-", description: "Backward-compatible shortcuts that map to validation state and message." },
           { name: "size", type: `"sm" | "md" | "lg"`, defaultValue: `"md"`, description: "Field height scale." },
           { name: "variant", type: `"default" | "filled" | "quiet"`, defaultValue: `"default"`, description: "Visual treatment." },
-          { name: "before / after", type: "ReactNode", defaultValue: "-", description: "Primary field-side accessories." },
+          { name: "prefix / suffix", type: "ReactNode", defaultValue: "-", description: "Textual field accessories for domains, units, and structured values." },
+          { name: "leading / trailing", type: "ReactNode | icon name", defaultValue: "-", description: "Icon-first field accessories." },
+          { name: "before / after", type: "ReactNode", defaultValue: "-", description: "Full manual override for custom field surfaces." },
           { name: "clearable / actionLabel / passwordToggle", type: "boolean | string", defaultValue: "-", description: "Built-in inline controls." },
         ],
         preview: () => (
@@ -2123,6 +2159,7 @@ const docs = [
           { name: "headline", type: "ReactNode", defaultValue: "-", description: "Primary heading." },
           { name: "subheadline", type: "ReactNode", defaultValue: "-", description: "Supporting copy." },
           { name: "actions", type: "ReactNode", defaultValue: "-", description: "Footer action area." },
+          { name: "primaryAction / secondaryAction / tertiaryAction", type: "action config", defaultValue: "-", description: "Structured CTA props for product-style modal footers." },
           { name: "tone", type: `"default" | "success" | "danger"`, defaultValue: `"default"`, description: "Semantic emphasis treatment." },
           { name: "showCloseButton", type: "boolean", defaultValue: "true", description: "Show a dismiss button in the upper-right corner." },
         ],
@@ -2137,6 +2174,7 @@ const docs = [
           { name: "size", type: `"sm" | "md" | "lg" | "full"`, defaultValue: `"md"`, description: "Panel width/height scale." },
           { name: "variant", type: `"floating" | "flat"`, defaultValue: `"floating"`, description: "Surface treatment." },
           { name: "header / description / footer", type: "ReactNode", defaultValue: "-", description: "Structured header and CTA areas." },
+          { name: "primaryAction / secondaryAction / tertiaryAction", type: "action config", defaultValue: "-", description: "Structured CTA props for common sheet flows." },
         ],
         preview: () => <InteractiveSheetPreview />,
       },

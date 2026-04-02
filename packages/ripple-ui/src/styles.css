@@ -407,6 +407,7 @@
   align-items: center;
   justify-content: center;
   flex: 0 0 auto;
+  color: inherit;
 }
 
 .rpl-button-icon {
@@ -1210,6 +1211,21 @@
   color: var(--rpl-color-text-secondary);
   font-size: 0.9rem;
   flex: 0 0 auto;
+}
+
+.rpl-input-prefix,
+.rpl-input-suffix {
+  display: inline-flex;
+  align-items: center;
+  flex: 0 0 auto;
+  min-height: 26px;
+  padding: 0 8px;
+  border-radius: 999px;
+  background: #f4f6f8;
+  color: var(--rpl-color-text-secondary);
+  font-size: 0.78rem;
+  font-weight: 700;
+  letter-spacing: -0.01em;
 }
 
 .rpl-input-attachments {

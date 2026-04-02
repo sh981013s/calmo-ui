@@ -1,5 +1,53 @@
 import React, { useEffect } from "react";
 import { cx } from "../utils/cx.js";
+import Button from "./Button.jsx";
+import Inline from "../primitives/Inline.jsx";
+import TextButton from "./TextButton.jsx";
+
+function renderActions({
+  footer,
+  tertiaryAction,
+  secondaryAction,
+  primaryAction,
+}) {
+  if (footer) return footer;
+  if (!tertiaryAction && !secondaryAction && !primaryAction) return null;
+
+  return (
+    <Inline gap={10} wrap align="center">
+      {tertiaryAction ? (
+        <TextButton
+          tone={tertiaryAction.tone ?? "neutral"}
+          icon={tertiaryAction.icon}
+          iconPosition={tertiaryAction.iconPosition}
+          onClick={tertiaryAction.onClick}
+        >
+          {tertiaryAction.label}
+        </TextButton>
+      ) : null}
+      {secondaryAction ? (
+        <Button
+          variant={secondaryAction.variant ?? "ghost"}
+          color={secondaryAction.color ?? "primary"}
+          display="block"
+          onClick={secondaryAction.onClick}
+        >
+          {secondaryAction.label}
+        </Button>
+      ) : null}
+      {primaryAction ? (
+        <Button
+          variant={primaryAction.variant ?? "primary"}
+          color={primaryAction.color ?? "primary"}
+          display="block"
+          onClick={primaryAction.onClick}
+        >
+          {primaryAction.label}
+        </Button>
+      ) : null}
+    </Inline>
+  );
+}
 
 function BottomSheet({
   open,
@@ -10,6 +58,9 @@ function BottomSheet({
   header,
   description,
   footer,
+  tertiaryAction,
+  secondaryAction,
+  primaryAction,
   className = "",
   panelClassName = "",
   children,
@@ -57,7 +108,11 @@ function BottomSheet({
           </div>
         ) : null}
         <div className="rpl-sheet-content">{children}</div>
-        {footer ? <div className="rpl-sheet-footer">{footer}</div> : null}
+        {renderActions({ footer, tertiaryAction, secondaryAction, primaryAction }) ? (
+          <div className="rpl-sheet-footer">
+            {renderActions({ footer, tertiaryAction, secondaryAction, primaryAction })}
+          </div>
+        ) : null}
       </div>
     </div>
   );

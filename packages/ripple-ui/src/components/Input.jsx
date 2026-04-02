@@ -1,6 +1,7 @@
 import React from "react";
 import { cx } from "../utils/cx.js";
 import Text from "./Text.jsx";
+import Icon from "./Icon.jsx";
 
 function Input({
   label,
@@ -10,6 +11,8 @@ function Input({
   success,
   validationState = "default",
   validationMessage,
+  prefix,
+  suffix,
   leading,
   trailing,
   before,
@@ -52,9 +55,19 @@ function Input({
           disabled && "rpl-input-shell-disabled",
         )}
       >
-        {before ?? (leading ? <span className="rpl-input-leading">{leading}</span> : null)}
+        {before ?? (
+          <>
+            {prefix ? <span className="rpl-input-prefix">{prefix}</span> : null}
+            {leading ? <span className="rpl-input-leading">{typeof leading === "string" ? <Icon name={leading} size={16} /> : leading}</span> : null}
+          </>
+        )}
         <input className={cx("rpl-input", inputClassName)} disabled={disabled} {...props} />
-        {after ?? (trailing ? <span className="rpl-input-trailing">{trailing}</span> : null)}
+        {after ?? (
+          <>
+            {trailing ? <span className="rpl-input-trailing">{typeof trailing === "string" ? <Icon name={trailing} size={16} /> : trailing}</span> : null}
+            {suffix ? <span className="rpl-input-suffix">{suffix}</span> : null}
+          </>
+        )}
         {(clearable || actionLabel || passwordToggle) ? (
           <span className="rpl-input-attachments">
             {clearable ? (

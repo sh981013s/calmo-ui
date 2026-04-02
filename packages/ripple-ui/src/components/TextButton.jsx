@@ -1,9 +1,12 @@
 import React from "react";
 import { cx } from "../utils/cx.js";
+import Icon from "./Icon.jsx";
 
 export default function TextButton({
   tone = "default",
   size = "md",
+  icon,
+  iconPosition = "trailing",
   leading,
   trailing,
   underline = false,
@@ -24,9 +27,19 @@ export default function TextButton({
       )}
       {...props}
     >
+      {icon && iconPosition === "leading" ? (
+        <span className="rpl-text-button-leading">
+          {typeof icon === "string" ? <Icon name={icon} size={15} /> : icon}
+        </span>
+      ) : null}
       {leading ? <span className="rpl-text-button-leading">{leading}</span> : null}
       <span className="rpl-text-button-label">{children}</span>
       {trailing ? <span className="rpl-text-button-trailing">{trailing}</span> : null}
+      {icon && iconPosition === "trailing" ? (
+        <span className="rpl-text-button-trailing">
+          {typeof icon === "string" ? <Icon name={icon} size={15} /> : icon}
+        </span>
+      ) : null}
     </button>
   );
 }
