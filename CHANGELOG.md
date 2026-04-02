@@ -1,6 +1,6 @@
 # Changelog
 
-## 0.1.1
+## 0.1.2
 
 ### Added
 
@@ -11,6 +11,7 @@
   - `docs/AI_PROMPT_TEMPLATE.md`
   - `ai/anti-patterns.json`
 - Machine-readable theme metadata in `ai/components.json` and `ai/patterns.json`
+- GitHub Release automation on tag publish
 
 ### Changed
 
@@ -18,6 +19,7 @@
 - Improved docs search discoverability for theme-related APIs
 - Reworked root README and package README to read like a production UI library
 - Tuned theme-driven styling across high-traffic component surfaces such as buttons, inputs, selects, date pickers, chips, and previews
+- Publish flow now creates a GitHub Release after a successful npm publish
 
 ### Fixed
 
