@@ -4,7 +4,7 @@ import Input from "./Input.js";
 
 export type SearchBarProps = React.ComponentProps<typeof Input>;
 
-export default function SearchBar({ className = "", leading = "⌕", ...props }: SearchBarProps) {
+export default function SearchBar({ className = "", leading = "search", ...props }: SearchBarProps) {
   return (
     <Input
       className={cx("rpl-searchbar", className)}

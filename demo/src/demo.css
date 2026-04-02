@@ -318,6 +318,27 @@ textarea {
   gap: 20px;
 }
 
+.demo-pattern-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 12px;
+}
+
+.demo-pattern-card {
+  padding: 16px;
+}
+
+.demo-pattern-metric {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 12px 14px;
+  border-radius: 14px;
+  background: #f7fafc;
+  border: 1px solid #ebf0f5;
+}
+
 .docs-preview {
   padding: 12px;
   border: 1px solid var(--rpl-color-line);

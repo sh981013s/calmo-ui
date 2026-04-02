@@ -12,16 +12,24 @@ import {
 } from "react-router-dom";
 import {
   Banner,
+  BottomInfo,
   Button,
   Card,
   Chip,
   Icon,
   iconNames,
+  Input,
   Inline,
+  List,
+  ListHeader,
+  ListRow,
+  ListRowIcon,
   SearchField,
+  Select,
   SectionHeader,
   Stack,
   Text,
+  TextField,
   TopBar,
 } from "@sh981013s/ripple-ui";
 import catalog, {
@@ -212,6 +220,104 @@ function DocsOverviewPage() {
               <span>{name}</span>
             </Card>
           ))}
+        </div>
+      </section>
+
+      <section className="demo-section">
+        <SectionHeader
+          eyebrow="patterns"
+          title="Complex composition demos"
+          description="Larger product compositions using multiple Ripple UI surfaces together, closer to how real screens are assembled."
+        />
+        <div className="demo-pattern-grid">
+          <Card className="demo-pattern-card">
+            <Stack gap={16}>
+              <TopBar
+                title="Workspace settings"
+                subtitleBottom="Manage alerts, access, and billing"
+                rightButton={<Button variant="ghost" size="small">Save</Button>}
+              />
+              <Stack gap={12}>
+                <TextField label="Workspace name" defaultValue="Ripple Labs" hint="Visible across shared spaces." />
+                <Input label="Billing email" type="email" defaultValue="team@ripple-ui.dev" trailing="mail" />
+                <Select label="Region" defaultValue="de">
+                  <option value="de">Germany</option>
+                  <option value="uk">United Kingdom</option>
+                  <option value="us">United States</option>
+                </Select>
+              </Stack>
+              <BottomInfo
+                title="Changes are saved instantly"
+                description="Use a destructive confirmation flow only when the action cannot be undone."
+              />
+            </Stack>
+          </Card>
+
+          <Card className="demo-pattern-card">
+            <Stack gap={16}>
+              <TopBar
+                title="Team activity"
+                subtitleBottom="Today"
+                rightButton={<Button variant="weak" size="small">Export</Button>}
+              />
+              <List>
+                <ListHeader title="Recent updates" description="Compact activity rows with clear right-side actions." />
+                <ListRow
+                  title="New payout account connected"
+                  description="Treasury workspace · 2 minutes ago"
+                  media={<ListRowIcon name="wallet" />}
+                  right={<Chip tone="accent">New</Chip>}
+                />
+                <ListRow
+                  title="Approval policy updated"
+                  description="Operations workspace · 14 minutes ago"
+                  media={<ListRowIcon name="shield" />}
+                  right={<Button variant="ghost" size="small">Open</Button>}
+                />
+                <ListRow
+                  title="Weekly report generated"
+                  description="Analytics workspace · 1 hour ago"
+                  media={<ListRowIcon name="trendUp" />}
+                  right={<Text variant="caption">Done</Text>}
+                />
+              </List>
+            </Stack>
+          </Card>
+
+          <Card className="demo-pattern-card">
+            <Stack gap={16}>
+              <TopBar
+                title="Checkout summary"
+                subtitleBottom="Review before payment"
+                rightButton={<Chip tone="success">Ready</Chip>}
+              />
+              <Banner
+                compact
+                tone="accent"
+                eyebrow="secure payment"
+                title="Identity and payment checks are complete"
+                description="Only the final confirmation step remains."
+              />
+              <Stack gap={10}>
+                <div className="demo-pattern-metric">
+                  <Text variant="caption">Plan</Text>
+                  <Text variant="body">Growth annual</Text>
+                </div>
+                <div className="demo-pattern-metric">
+                  <Text variant="caption">Seats</Text>
+                  <Text variant="body">12 members</Text>
+                </div>
+                <div className="demo-pattern-metric">
+                  <Text variant="caption">Total due today</Text>
+                  <Text variant="title">EUR 1,248</Text>
+                </div>
+              </Stack>
+              <Inline gap={10}>
+                <Button display="block">Confirm payment</Button>
+                <Button variant="weak" display="block">View invoice</Button>
+              </Inline>
+            </Stack>
+          </Card>
         </div>
       </section>
     </Stack>

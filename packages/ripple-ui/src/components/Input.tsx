@@ -32,12 +32,20 @@ function Input({
   className = "",
   inputClassName = "",
   disabled = false,
+  inputRef,
   ...props
 }) {
   const resolvedState =
     error ? "error" : warning ? "warning" : success ? "success" : validationState;
   const resolvedMessage =
     error ?? warning ?? success ?? validationMessage ?? hint;
+  const currentValue =
+    props.value ?? props.defaultValue ?? "";
+  const hasValue = String(currentValue).length > 0;
+
+  const preserveFocus = (event) => {
+    event.preventDefault();
+  };
 
   return (
     <label className={cx("rpl-input-field", className)}>
@@ -61,7 +69,7 @@ function Input({
             {leading ? <span className="rpl-input-leading">{typeof leading === "string" ? <Icon name={leading} size={16} /> : leading}</span> : null}
           </>
         )}
-        <input className={cx("rpl-input", inputClassName)} disabled={disabled} {...props} />
+        <input ref={inputRef} className={cx("rpl-input", inputClassName)} disabled={disabled} {...props} />
         {after ?? (
           <>
             {trailing ? <span className="rpl-input-trailing">{typeof trailing === "string" ? <Icon name={trailing} size={16} /> : trailing}</span> : null}
@@ -70,8 +78,14 @@ function Input({
         )}
         {(clearable || actionLabel || passwordToggle) ? (
           <span className="rpl-input-attachments">
-            {clearable ? (
-              <button type="button" className="rpl-input-affix-button" aria-label={clearLabel} onClick={onClear}>
+            {clearable && hasValue ? (
+              <button
+                type="button"
+                className="rpl-input-affix-button"
+                aria-label={clearLabel}
+                onMouseDown={preserveFocus}
+                onClick={onClear}
+              >
                 ✕
               </button>
             ) : null}
@@ -80,13 +94,19 @@ function Input({
                 type="button"
                 className="rpl-input-affix-button"
                 aria-label={revealed ? hideLabel : revealLabel}
+                onMouseDown={preserveFocus}
                 onClick={onToggleReveal}
               >
                 {revealed ? "Hide" : "Show"}
               </button>
             ) : null}
             {actionLabel ? (
-              <button type="button" className="rpl-input-inline-action" onClick={onActionClick}>
+              <button
+                type="button"
+                className="rpl-input-inline-action"
+                onMouseDown={preserveFocus}
+                onClick={onActionClick}
+              >
                 {actionLabel}
               </button>
             ) : null}

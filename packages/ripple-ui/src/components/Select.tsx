@@ -58,6 +58,7 @@ export default function Select({
   const [open, setOpen] = useState(false);
   const [query, setQuery] = useState("");
   const [highlightedIndex, setHighlightedIndex] = useState(-1);
+  const [typeahead, setTypeahead] = useState("");
   const options = useMemo(() => normalizeOptions(children), [children]);
 
   const currentValue = controlled ? value : internalValue;
@@ -116,6 +117,12 @@ export default function Select({
     }
   }, [open, searchable]);
 
+  useEffect(() => {
+    if (!typeahead) return undefined;
+    const timeout = window.setTimeout(() => setTypeahead(""), 400);
+    return () => window.clearTimeout(timeout);
+  }, [typeahead]);
+
   const moveHighlight = (direction) => {
     if (!filteredOptions.length) return;
     let nextIndex = highlightedIndex;
@@ -137,6 +144,19 @@ export default function Select({
       currentTarget: { value: nextValue, name },
     });
     setOpen(false);
+  };
+
+  const applyTypeahead = (nextQuery) => {
+    const normalized = nextQuery.toLowerCase();
+    const matchIndex = filteredOptions.findIndex(
+      (option) => !option.disabled && String(option.label).toLowerCase().startsWith(normalized),
+    );
+    if (matchIndex >= 0) {
+      setHighlightedIndex(matchIndex);
+      if (!open && !searchable) {
+        commitValue(filteredOptions[matchIndex].value);
+      }
+    }
   };
 
   return (
@@ -193,6 +213,10 @@ export default function Select({
             if (option && !option.disabled) {
               commitValue(option.value);
             }
+          } else if (event.key.length === 1 && !event.altKey && !event.metaKey && !event.ctrlKey) {
+            const nextTypeahead = `${typeahead}${event.key}`;
+            setTypeahead(nextTypeahead);
+            applyTypeahead(nextTypeahead);
           }
         }}
         disabled={disabled}
@@ -223,7 +247,13 @@ export default function Select({
                 ref={searchRef}
                 className="rpl-select-search-input"
                 value={query}
-                onChange={(event) => setQuery(event.target.value)}
+                onChange={(event) => {
+                  const nextQuery = event.target.value;
+                  setQuery(nextQuery);
+                  if (nextQuery.trim()) {
+                    applyTypeahead(nextQuery.trim());
+                  }
+                }}
                 placeholder={searchPlaceholder}
                 autoFocus
               />

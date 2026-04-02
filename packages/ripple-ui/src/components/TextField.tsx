@@ -23,9 +23,11 @@ export function TextFieldPassword({
 }: TextFieldProps) {
   const [internalRevealed, setInternalRevealed] = React.useState(false);
   const revealed = controlledRevealed ?? internalRevealed;
+  const inputRef = React.useRef<HTMLInputElement | null>(null);
 
   return (
     <Input
+      inputRef={inputRef}
       type={revealed ? "text" : type ?? "password"}
       passwordToggle
       revealed={revealed}
@@ -34,6 +36,11 @@ export function TextFieldPassword({
         if (controlledRevealed === undefined) {
           setInternalRevealed((prev) => !prev);
         }
+        window.requestAnimationFrame(() => {
+          inputRef.current?.focus();
+          const length = inputRef.current?.value?.length ?? 0;
+          inputRef.current?.setSelectionRange?.(length, length);
+        });
       }}
       {...props}
     />
