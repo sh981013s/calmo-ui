@@ -431,6 +431,20 @@ export declare function Result(props: ResultProps): React.JSX.Element;
 export interface ResultButtonProps extends ButtonProps {}
 export declare function ResultButton(props: ResultButtonProps): React.JSX.Element;
 
+export interface TextButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
+  tone?: "default" | "neutral" | "danger";
+  size?: "sm" | "md" | "lg";
+  icon?: React.ReactNode | string;
+  iconPosition?: "leading" | "trailing";
+  leading?: React.ReactNode;
+  trailing?: React.ReactNode;
+  underline?: boolean;
+  className?: string;
+  type?: React.ButtonHTMLAttributes<HTMLButtonElement>["type"];
+  children?: React.ReactNode;
+}
+export declare function TextButton(props: TextButtonProps): React.JSX.Element;
+
 export interface LoaderProps extends React.HTMLAttributes<HTMLDivElement> {
   size?: RippleSize;
   label?: React.ReactNode;
@@ -447,6 +461,10 @@ export interface FullScreenLoaderProps {
   description?: React.ReactNode;
   tone?: "accent" | "success" | "warning" | "danger";
   className?: string;
+  dismissible?: boolean;
+  dismissLabel?: string;
+  closeOnBackdrop?: boolean;
+  onDismiss?: () => void;
 }
 export declare function FullScreenLoader(props: FullScreenLoaderProps): React.JSX.Element | null;
 
@@ -514,6 +532,12 @@ export interface AccordionItemProps extends React.HTMLAttributes<HTMLDivElement>
 export declare function Accordion(props: AccordionProps): React.JSX.Element;
 export declare function AccordionItem(props: AccordionItemProps): React.JSX.Element;
 
+export interface TooltipProps {
+  content: React.ReactNode;
+  position?: "top" | "bottom";
+  className?: string;
+  children?: React.ReactNode;
+}
 export declare function Tooltip(props: TooltipProps): React.JSX.Element;
 
 export interface DividerProps extends React.HTMLAttributes<HTMLDivElement> {
@@ -735,6 +759,16 @@ export interface TableProps<Row = Record<string, unknown>> extends React.HTMLAtt
 }
 export declare function Table<Row = Record<string, unknown>>(props: TableProps<Row>): React.JSX.Element;
 
+export interface SliderProps extends Omit<React.InputHTMLAttributes<HTMLInputElement>, "value" | "type"> {
+  label?: React.ReactNode;
+  value?: number;
+  min?: number;
+  max?: number;
+  step?: number;
+  tone?: "accent" | "success" | "warning" | "danger";
+  showValue?: boolean;
+  className?: string;
+}
 export declare function Slider(props: SliderProps): React.JSX.Element;
 
 export interface BarChartDatum {

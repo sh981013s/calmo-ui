@@ -30,13 +30,34 @@
     "README.md"
   ],
   "scripts": {
-    "build": "rm -rf dist && tsc -p tsconfig.json && cp src/styles.css dist/styles.css && cp src/tokens.css dist/tokens.css && cp types/index.d.ts dist/index.d.ts",
+    "build": "node ./scripts/generate-deep-types.mjs && rm -rf dist && tsc -p tsconfig.json && cp src/styles.css dist/styles.css && cp src/tokens.css dist/tokens.css && cp types/index.d.ts dist/index.d.ts && mkdir -p dist/components dist/primitives && cp types/components/*.d.ts dist/components/ && cp types/primitives/*.d.ts dist/primitives/",
     "clean": "rm -rf dist"
   },
   "exports": {
-    ".": "./dist/index.js",
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js"
+    },
+    "./components/*": {
+      "types": "./dist/components/*.d.ts",
+      "import": "./dist/components/*.js"
+    },
+    "./primitives/*": {
+      "types": "./dist/primitives/*.d.ts",
+      "import": "./dist/primitives/*.js"
+    },
     "./styles.css": "./dist/styles.css",
     "./tokens.css": "./dist/tokens.css"
+  },
+  "typesVersions": {
+    "*": {
+      "components/*": [
+        "dist/components/*"
+      ],
+      "primitives/*": [
+        "dist/primitives/*"
+      ]
+    }
   },
   "publishConfig": {
     "access": "public"

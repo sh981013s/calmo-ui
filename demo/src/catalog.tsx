@@ -1115,10 +1115,10 @@ function FullScreenLoaderPlayground() {
         open={open}
         title="Preparing workspace"
         description="We are loading the latest settings and activity."
+        dismissible
+        closeOnBackdrop
+        onDismiss={() => setOpen(false)}
       />
-      {open ? (
-        <Button variant="ghost" onClick={() => setOpen(false)}>Close loader</Button>
-      ) : null}
     </div>
   );
 }

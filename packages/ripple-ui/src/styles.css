@@ -3269,6 +3269,7 @@
 }
 
 .rpl-fullscreen-loader-panel {
+  position: relative;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -3280,6 +3281,37 @@
   background: #ffffff;
   box-shadow: var(--rpl-shadow-sheet), var(--rpl-shadow-inset);
   text-align: center;
+}
+
+.rpl-fullscreen-loader-close {
+  position: absolute;
+  top: 12px;
+  right: 12px;
+  width: 34px;
+  height: 34px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border: 0;
+  border-radius: 999px;
+  background: transparent;
+  color: var(--rpl-color-text-tertiary);
+  cursor: pointer;
+  transition: background-color 160ms ease, color 160ms ease, transform 160ms ease;
+}
+
+.rpl-fullscreen-loader-close:hover {
+  background: var(--rpl-color-surface-muted);
+  color: var(--rpl-color-text-primary);
+}
+
+.rpl-fullscreen-loader-close:active {
+  transform: scale(0.96);
+}
+
+.rpl-fullscreen-loader-close:focus-visible {
+  outline: none;
+  box-shadow: var(--rpl-focus-ring);
 }
 
 .rpl-fullscreen-loader-title {
