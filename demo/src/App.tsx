@@ -30,7 +30,10 @@ import {
   Stack,
   Text,
   TextField,
+  ThemeProvider,
   TopBar,
+  defaultRippleTheme,
+  rippleThemePresets,
 } from "@sh981013s/ripple-ui";
 import catalog, {
   ComponentDocCard,
@@ -405,9 +408,14 @@ function DocsShell() {
   const navigate = useNavigate();
   const [searchValue, setSearchValue] = useState("");
   const [activeSuggestion, setActiveSuggestion] = useState(-1);
+  const [themeId, setThemeId] = useState(defaultRippleTheme.id);
 
   const entries = useMemo(() => getAllDocEntries(), []);
   const totalComponents = entries.length;
+  const activeTheme = useMemo(
+    () => rippleThemePresets.find((theme) => theme.id === themeId) ?? defaultRippleTheme,
+    [themeId],
+  );
   const routeLabel = useMemo(() => {
     if (location.pathname === "/") return "Overview";
     const componentMatch = docsCatalog
@@ -441,7 +449,8 @@ function DocsShell() {
   };
 
   return (
-    <div className="demo-app">
+    <ThemeProvider theme={activeTheme} className="demo-theme-root">
+      <div className="demo-app">
       <ScrollToTop />
       <div className="demo-shell">
         <TopBar
@@ -508,6 +517,21 @@ function DocsShell() {
                 />
                 <SidebarNav />
                 <div className="demo-sidebar-meta">
+                  <span className="demo-sidebar-meta-label">Theme</span>
+                  <Select
+                    aria-label="Select theme preset"
+                    value={themeId}
+                    searchable={false}
+                    onChange={(event) => setThemeId(event.target.value)}
+                  >
+                    {rippleThemePresets.map((theme) => (
+                      <option key={theme.id} value={theme.id}>
+                        {theme.label}
+                      </option>
+                    ))}
+                  </Select>
+                </div>
+                <div className="demo-sidebar-meta">
                   <span className="demo-sidebar-meta-label">Library status</span>
                   <strong className="demo-sidebar-meta-value">In active refinement</strong>
                 </div>
@@ -524,8 +548,8 @@ function DocsShell() {
           </main>
         </div>
       </div>
-
-    </div>
+      </div>
+    </ThemeProvider>
   );
 }
 

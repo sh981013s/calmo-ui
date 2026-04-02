@@ -21,6 +21,7 @@ const entries = [
   { file: "Surface", defaultExport: "Surface", typeExports: ["SurfaceProps"], target: "primitives" },
   { file: "Stack", defaultExport: "Stack", typeExports: ["StackProps"], target: "primitives" },
   { file: "Inline", defaultExport: "Inline", typeExports: ["InlineProps"], target: "primitives" },
+  { file: "ThemeProvider", defaultExport: "ThemeProvider", typeExports: ["ThemeProviderProps"], target: "components" },
   { file: "AccessoryButton", defaultExport: "AccessoryButton", typeExports: ["AccessoryButtonProps"], target: "components" },
   { file: "Accordion", namedExports: ["Accordion", "AccordionItem"], typeExports: ["AccordionProps", "AccordionItemProps"], target: "components" },
   { file: "AgreementModuleContent", defaultExport: "AgreementModuleContent", typeExports: ["AgreementModuleContentProps"], target: "components" },

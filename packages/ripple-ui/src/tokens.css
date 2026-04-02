@@ -1,25 +1,49 @@
 :root {
   color-scheme: light;
 
-  --rpl-color-bg: #f6f8fb;
-  --rpl-color-surface: #ffffff;
-  --rpl-color-surface-muted: #f9fafc;
-  --rpl-color-surface-accent: #eef5ff;
-  --rpl-color-surface-success: #f3fbf6;
-  --rpl-color-surface-warning: #fff7f0;
+  --rpl-seed-accent: #3182f6;
+  --rpl-seed-ink: #191f28;
+  --rpl-seed-bg: #f6f8fb;
+  --rpl-seed-success: #16875a;
+  --rpl-seed-warning: #ff8a3d;
+  --rpl-seed-danger: #d14343;
 
-  --rpl-color-text-primary: #191f28;
-  --rpl-color-text-secondary: #4e5968;
-  --rpl-color-text-tertiary: #8b95a1;
+  --rpl-color-bg: var(--rpl-seed-bg);
+  --rpl-color-surface: color-mix(in srgb, white 90%, var(--rpl-seed-bg));
+  --rpl-color-surface-muted: color-mix(in srgb, white 68%, var(--rpl-seed-bg));
+  --rpl-color-surface-accent: color-mix(in srgb, var(--rpl-seed-accent) 10%, white);
+  --rpl-color-surface-success: color-mix(in srgb, var(--rpl-seed-success) 10%, white);
+  --rpl-color-surface-warning: color-mix(in srgb, var(--rpl-seed-warning) 10%, white);
+  --rpl-color-surface-danger: color-mix(in srgb, var(--rpl-seed-danger) 8%, white);
 
-  --rpl-color-line: #e5e8eb;
-  --rpl-color-line-strong: #d1d6db;
+  --rpl-color-text-primary: var(--rpl-seed-ink);
+  --rpl-color-text-secondary: color-mix(in srgb, var(--rpl-seed-ink) 72%, var(--rpl-seed-bg));
+  --rpl-color-text-tertiary: color-mix(in srgb, var(--rpl-seed-ink) 48%, var(--rpl-seed-bg));
+  --rpl-color-text-disabled: color-mix(in srgb, var(--rpl-seed-ink) 28%, var(--rpl-seed-bg));
 
-  --rpl-color-accent: #3182f6;
-  --rpl-color-accent-strong: #1b64da;
-  --rpl-color-success: #16875a;
-  --rpl-color-warning: #ff8a3d;
-  --rpl-color-danger: #d14343;
+  --rpl-color-line: color-mix(in srgb, var(--rpl-seed-ink) 11%, var(--rpl-seed-bg));
+  --rpl-color-line-strong: color-mix(in srgb, var(--rpl-seed-ink) 16%, var(--rpl-seed-bg));
+  --rpl-color-line-accent: color-mix(in srgb, var(--rpl-seed-accent) 24%, white);
+  --rpl-color-line-success: color-mix(in srgb, var(--rpl-seed-success) 18%, white);
+  --rpl-color-line-warning: color-mix(in srgb, var(--rpl-seed-warning) 22%, white);
+  --rpl-color-line-danger: color-mix(in srgb, var(--rpl-seed-danger) 20%, white);
+
+  --rpl-color-accent: var(--rpl-seed-accent);
+  --rpl-color-accent-strong: color-mix(in srgb, var(--rpl-seed-accent) 82%, black);
+  --rpl-color-accent-soft: color-mix(in srgb, var(--rpl-seed-accent) 14%, white);
+  --rpl-color-accent-soft-strong: color-mix(in srgb, var(--rpl-seed-accent) 18%, white);
+  --rpl-color-success: var(--rpl-seed-success);
+  --rpl-color-warning: var(--rpl-seed-warning);
+  --rpl-color-danger: var(--rpl-seed-danger);
+  --rpl-color-danger-soft: color-mix(in srgb, var(--rpl-seed-danger) 10%, white);
+  --rpl-fill-strong: color-mix(in srgb, var(--rpl-seed-ink) 82%, white);
+  --rpl-fill-neutral: color-mix(in srgb, var(--rpl-seed-bg) 44%, white);
+  --rpl-fill-neutral-soft: color-mix(in srgb, var(--rpl-seed-bg) 62%, white);
+  --rpl-fill-neutral-softer: color-mix(in srgb, var(--rpl-seed-bg) 78%, white);
+  --rpl-color-overlay-soft: color-mix(in srgb, var(--rpl-seed-ink) 28%, transparent);
+  --rpl-color-overlay: color-mix(in srgb, var(--rpl-seed-ink) 34%, transparent);
+  --rpl-color-inverse-surface: color-mix(in srgb, var(--rpl-seed-ink) 88%, var(--rpl-seed-bg));
+  --rpl-focus-ring: 0 0 0 4px color-mix(in srgb, var(--rpl-seed-accent) 16%, transparent);
 
   --rpl-radius-sm: 10px;
   --rpl-radius-md: 14px;

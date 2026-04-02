@@ -1,6 +1,9 @@
 export { default as Surface } from "./primitives/Surface.js";
 export { default as Stack } from "./primitives/Stack.js";
 export { default as Inline } from "./primitives/Inline.js";
+export { default as ThemeProvider } from "./components/ThemeProvider.js";
+export { buildRippleThemeVars, defaultRippleTheme, rippleThemePresets } from "./theme.js";
+export type { RippleTheme, RippleThemeDefinition, RippleThemeSeeds } from "./theme.js";
 export { default as Card } from "./components/Card.js";
 export { default as Avatar } from "./components/Avatar.js";
 export { default as Badge } from "./components/Badge.js";

@@ -8,6 +8,26 @@ export type ButtonColor = "primary" | "danger" | "neutral";
 export type ButtonSize = "small" | "medium" | "large" | "xlarge";
 export type ButtonDisplay = "inline" | "block";
 
+export interface RippleThemeSeeds {
+  accent: string;
+  ink: string;
+  bg: string;
+  success?: string;
+  warning?: string;
+  danger?: string;
+}
+
+export interface RippleTheme extends RippleThemeSeeds {
+  id: string;
+  label: string;
+}
+
+export type RippleThemeDefinition = RippleTheme | RippleThemeSeeds;
+
+export declare const rippleThemePresets: RippleTheme[];
+export declare const defaultRippleTheme: RippleTheme;
+export declare function buildRippleThemeVars(theme?: RippleThemeDefinition): React.CSSProperties;
+
 export interface ActionConfig {
   label: React.ReactNode;
   onClick?: () => void;
@@ -46,6 +66,13 @@ export interface InlineProps extends React.HTMLAttributes<HTMLElement> {
   children?: React.ReactNode;
 }
 export declare function Inline(props: InlineProps): React.JSX.Element;
+
+export interface ThemeProviderProps extends React.HTMLAttributes<HTMLDivElement> {
+  as?: React.ElementType;
+  theme?: RippleThemeDefinition;
+  children?: React.ReactNode;
+}
+export declare function ThemeProvider(props: ThemeProviderProps): React.JSX.Element;
 
 export interface CardProps extends SurfaceProps {}
 export declare function Card(props: CardProps): React.JSX.Element;

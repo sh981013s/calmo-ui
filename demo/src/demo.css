@@ -13,9 +13,7 @@ html {
 body {
   margin: 0;
   font-family: "Toss Product Sans", "Apple SD Gothic Neo", "SF Pro Display", "SF Pro KR", -apple-system, BlinkMacSystemFont, sans-serif;
-  background:
-    radial-gradient(circle at top, rgba(49, 130, 246, 0.09), transparent 28%),
-    linear-gradient(180deg, #fbfcfe 0%, #f5f8fb 42%, #eff3f7 100%);
+  background: var(--rpl-color-bg);
   color: var(--rpl-color-text-primary);
 }
 
@@ -29,6 +27,14 @@ textarea {
 .demo-app {
   min-height: 100vh;
   padding: 24px 20px 56px;
+  background:
+    radial-gradient(circle at top, color-mix(in srgb, var(--rpl-color-accent) 10%, transparent), transparent 28%),
+    linear-gradient(
+      180deg,
+      color-mix(in srgb, var(--rpl-color-bg) 72%, white) 0%,
+      color-mix(in srgb, var(--rpl-color-bg) 86%, white) 42%,
+      var(--rpl-color-bg) 100%
+    );
 }
 
 .demo-shell {
@@ -90,18 +96,18 @@ textarea {
   padding: 16px;
   border: 1px solid var(--rpl-color-line);
   border-radius: 16px;
-  background: rgba(255, 255, 255, 0.9);
+  background: color-mix(in srgb, var(--rpl-color-surface) 88%, transparent);
   box-shadow: var(--rpl-shadow-card), var(--rpl-shadow-inset);
   backdrop-filter: blur(16px);
 }
 
 .demo-sidebar-meta {
   display: grid;
-  gap: 2px;
+  gap: 8px;
   padding: 10px 12px;
   border-radius: 14px;
-  background: #f7fafc;
-  border: 1px solid #ebf0f5;
+  background: var(--rpl-fill-neutral-softer);
+  border: 1px solid var(--rpl-color-line);
 }
 
 .demo-sidebar-meta-label {
@@ -154,12 +160,12 @@ textarea {
 }
 
 .demo-nav-link:hover {
-  background: #f1f6fc;
+  background: var(--rpl-fill-neutral-soft);
   color: var(--rpl-color-text-primary);
 }
 
 .demo-nav-link.is-active {
-  background: #edf4ff;
+  background: var(--rpl-color-accent-soft);
   color: var(--rpl-color-accent-strong);
   font-weight: 700;
 }
@@ -198,11 +204,11 @@ textarea {
 }
 
 .demo-search-suggestion:hover {
-  background: #f5f8fc;
+  background: var(--rpl-fill-neutral-softer);
 }
 
 .demo-search-suggestion.is-active {
-  background: #edf4ff;
+  background: var(--rpl-color-accent-soft);
 }
 
 .demo-search-suggestion-title {
@@ -222,7 +228,7 @@ textarea {
   padding: 0 12px;
   border: 0;
   border-radius: 999px;
-  background: #f2f4f6;
+  background: var(--rpl-fill-neutral);
   color: var(--rpl-color-text-primary);
   font: inherit;
   font-size: 0.88rem;
