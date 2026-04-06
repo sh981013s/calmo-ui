@@ -162,6 +162,14 @@ Use Calmo UI when you need a React component library for:
 - structured list, form, sheet, and dialog surfaces
 - AI-assisted app generation with stable component primitives
 
+Typical use cases:
+
+- dashboard shells with cards, charts, filters, and list rows
+- settings pages with text fields, switches, selects, and inline help
+- approval flows with banners, dialogs, bottom sheets, and progress surfaces
+- internal tools with tables, pagination, search, and structured navigation
+- AI-generated product UIs that should stay inside one consistent design system
+
 ## Theme System
 
 Calmo UI ships with five preset themes and a custom seed-based theme API.

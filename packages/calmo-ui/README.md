@@ -110,6 +110,183 @@ export default function Example() {
 }
 ```
 
+## Real-World Use Cases
+
+Calmo UI works best when you need a React component library for real product screens, not marketing pages.
+
+- dashboard layouts with cards, charts, list rows, and top bars
+- settings pages with compact forms, toggles, selectors, and inline help
+- approval or onboarding flows with dialogs, bottom sheets, banners, and progress steps
+- internal tools with tables, pagination, search, and structured navigation
+- AI-generated app shells that need stable components and predictable theming
+
+## Example: Dashboard Surface
+
+```tsx
+import "calmo-ui/tokens.css";
+import "calmo-ui/styles.css";
+import {
+  BarChart,
+  Card,
+  List,
+  ListHeader,
+  ListRow,
+  Stack,
+  TopBar,
+} from "calmo-ui";
+
+export default function DashboardExample() {
+  return (
+    <Stack gap={20}>
+      <TopBar
+        title="Operations dashboard"
+        subtitleTop="Workspace"
+        subtitleBottom="Daily overview"
+      />
+      <Card>
+        <Stack gap={16}>
+          <ListHeader
+            title="Revenue"
+            description="Weekly payment volume"
+          />
+          <BarChart
+            items={[
+              { label: "Mon", value: 42 },
+              { label: "Tue", value: 67 },
+              { label: "Wed", value: 58 },
+              { label: "Thu", value: 84 },
+            ]}
+          />
+        </Stack>
+      </Card>
+      <Card>
+        <List>
+          <ListHeader title="Recent events" />
+          <ListRow title="New payout account connected" description="2 minutes ago" />
+          <ListRow title="Approval policy updated" description="14 minutes ago" />
+        </List>
+      </Card>
+    </Stack>
+  );
+}
+```
+
+## Example: Settings Page
+
+```tsx
+import "calmo-ui/tokens.css";
+import "calmo-ui/styles.css";
+import {
+  BottomInfo,
+  Button,
+  Card,
+  Select,
+  Stack,
+  Switch,
+  TextField,
+} from "calmo-ui";
+
+export default function SettingsExample() {
+  return (
+    <Card>
+      <Stack gap={16}>
+        <TextField label="Workspace name" placeholder="Calmo Labs" />
+        <Select label="Region" defaultValue="de">
+          <option value="de">Germany</option>
+          <option value="uk">United Kingdom</option>
+          <option value="us">United States</option>
+        </Select>
+        <Switch label="Email notifications" defaultChecked />
+        <Button>Save changes</Button>
+        <BottomInfo
+          title="Changes are saved instantly"
+          description="Use confirmation only for destructive actions."
+        />
+      </Stack>
+    </Card>
+  );
+}
+```
+
+## Example: Dialog And Bottom Sheet Flow
+
+```tsx
+import "calmo-ui/tokens.css";
+import "calmo-ui/styles.css";
+import {
+  BottomSheet,
+  Button,
+  Dialog,
+  Stack,
+  useBottomSheet,
+} from "calmo-ui";
+
+export default function OverlayExample() {
+  const sheet = useBottomSheet();
+
+  return (
+    <Stack gap={12}>
+      <Dialog
+        open
+        title="Delete workspace?"
+        description="This action cannot be undone."
+        footer={
+          <>
+            <Button variant="weak">Cancel</Button>
+            <Button color="danger">Delete</Button>
+          </>
+        }
+      >
+        Delete the current workspace and all connected data.
+      </Dialog>
+
+      <Button onClick={sheet.open}>Open bottom sheet</Button>
+
+      <BottomSheet
+        open={sheet.opened}
+        onClose={sheet.close}
+        title="Select payout account"
+        description="Choose the account to use for the next transfer."
+      >
+        <Stack gap={10}>
+          <Button variant="weak">Main account</Button>
+          <Button variant="weak">Treasury reserve</Button>
+        </Stack>
+      </BottomSheet>
+    </Stack>
+  );
+}
+```
+
+## Example: AI-Generated App Shell
+
+```tsx
+import "calmo-ui/tokens.css";
+import "calmo-ui/styles.css";
+import {
+  Button,
+  Card,
+  ThemeProvider,
+  TopBar,
+  calmoThemePresets,
+} from "calmo-ui";
+
+export default function AppShellExample() {
+  return (
+    <ThemeProvider theme={calmoThemePresets[1]}>
+      <Card>
+        <TopBar
+          title="Workspace shell"
+          subtitleTop="AI-generated"
+          subtitleBottom="Calmo UI theme preset"
+        />
+        <Button>Create workspace</Button>
+      </Card>
+    </ThemeProvider>
+  );
+}
+```
+
 ## Theme API
 
 Use presets or provide three custom seeds:
