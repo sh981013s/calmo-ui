@@ -564,8 +564,8 @@ function DocsThemeShowcase() {
           <Stack gap={12}>
             <Text variant="label">Theme API</Text>
             <Link className="demo-inline-link" to="/components/utilities/themeprovider">ThemeProvider</Link>
-            <Link className="demo-inline-link" to="/components/utilities/ripplethemepresets">calmoThemePresets</Link>
-            <Link className="demo-inline-link" to="/components/utilities/buildripplethemevars">buildCalmoThemeVars</Link>
+            <Link className="demo-inline-link" to="/components/utilities/calmothemepresets">calmoThemePresets</Link>
+            <Link className="demo-inline-link" to="/components/utilities/buildcalmothemevars">buildCalmoThemeVars</Link>
           </Stack>
         </Card>
       </div>

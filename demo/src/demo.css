@@ -797,6 +797,14 @@ textarea {
     grid-template-columns: 1fr;
   }
 
+  .demo-sidebar {
+    order: 2;
+  }
+
+  .demo-content {
+    order: 1;
+  }
+
   .demo-hero-grid {
     grid-template-columns: 1fr;
   }
