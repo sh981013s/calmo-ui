@@ -1,6 +1,6 @@
 {
   "name": "calmo-ui",
-  "version": "0.1.12",
+  "version": "0.1.13",
   "description": "Calm, mobile-first React UI components for structured product surfaces.",
   "private": false,
   "license": "MIT",
