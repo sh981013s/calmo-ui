@@ -381,6 +381,7 @@ textarea {
 .demo-content {
   display: grid;
   gap: 32px;
+  min-width: 0;
 }
 
 .demo-section {
@@ -788,6 +789,10 @@ textarea {
 }
 
 @media (max-width: 980px) {
+  .demo-app {
+    padding: 20px 16px 44px;
+  }
+
   .demo-layout {
     grid-template-columns: 1fr;
   }
@@ -796,8 +801,24 @@ textarea {
     grid-template-columns: 1fr;
   }
 
+  .demo-pattern-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .demo-overview-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .docs-card-grid {
+    grid-template-columns: 1fr;
+  }
+
   .demo-sidebar {
     position: static;
+  }
+
+  .demo-sidebar-card {
+    padding: 14px;
   }
 
   .demo-topbar-search {
@@ -806,11 +827,49 @@ textarea {
 }
 
 @media (max-width: 720px) {
+  .demo-shell {
+    gap: 14px;
+  }
+
+  .demo-content {
+    gap: 24px;
+  }
+
+  .demo-hero {
+    gap: 14px;
+    padding-top: 2px;
+  }
+
+  .demo-hero-title {
+    font-size: clamp(2rem, 9vw, 2.8rem);
+  }
+
+  .demo-hero-description {
+    font-size: 0.92rem;
+  }
+
+  .demo-hero-actions {
+    flex-direction: column;
+  }
+
+  .demo-hero-button {
+    width: 100%;
+  }
+
+  .demo-hero-panel {
+    padding: 16px;
+  }
+
   .demo-feature-grid,
   .demo-get-started-grid,
   .demo-howto-grid,
   .demo-overview-grid,
   .demo-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .demo-pattern-grid,
+  .docs-icon-grid {
     grid-template-columns: 1fr;
   }
 
@@ -828,5 +887,68 @@ textarea {
 
   .demo-topbar-search {
     width: 100%;
+  }
+
+  .demo-search-suggestions {
+    right: auto;
+    width: min(100%, 100vw - 32px);
+  }
+
+  .demo-code-row {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .demo-code-block,
+  .demo-ai-prompt-block,
+  .docs-theme-vars,
+  .docs-code-body {
+    font-size: 0.75rem;
+  }
+
+  .demo-theme-select {
+    min-height: 42px;
+  }
+
+  .docs-card,
+  .demo-pattern-card,
+  .demo-feature-card,
+  .demo-howto-card {
+    padding: 14px;
+  }
+}
+
+@media (max-width: 560px) {
+  .demo-app {
+    padding: 14px 12px 32px;
+  }
+
+  .demo-sidebar-card,
+  .demo-hero-panel,
+  .docs-card,
+  .demo-pattern-card,
+  .demo-feature-card,
+  .demo-howto-card {
+    border-radius: 16px;
+  }
+
+  .demo-hero-links {
+    gap: 8px;
+  }
+
+  .demo-top-link {
+    font-size: 0.8rem;
+  }
+
+  .demo-hero-title {
+    letter-spacing: -0.045em;
+  }
+
+  .demo-section {
+    gap: 10px;
+  }
+
+  .demo-inline-link {
+    font-size: 0.88rem;
   }
 }
