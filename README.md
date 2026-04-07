@@ -232,6 +232,17 @@ The docs site includes:
 
 The docs landing page is tuned to explain Calmo UI as a React UI library, a TypeScript design system, and a mobile-first component library before users open individual component pages.
 
+## Demo Analytics
+
+The demo can be tracked with Cloudflare Web Analytics.
+
+1. Create a Web Analytics site in Cloudflare for `sh981013s.github.io`.
+2. Add a rule that includes only the `/calmo-ui*` path if you want demo-only tracking.
+3. Save the returned site token as the GitHub Actions secret `CF_WEB_ANALYTICS_TOKEN`.
+4. The demo build injects the Cloudflare beacon automatically in production when that secret is present.
+
+Note: the docs site now uses browser-style routes with a GitHub Pages `404.html` fallback, so demo visits and direct route access are compatible with Cloudflare analytics and cleaner URLs.
+
 ## AI-First Usage
 
 Calmo UI is intentionally tuned for vibe coding and agent-driven UI generation.

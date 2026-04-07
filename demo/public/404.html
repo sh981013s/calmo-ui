@@ -1,0 +1,27 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <title>Calmo UI</title>
+    <script>
+      (function () {
+        var locationInfo = window.location;
+        var base = locationInfo.pathname.split("/").slice(0, 2).join("/") || "";
+        var redirectedPath = locationInfo.pathname.slice(base.length) || "/";
+        var redirectedQuery = locationInfo.search ? locationInfo.search.slice(1) : "";
+        var target =
+          locationInfo.protocol +
+          "//" +
+          locationInfo.host +
+          base +
+          "/?p=" +
+          encodeURIComponent(redirectedPath) +
+          (redirectedQuery ? "&q=" + encodeURIComponent(redirectedQuery) : "") +
+          locationInfo.hash;
+
+        locationInfo.replace(target);
+      })();
+    </script>
+  </head>
+  <body></body>
+</html>

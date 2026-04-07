@@ -70,6 +70,19 @@
         "description": "Documentation and component playgrounds for Calmo UI, a React component library and TypeScript design system for calm product surfaces."
       }
     </script>
+    <script>
+      (function () {
+        var params = new URLSearchParams(window.location.search);
+        var redirectedPath = params.get("p");
+        if (!redirectedPath) return;
+
+        var redirectedQuery = params.get("q");
+        var base = window.location.pathname.replace(/\/$/, "");
+        var nextUrl = base + redirectedPath + (redirectedQuery ? "?" + redirectedQuery : "") + window.location.hash;
+
+        window.history.replaceState(null, "", nextUrl);
+      })();
+    </script>
     <script type="module" src="./src/main.tsx"></script>
   </head>
   <body>

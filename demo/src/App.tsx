@@ -1,6 +1,6 @@
 import React, { useEffect, useMemo, useState } from "react";
 import {
-  HashRouter,
+  BrowserRouter,
   Link,
   NavLink,
   Navigate,
@@ -907,8 +907,8 @@ function DocsShell() {
 
 export default function App() {
   return (
-    <HashRouter>
+    <BrowserRouter basename={import.meta.env.BASE_URL.replace(/\/$/, "")}>
       <DocsShell />
-    </HashRouter>
+    </BrowserRouter>
   );
 }
